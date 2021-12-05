@@ -1,4 +1,4 @@
-package gestorAplicacion.Personal;
+package gestorAplicacion.personal;
 
 public abstract class Empleado {
 

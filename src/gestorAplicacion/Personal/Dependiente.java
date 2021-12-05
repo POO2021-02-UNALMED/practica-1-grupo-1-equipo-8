@@ -1,4 +1,4 @@
-package gestorAplicacion.Personal;
+package gestorAplicacion.personal;
 
 public class Dependiente extends Empleado {
 
