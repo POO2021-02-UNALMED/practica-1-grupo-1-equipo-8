@@ -5,18 +5,19 @@ import gestorAplicacion.tienda.*;
 /**
  * 
  * @author Emilio Porras
- * Finalidad: Esta clase busca representar el comportamiento de un empleado tipo técnico
+ * @summary Esta clase busca representar el comportamiento de un empleado tipo técnico
  * Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el técnico toma o finaliza servicios
  *
 */
 
 public class Tecnico extends Empleado {
 	private String nombre;
-	private List<Servicio> servicios = new ArrayList<Servicio>();
+	private List<Servicio> servicios;
 	
 	public Tecnico(String nombre) {
 		super();
 		this.nombre = nombre;
+		servicios = new ArrayList<Servicio>();
 	}
 	
 	public Tecnico(String nombre, List<Servicio> servicios) {
@@ -32,7 +33,7 @@ public class Tecnico extends Empleado {
 	 * 
 	 */
 	private List<Componente> verificarProblemas(Servicio servicio){
-		producto = servicio.getProducto();
+		Producto producto = servicio.getProducto();
 		List<Componente> averiados = new ArrayList<Componente>();
 		for (Componente componente : producto.getComponentes()) {
 			if (componente.isAveriado()) {
@@ -44,12 +45,18 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param componente
-	 * @summary El método buscarComponente es un método auxiliar de la clase, el cual recibe un componente y devuelve booleano dependiendo de si éste
-	 * se encuentra en la lista componentes de Bodega o no.
+	 * @summary El método buscarComponente es un método auxiliar de la clase, el cual recibe un componente y devuelve booleano dependiendo de si un componente
+	 * con el mismo nombre se encuentra en la Bodega o no.
 	 * 
 	 */
 	private boolean buscarComponente(Componente componente) {
-		return Bodega.getComponentes().contains(componente);
+		List<Componente> componentes = Bodega.getComponentes();
+		for(Componente componenteBodega: componentes) {
+			if (componente.getNombre().equals(componenteBodega.getNombre())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	/**
 	 * 
@@ -69,6 +76,37 @@ public class Tecnico extends Empleado {
 	 * 
 	 */
 	public void reparar(Servicio servicio) {
-		
+		Producto producto = servicio.getProducto();
+		List<Componente> averiados = verificarProblemas(servicio);
+		for (Componente componente: averiados) {
+			if (buscarComponente(componente)) {
+				producto.quitarComponente(componente);
+				producto.agregarComponente(Bodega.sacarComponente(componente));
+			}
+		}
 	}
+	/**
+	 * 
+	 * @param servicio
+	 * @summary El método asignarServicio recibe como parámetro un servicio y lo agrega a la lista de servicios del técnico en cuestión.
+	 * 
+	 */
+	public void asignarServicio(Servicio servicio) {
+		servicios.add(servicio);
+	}
+	
+	/**
+	 * 
+	 * @param servicio
+	 * @summary El método quitarServicio recibe como parámetro un servicio y lo remueve de la lista de servicios del técnico en cuestión.
+	 * 
+	 */
+	public void quitarServicio(Servicio servicio) {
+		servicios.remove(servicio);
+	}
+	
+	public void notificarDependiente() {
+		;
+	}
+	
 }
