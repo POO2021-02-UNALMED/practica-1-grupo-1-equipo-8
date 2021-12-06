@@ -20,4 +20,7 @@ public class Bodega {
 		}
 		return null;
 	}
+	public static List<Componente> getComponentes(){
+		return componentes;
+	}
 }
