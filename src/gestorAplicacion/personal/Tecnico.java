@@ -18,7 +18,6 @@ public class Tecnico extends Empleado {
 	
 	public Tecnico(String nombre, int cedula) {
 		super(nombre, cedula);
-		servicios = new ArrayList<Servicio>();
 	}
 
 	/**
