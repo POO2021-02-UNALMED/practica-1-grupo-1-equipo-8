@@ -87,7 +87,7 @@ public class Tecnico extends Empleado {
 	 * 
 	 */
 	public void asignarServicio(Servicio servicio) {
-		servicios.add(servicio);
+		this.getServicios().add(servicio);
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public class Tecnico extends Empleado {
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {
-		servicios.remove(servicio);
+		this.getServicios().remove(servicio);
 	}
 	
 	public void notificarDependiente() {
