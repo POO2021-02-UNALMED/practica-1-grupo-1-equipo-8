@@ -18,6 +18,7 @@ public abstract class Empleado {
 	public Empleado(String nombre, int cedula) {
 		this.nombre = nombre;
 		this.cedula = cedula;
+		servicios = new ArrayList<Servicio>();
 	}
 	
 	public Empleado() {
