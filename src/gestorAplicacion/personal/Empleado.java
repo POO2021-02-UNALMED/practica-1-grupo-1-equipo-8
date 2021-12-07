@@ -15,14 +15,16 @@ public abstract class Empleado {
 	private int cedula;
 	private List<Servicio> servicios;
 	
+	public Empleado(String nombre, int cedula, List<Servicio> servicios) {
+		this.nombre = nombre;
+		this.cedula = cedula;
+		this.servicios = servicios;
+	}
+	
 	public Empleado(String nombre, int cedula) {
 		this.nombre = nombre;
 		this.cedula = cedula;
 		servicios = new ArrayList<Servicio>();
-	}
-	
-	public Empleado() {
-		
 	}
 
 	public String getNombre() {
@@ -50,6 +52,7 @@ public abstract class Empleado {
 	}
 	
 	public abstract void quitarServicio(Servicio servicio);
+	public abstract void asignarServicio(Servicio servicio);
 	
 	
 }

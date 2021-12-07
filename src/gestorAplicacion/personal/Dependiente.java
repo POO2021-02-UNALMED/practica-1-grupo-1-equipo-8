@@ -11,12 +11,10 @@ import gestorAplicacion.tienda.*;
 public class Dependiente extends Empleado {
 	
 	private CajaRegistradora cajaRegistradora;
-	private List<Servicio> servicios;
 	
 	public Dependiente(String nombre, int cedula, CajaRegistradora caja) {
 		super(nombre, cedula);
 		this.cajaRegistradora = caja;
-		this.servicios = new ArrayList<Servicio>();
 	}
 	
 	public void atenderCliente(Cliente cliente) {
@@ -34,8 +32,18 @@ public class Dependiente extends Empleado {
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {
-		servicios.remove(servicio);
+		this.getServicios().remove(servicio);
 		
+	}
+	
+	/**
+	 * 
+	 * @param servicio
+	 * @summary El método asignarServicio recibe como parámetro un servicio y lo agrega a la lista de servicios del técnico en cuestión.
+	 * 
+	 */
+	public void asignarServicio(Servicio servicio) {
+		this.getServicios().add(servicio);
 	}
 	
 	/**
@@ -48,18 +56,20 @@ public class Dependiente extends Empleado {
 	 */
 	public void generarServicio(Tecnico tecnico, Producto producto) {
 		Servicio servicio = new Servicio(); //////////Recibe qué parametros?/////////
-		servicios.add(servicio);
+		this.getServicios().add(servicio);
 		tecnico.asignarServicio(servicio);
 		
 		
 	}
 	
 	public void finalizarServicio(Servicio servicio) {
+		this.quitarServicio(servicio);
+		System.out.println("Servicio finalizado");
 		
 	}
 	
 	private void notificarCliente(Cliente cliente) {
-		
+		System.out.println("El dependiente llamó al cliente a notificarle el estado del servicio pedido para que recoja el producto");
 	}
 	
 	private void entregarProducto(Producto producto) {
