@@ -35,11 +35,10 @@ public class Cliente {
 	 * @param servicio
 	 * @return boolean
 	 */
-	public boolean pagarServicio(Servicio servicio) {
+	public void pagarServicio(Servicio servicio) {
 		if(!servicio.isPagado()) {
 			servicio.pagar();
 		}
-		return servicio.isPagado();
 	}
 	
 	public void recibirProducto(Producto producto) {
