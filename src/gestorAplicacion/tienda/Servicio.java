@@ -21,16 +21,13 @@ public class Servicio {
 	
 	public Servicio() {}
 
-	public Servicio(Tecnico tecnico, boolean pagado, Producto producto, Cliente cliente,
-			Dependiente dependiente, double costo, String diagnostico) {
-		super();
+	public Servicio(Tecnico tecnico, Producto producto, Cliente cliente,
+			Dependiente dependiente, String diagnostico) {
 		this.tecnico = tecnico;
-		this.pagado = pagado;
 		this.producto = producto;
 		this.fecha = new Date();
 		this.cliente = cliente;
 		this.dependiente = dependiente;
-		this.costo = costo;
 		this.diagnostico = diagnostico;
 	}
 
