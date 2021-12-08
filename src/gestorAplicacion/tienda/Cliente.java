@@ -25,6 +25,7 @@ public class Cliente {
 	}
 	
 	public void solicitarReparacion(Producto producto) {
+		productos.remove(producto);
 		this.dependiente.atenderCliente(this, producto);
 	}
 	
@@ -41,6 +42,7 @@ public class Cliente {
 		return servicio.isPagado();
 	}
 	
-	public void recibirProducto() {
+	public void recibirProducto(Producto producto) {
+		this.productos.add(producto);
 	}
 }
