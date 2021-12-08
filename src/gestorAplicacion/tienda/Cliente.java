@@ -44,4 +44,38 @@ public class Cliente {
 	public void recibirProducto(Producto producto) {
 		this.productos.add(producto);
 	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCedula() {
+		return cedula;
+	}
+
+	public void setCedula(String cedula) {
+		this.cedula = cedula;
+	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	public Dependiente getDependiente() {
+		return dependiente;
+	}
+
+	public void setDependiente(Dependiente dependiente) {
+		this.dependiente = dependiente;
+	}
+	
+	
 }

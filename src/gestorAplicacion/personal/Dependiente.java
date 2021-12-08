@@ -21,8 +21,8 @@ public class Dependiente extends Empleado {
 		
 	}
 	
-	public void registrarPago() {
-		
+	public void registrarPago(Servicio servicio) {
+		cajaRegistradora.registrarVenta(servicio.getCosto(), servicio);
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public class Dependiente extends Empleado {
 	 * 
 	 */
 	public void generarServicio(Tecnico tecnico, Producto producto) {
-		Servicio servicio = new Servicio(tecnico, false, producto, producto.getDueno(), this, 0, ""); //////////Recibe qu� parametros?/////////
+		Servicio servicio = new Servicio(tecnico, producto, producto.getDueno(), this, ""); //////////Recibe qu� parametros?/////////
 		this.getServicios().add(servicio);
 		tecnico.asignarServicio(servicio);
 		
@@ -63,16 +63,20 @@ public class Dependiente extends Empleado {
 	}
 	
 	public void finalizarServicio(Servicio servicio) {
-		this.quitarServicio(servicio);
+		
+		this.entregarProducto(servicio.getProducto());
 		System.out.println("Servicio finalizado");
 		
 	}
 	
 	private void notificarCliente(Cliente cliente) {
-		System.out.println("El dependiente llama al cliente a notificarle el estado del servicio pedido para que recoja el producto");
+		
+		System.out.println("El dependiente llama al cliente" + cliente.getNombre() + "con cedula" + cliente.getCedula() +"a notificarle el estado del servicio pedido para que recoja el producto");
 	}
 	
 	private void entregarProducto(Producto producto) {
 		
+		producto.getDueno().getProductos().add(producto);
+		System.out.println("El producto ha sido devuelvo al dueno");
 	}
 }

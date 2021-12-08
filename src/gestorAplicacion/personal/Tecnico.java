@@ -76,7 +76,7 @@ public class Tecnico extends Empleado {
 		for (Componente componente: averiados) {
 			if (buscarComponente(componente)) {
 				producto.quitarComponente(componente);
-				producto.agregarComponente(Bodega.sacarComponente(componente));
+				producto.agregarComponente(Bodega.sacarComponente(componente.getNombre()));
 			}
 		}
 	}
