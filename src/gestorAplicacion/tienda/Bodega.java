@@ -20,11 +20,11 @@ public class Bodega {
 	 * lista de componentes de �sta.
 	 * 
 	 */
-	public static Componente sacarComponente(Componente componente) {
-		for (Componente componenteBodega:componentes) {
-			if (componente.getNombre().equals(componenteBodega.getNombre())) {
-				componentes.remove(componenteBodega);
-				return componenteBodega;
+	public static Componente sacarComponente(String nombreComponente) {
+		for (Componente componente: componentes) {
+			if (componente.getNombre().equals(nombreComponente)) {
+				componentes.remove(componente);
+				return componente;
 			}
 		}
 		return null;
