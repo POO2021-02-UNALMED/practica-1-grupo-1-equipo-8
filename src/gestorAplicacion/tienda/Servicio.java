@@ -35,9 +35,12 @@ public class Servicio {
 	}
 
 
-	public void pagar(){}
-
-
+	public void pagar(){
+		
+		
+	}
+	
+	
 	public Producto getProducto() {
 		return producto;
 	}
@@ -46,11 +49,19 @@ public class Servicio {
 	public Dependiente getDependiente() {
 		return dependiente;
 	}
-	
-	public void anadirCosto(double costo) {
-		this.costo+=costo;
+	/**
+	 * 
+	 * @param costo será la suma de los diferentes precios de cada componente que se arregle. 
+	 * Si se va a agregar una pieza a la reparación del producto, se debe sumar acá su total. 
+	 */
+	public void anadirCosto(double precio) {
+		this.costo+=precio;
 	}
 	
+	public double getCosto() {
+		return costo;
+	}
+
 	public String getDiagnostico() {
 		return diagnostico;
 	}
