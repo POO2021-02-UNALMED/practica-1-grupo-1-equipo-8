@@ -70,6 +70,9 @@ public class Servicio {
 	public boolean isPagado() {
 		return pagado;
 	}
+	public void setCosto(double costo) {
+		this.costo = costo;
+	}
 	
 }
 

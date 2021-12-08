@@ -19,6 +19,16 @@ public class Tecnico extends Empleado {
 	public Tecnico(String nombre, int cedula) {
 		super(nombre, cedula);
 	}
+	/**
+	 * @param servicio
+	 * @summary Método auxiliar para ser llamado al final del método reparar. El método notificarDependiente recibe como parámetro un servicio y llama el método finalizarServicio del Dependiente correspondiente
+	 * a dicho servicio. Adicionalmente, quita el servicio de la lista del técnico al ser llamado.
+	 * 
+	 */
+	private void notificarDependiente(Servicio servicio) {
+		servicio.getDependiente().finalizarServicio(servicio);
+		quitarServicio(servicio);
+	}
 
 	/**
 	 * 
@@ -67,7 +77,8 @@ public class Tecnico extends Empleado {
 	 * 
 	 * @param servicio
 	 * @summary El método reparar recibe como parámetro un servicio. Luego, revisa si los componentes dañados están disponibles en la bodega y, a 
-	 * aquellos que estén disponibles, los remueve de la lista de Bodega y los reemplaza en la lista de componentes del producto.
+	 * aquellos que estén disponibles, los remueve de la lista de Bodega y los reemplaza en la lista de componentes del producto. También, va sumando
+	 * el precio de los componentes utilizados en el atributo costo de servicio.
 	 * 
 	 */
 	public void reparar(Servicio servicio) {
@@ -75,10 +86,13 @@ public class Tecnico extends Empleado {
 		List<Componente> averiados = verificarProblemas(servicio);
 		for (Componente componente: averiados) {
 			if (buscarComponente(componente)) {
+				Componente componenteBodega = Bodega.sacarComponente(componente.getNombre());
 				producto.quitarComponente(componente);
-				producto.agregarComponente(Bodega.sacarComponente(componente.getNombre()));
+				producto.agregarComponente(componenteBodega);
+				servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio());
 			}
 		}
+		notificarDependiente(servicio);
 	}
 	/**
 	 * 
@@ -98,10 +112,5 @@ public class Tecnico extends Empleado {
 	 */
 	public void quitarServicio(Servicio servicio) {
 		this.getServicios().remove(servicio);
-	}
-	
-	public void notificarDependiente() {
-		;
-	}
-	
+	}	
 }
