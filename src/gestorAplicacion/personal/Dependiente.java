@@ -55,7 +55,7 @@ public class Dependiente extends Empleado {
 	 * 
 	 */
 	public void generarServicio(Tecnico tecnico, Producto producto) {
-		Servicio servicio = new Servicio(); //////////Recibe qu� parametros?/////////
+		Servicio servicio = new Servicio(tecnico, false, producto, producto.getDueno(), this, 0, ""); //////////Recibe qu� parametros?/////////
 		this.getServicios().add(servicio);
 		tecnico.asignarServicio(servicio);
 		
@@ -69,7 +69,7 @@ public class Dependiente extends Empleado {
 	}
 	
 	private void notificarCliente(Cliente cliente) {
-		System.out.println("El dependiente llam� al cliente a notificarle el estado del servicio pedido para que recoja el producto");
+		System.out.println("El dependiente llama al cliente a notificarle el estado del servicio pedido para que recoja el producto");
 	}
 	
 	private void entregarProducto(Producto producto) {
