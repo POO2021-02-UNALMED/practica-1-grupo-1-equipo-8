@@ -12,5 +12,11 @@ public class CajaRegistradora {
 	}
 	
 	public void registrarVenta(double precio, Servicio servicio) {
+		servicios.add(servicio);
+		this.totalIngresos += precio;
+	}
+	
+	public double getTotalIngresos() {
+		return this.totalIngresos;
 	}
 }

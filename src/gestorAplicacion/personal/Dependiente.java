@@ -5,7 +5,7 @@ import java.util.List;
 import gestorAplicacion.tienda.*;
 /**
  * 
- * @author Esteban García
+ * @author Esteban Garcï¿½a
  *
  */
 public class Dependiente extends Empleado {
@@ -17,7 +17,7 @@ public class Dependiente extends Empleado {
 		this.cajaRegistradora = caja;
 	}
 	
-	public void atenderCliente(Cliente cliente) {
+	public void atenderCliente(Cliente cliente, Producto producto) {
 		
 	}
 	
@@ -28,7 +28,7 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método quitarServicio recibe como parámetro un servicio y lo remueve de la lista de servicios del técnico en cuestión.
+	 * @summary El mï¿½todo quitarServicio recibe como parï¿½metro un servicio y lo remueve de la lista de servicios del tï¿½cnico en cuestiï¿½n.
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {
@@ -39,7 +39,7 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método asignarServicio recibe como parámetro un servicio y lo agrega a la lista de servicios del técnico en cuestión.
+	 * @summary El mï¿½todo asignarServicio recibe como parï¿½metro un servicio y lo agrega a la lista de servicios del tï¿½cnico en cuestiï¿½n.
 	 * 
 	 */
 	public void asignarServicio(Servicio servicio) {
@@ -51,11 +51,11 @@ public class Dependiente extends Empleado {
 	 * @param tecnico
 	 * @param producto
 	 * @summary generar servicio crea un servicio para revisar un producto que se le asigna a la lista de servicios 
-	 * dependiente que lo creó y al técnico que va a realizarlo.
+	 * dependiente que lo creï¿½ y al tï¿½cnico que va a realizarlo.
 	 * 
 	 */
 	public void generarServicio(Tecnico tecnico, Producto producto) {
-		Servicio servicio = new Servicio(); //////////Recibe qué parametros?/////////
+		Servicio servicio = new Servicio(); //////////Recibe quï¿½ parametros?/////////
 		this.getServicios().add(servicio);
 		tecnico.asignarServicio(servicio);
 		
@@ -69,7 +69,7 @@ public class Dependiente extends Empleado {
 	}
 	
 	private void notificarCliente(Cliente cliente) {
-		System.out.println("El dependiente llamó al cliente a notificarle el estado del servicio pedido para que recoja el producto");
+		System.out.println("El dependiente llamï¿½ al cliente a notificarle el estado del servicio pedido para que recoja el producto");
 	}
 	
 	private void entregarProducto(Producto producto) {

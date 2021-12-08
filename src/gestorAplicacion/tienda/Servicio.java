@@ -5,8 +5,8 @@ import gestorAplicacion.personal.Tecnico;
 /**
  * 
  * @author Felipe Miranda
- * {@summary} Servicio deberá contener toda la información que relaciona a un cliente y su producto a reparar 
- * con los empleados (el dependiente que le atendió y el técnico encargado de la reparación) del sistema. 
+ * {@summary} Servicio deberï¿½ contener toda la informaciï¿½n que relaciona a un cliente y su producto a reparar 
+ * con los empleados (el dependiente que le atendiï¿½ y el tï¿½cnico encargado de la reparaciï¿½n) del sistema. 
  *
  */
 public class Servicio {
@@ -27,7 +27,7 @@ public class Servicio {
 		this.tecnico = tecnico;
 		this.pagado = pagado;
 		this.producto = producto;
-		Date fecha = new Date();
+		this.fecha = new Date();
 		this.cliente = cliente;
 		this.dependiente = dependiente;
 		this.costo = costo;
@@ -58,6 +58,10 @@ public class Servicio {
 	public void setDiagnostico(String diagnostico) {
 		this.diagnostico = diagnostico;
 	}	
+	
+	public boolean isPagado() {
+		return pagado;
+	}
 	
 }
 
