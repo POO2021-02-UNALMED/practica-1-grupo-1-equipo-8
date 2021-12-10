@@ -10,6 +10,9 @@ import gestorAplicacion.personal.Tecnico;
  *
  */
 public class Servicio {
+	
+	private int identificador;
+	private static int proximoIdentificador;
 	Tecnico tecnico;
 	boolean pagado;
 	Producto producto;
@@ -19,10 +22,14 @@ public class Servicio {
 	double costo;
 	String diagnostico;
 	
-	public Servicio() {}
+	public Servicio() {
+		this.identificador = proximoIdentificador;
+		proximoIdentificador += 1;
+	}
 
 	public Servicio(Tecnico tecnico, Producto producto, Cliente cliente,
 			Dependiente dependiente, String diagnostico) {
+		this();
 		this.tecnico = tecnico;
 		this.producto = producto;
 		this.fecha = new Date();
@@ -48,8 +55,8 @@ public class Servicio {
 	}
 	/**
 	 * 
-	 * @param costo será la suma de los diferentes precios de cada componente que se arregle. 
-	 * Si se va a agregar una pieza a la reparación del producto, se debe sumar acá su total. 
+	 * @param costo serï¿½ la suma de los diferentes precios de cada componente que se arregle. 
+	 * Si se va a agregar una pieza a la reparaciï¿½n del producto, se debe sumar acï¿½ su total. 
 	 */
 	public void anadirCosto(double precio) {
 		this.costo+=precio;
@@ -70,8 +77,14 @@ public class Servicio {
 	public boolean isPagado() {
 		return pagado;
 	}
+<<<<<<< HEAD
 	public void setCosto(double costo) {
 		this.costo = costo;
+=======
+
+	public int getIdentificador() {
+		return identificador;
+>>>>>>> e543745 (servicio identificadares)
 	}
 	
 }
