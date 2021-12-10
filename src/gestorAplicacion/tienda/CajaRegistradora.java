@@ -3,6 +3,12 @@ package gestorAplicacion.tienda;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Erik Gonzalez
+ * @summary En la caja registrado se lleva la contabilidad de los servicios, con el total de ingresos y
+ * los servicios prestados
+*/
 public class CajaRegistradora {
 	private double totalIngresos;
 	private List<Servicio> servicios;

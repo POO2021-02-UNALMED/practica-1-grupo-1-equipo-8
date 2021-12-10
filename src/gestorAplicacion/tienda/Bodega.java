@@ -3,6 +3,11 @@ package gestorAplicacion.tienda;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Erik Gonzalez
+ * @summary La bodega se encarga de almacenar los componentes de los cuales 
+ * dispone la empresa, que puede usar el tecnico para remplazar piezas.
+*/
 public class Bodega {
 	private static List<Componente> componentes;
 	static {
