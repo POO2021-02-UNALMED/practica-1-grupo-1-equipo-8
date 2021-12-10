@@ -77,15 +77,13 @@ public class Servicio {
 	public boolean isPagado() {
 		return pagado;
 	}
-<<<<<<< HEAD
+	
 	public void setCosto(double costo) {
 		this.costo = costo;
-=======
+	}
 
 	public int getIdentificador() {
 		return identificador;
->>>>>>> e543745 (servicio identificadares)
-	}
-	
+	}	
 }
 
