@@ -5,7 +5,9 @@ import java.util.List;
 import gestorAplicacion.tienda.*;
 /**
  * 
- * @author Esteban Garcï¿½a
+ * @author Esteban Garcia
+ * @summary Busca representar el comportamiento de un empleado dependiente, quien esta a cargo de atender a los clientes y asignar servicios.
+ * Es mediante el cual se efectuan los pagos y pasan los productos solicitados para reparar y se devuelven a sus clientes.  
  *
  */
 public class Dependiente extends Empleado {
@@ -23,12 +25,13 @@ public class Dependiente extends Empleado {
 	
 	public void registrarPago(Servicio servicio) {
 		cajaRegistradora.registrarVenta(servicio.getCosto(), servicio);
+		quitarServicio(servicio);
 	}
 	
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El mï¿½todo quitarServicio recibe como parï¿½metro un servicio y lo remueve de la lista de servicios del tï¿½cnico en cuestiï¿½n.
+	 * @summary El metodo quitarServicio recibe como parï¿½metro un servicio y lo remueve de la lista de servicios del tï¿½cnico en cuestiï¿½n.
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {
@@ -39,7 +42,7 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El mï¿½todo asignarServicio recibe como parï¿½metro un servicio y lo agrega a la lista de servicios del tï¿½cnico en cuestiï¿½n.
+	 * @summary El metodo asignarServicio recibe como parï¿½metro un servicio y lo agrega a la lista de servicios del tï¿½cnico en cuestiï¿½n.
 	 * 
 	 */
 	public void asignarServicio(Servicio servicio) {
@@ -61,19 +64,34 @@ public class Dependiente extends Empleado {
 		
 		
 	}
-	
+	/**
+	 * 
+	 * @param servicio
+	 * @summary Se hace entrega del producto al dueño (cliente) para que lo revise y recibir luego el pago.
+	 */
 	public void finalizarServicio(Servicio servicio) {
 		
+		notificarCliente(servicio.getProducto().getDueno());
 		this.entregarProducto(servicio.getProducto());
 		System.out.println("Servicio finalizado");
 		
 	}
 	
+	/**
+	 * 
+	 * @param cliente
+	 */
 	private void notificarCliente(Cliente cliente) {
 		
-		System.out.println("El dependiente llama al cliente" + cliente.getNombre() + "con cedula" + cliente.getCedula() +"a notificarle el estado del servicio pedido para que recoja el producto");
+		System.out.println("El dependiente llama al cliente " + cliente.getNombre() + " con cedula " + cliente.getCedula() + 
+				" a notificarle el estado del servicio pedido para que recoja el producto");
 	}
 	
+	/**
+	 * 
+	 * @param producto
+	 * @summary método de entrega del producto al cliente dueño.
+	 */
 	private void entregarProducto(Producto producto) {
 		
 		producto.getDueno().getProductos().add(producto);
