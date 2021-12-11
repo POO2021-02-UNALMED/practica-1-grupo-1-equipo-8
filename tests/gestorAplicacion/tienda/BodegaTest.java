@@ -9,7 +9,7 @@ class BodegaTest {
 
 	@Test
 	void agregarYSacarComponente() {
-		Componente componente = new Componente();
+		Componente componente = new Componente("display", false);
 		componente.setNombre("memoria");
 		Bodega.agregarComponente(componente);
 		assertEquals(componente, Bodega.sacarComponente("memoria"));
@@ -17,7 +17,7 @@ class BodegaTest {
 	
 	@Test
 	void sacaComponenteQueNoExiste() {
-		Componente componente = new Componente();
+		Componente componente = new Componente("display", false);
 		componente.setNombre("mm");
 		assertNull(Bodega.sacarComponente("mm"));
 	}

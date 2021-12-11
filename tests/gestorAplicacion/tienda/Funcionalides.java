@@ -25,5 +25,6 @@ class Funcionalides {
 
 		Cliente cliente = new Cliente("Felipe", "123456", listaProductos, dependiente);
 		cliente.solicitarReparacion(producto);
+		
 	}
 }

@@ -23,7 +23,8 @@ public class Dependiente extends Empleado {
 	public void atenderCliente(Cliente cliente, Producto producto) {
 		Random rand = new Random();
         Tecnico tecnico = Tecnico.tecnicos.get(rand.nextInt(Tecnico.tecnicos.size()));
-		generarServicio(tecnico, producto);
+		producto.setDueno(cliente);
+        generarServicio(tecnico, producto);
 	}
 	
 	public void registrarPago(Servicio servicio) {

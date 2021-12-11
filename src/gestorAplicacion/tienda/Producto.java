@@ -50,4 +50,8 @@ public class Producto {
 	public String toString() {
 		return this.nombre + " de tipo " + this.tipo;
 	}
+	
+	public void setDueno(Cliente cliente) {
+		dueno = cliente;		
+	}
 }
