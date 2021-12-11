@@ -11,13 +11,18 @@ import gestorAplicacion.tienda.*;
 */
 
 public class Tecnico extends Empleado {
-	
+	static List<Tecnico> tecnicos;
+	static {
+		tecnicos = new ArrayList<Tecnico>();
+	}
 	public Tecnico(String nombre, int cedula, List<Servicio> servicios) {
 		super(nombre, cedula, servicios);
+		tecnicos.add(this);
 	}
 	
 	public Tecnico(String nombre, int cedula) {
 		super(nombre, cedula);
+		tecnicos.add(this);
 	}
 	/**
 	 * @param servicio

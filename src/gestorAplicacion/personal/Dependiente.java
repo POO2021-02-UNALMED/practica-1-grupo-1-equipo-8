@@ -2,6 +2,7 @@ package gestorAplicacion.personal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import gestorAplicacion.tienda.*;
 /**
  * 
@@ -20,7 +21,9 @@ public class Dependiente extends Empleado {
 	}
 	
 	public void atenderCliente(Cliente cliente, Producto producto) {
-		generarServicio(, producto);
+		Random rand = new Random();
+        Tecnico tecnico = Tecnico.tecnicos.get(rand.nextInt(Tecnico.tecnicos.size()));
+		generarServicio(tecnico, producto);
 	}
 	
 	public void registrarPago(Servicio servicio) {
@@ -88,6 +91,7 @@ public class Dependiente extends Empleado {
 	 * 
 	 * @param producto
 	 * @summary metodo de entrega del producto al cliente dueno.
+	 * 
 	 */
 	private void entregarProducto(Producto producto) {
 		
