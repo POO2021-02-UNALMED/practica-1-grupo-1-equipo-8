@@ -17,6 +17,11 @@ public class CajaRegistradora {
 		servicios = new ArrayList<Servicio>();
 	}
 	
+	/**
+	 * Registra la venta cuando finaliza el servico
+	 * @param precio
+	 * @param servicio
+	 */
 	public void registrarVenta(double precio, Servicio servicio) {
 		servicios.add(servicio);
 		this.totalIngresos += precio;

@@ -27,6 +27,10 @@ public class Cliente {
 		this.recibos = new ArrayList<String>();
 	}
 	
+	/**
+	 * El cliente solicita la reparacion de un producto 
+	 * @param producto
+	 */
 	public void solicitarReparacion(Producto producto) {
 		productos.remove(producto);
 		this.dependiente.atenderCliente(this, producto);
