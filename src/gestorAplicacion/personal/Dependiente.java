@@ -20,7 +20,7 @@ public class Dependiente extends Empleado {
 	}
 	
 	public void atenderCliente(Cliente cliente, Producto producto) {
-		
+		generarServicio(, producto);
 	}
 	
 	public void registrarPago(Servicio servicio) {
@@ -36,7 +36,6 @@ public class Dependiente extends Empleado {
 	 */
 	public void quitarServicio(Servicio servicio) {
 		this.getServicios().remove(servicio);
-		
 	}
 	
 	/**
@@ -54,16 +53,15 @@ public class Dependiente extends Empleado {
 	 * @param tecnico
 	 * @param producto
 	 * @summary generar servicio crea un servicio para revisar un producto que se le asigna a la lista de servicios 
-	 * dependiente que lo cre� y al t�cnico que va a realizarlo.
+	 * dependiente que lo creo y al tecnico que va a realizarlo.
 	 * 
 	 */
 	public void generarServicio(Tecnico tecnico, Producto producto) {
-		Servicio servicio = new Servicio(tecnico, producto, producto.getDueno(), this, ""); //////////Recibe qu� parametros?/////////
-		this.getServicios().add(servicio);
+		Servicio servicio = new Servicio(tecnico, producto, producto.getDueno(), this);
 		tecnico.asignarServicio(servicio);
-		
-		
+		asignarServicio(servicio);
 	}
+	
 	/**
 	 * 
 	 * @param servicio
@@ -89,7 +87,7 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param producto
-	 * @summary m�todo de entrega del producto al cliente due�o.
+	 * @summary metodo de entrega del producto al cliente dueno.
 	 */
 	private void entregarProducto(Producto producto) {
 		

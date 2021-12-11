@@ -28,14 +28,13 @@ public class Servicio {
 	}
 
 	public Servicio(Tecnico tecnico, Producto producto, Cliente cliente,
-			Dependiente dependiente, String diagnostico) {
+			Dependiente dependiente) {
 		this();
 		this.tecnico = tecnico;
 		this.producto = producto;
 		this.fecha = new Date();
 		this.cliente = cliente;
 		this.dependiente = dependiente;
-		this.diagnostico = diagnostico;
 	}
 
 
