@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * 
  * @author Emilio Porras
- * @summary Esta clase busca representar el comportamiento de un producto traído a la tienda por un cliente, el cual espera sea reparado.
+ * @summary Esta clase busca representar el comportamiento de un producto traï¿½do a la tienda por un cliente, el cual espera sea reparado.
  * Estructuras relevantes: componentes corresponde a la lista de todos los componentes que conforman el producto, pueden estar a veriados o no.
  *
 */
@@ -24,7 +24,7 @@ public class Producto {
 	/**
 	 * 
 	 * @param componente
-	 * @summary El método agregarComponente recibe como parámetro un componente y lo agrega a la lista de componentes del producto.
+	 * @summary El mï¿½todo agregarComponente recibe como parï¿½metro un componente y lo agrega a la lista de componentes del producto.
 	 * 
 	 */
 	public void agregarComponente(Componente componente) {
@@ -33,7 +33,7 @@ public class Producto {
 	/**
 	 * 
 	 * @param componente
-	 * @summary El método quitarComponente recibe como parámetro un componente y lo quita de la lista de componentes del producto.
+	 * @summary El mï¿½todo quitarComponente recibe como parï¿½metro un componente y lo quita de la lista de componentes del producto.
 	 * 
 	 */
 	public void quitarComponente(Componente componente) {
@@ -46,5 +46,9 @@ public class Producto {
 
 	public List<Componente> getComponentes() {
 		return componentes;
+	}
+	
+	public String toString() {
+		return this.nombre + " de tipo " + this.tipo;
 	}
 }

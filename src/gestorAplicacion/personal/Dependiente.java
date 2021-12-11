@@ -67,34 +67,33 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary Se hace entrega del producto al dueño (cliente) para que lo revise y recibir luego el pago.
+	 * @summary Se hace entrega del producto al dueno (cliente) para que lo revise y recibir luego el pago.
 	 */
 	public void finalizarServicio(Servicio servicio) {
-		
-		notificarCliente(servicio.getProducto().getDueno());
-		this.entregarProducto(servicio.getProducto());
-		System.out.println("Servicio finalizado");
-		
+		notificarCliente(servicio);
+		entregarProducto(servicio.getProducto());		
 	}
 	
 	/**
 	 * 
 	 * @param cliente
 	 */
-	private void notificarCliente(Cliente cliente) {
-		
-		System.out.println("El dependiente llama al cliente " + cliente.getNombre() + " con cedula " + cliente.getCedula() + 
-				" a notificarle el estado del servicio pedido para que recoja el producto");
+	private void notificarCliente(Servicio servicio) {
+		Cliente cliente = servicio.getProducto().getDueno();
+		String recibo = "Factura #" + servicio.getIdentificador() + "\n" + 
+						"Cliente: " +cliente.getNombre() + " con cedula " + cliente.getCedula() + "\n" + 
+						"Recibir el producto: " + servicio.getProducto().toString();
+		cliente.recibirRecibo(recibo);
 	}
 	
 	/**
 	 * 
 	 * @param producto
-	 * @summary método de entrega del producto al cliente dueño.
+	 * @summary mï¿½todo de entrega del producto al cliente dueï¿½o.
 	 */
 	private void entregarProducto(Producto producto) {
 		
-		producto.getDueno().getProductos().add(producto);
+		producto.getDueno().recibirProducto(producto);;
 		System.out.println("El producto ha sido devuelvo al dueno");
 	}
 }

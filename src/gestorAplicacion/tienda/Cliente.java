@@ -1,5 +1,6 @@
 package gestorAplicacion.tienda;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gestorAplicacion.personal.Dependiente;
@@ -15,6 +16,7 @@ public class Cliente {
 	private String nombre;
 	private String cedula;
 	private List<Producto> productos;
+	private List<String> recibos;
 	private Dependiente dependiente;
 	
 	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente) {
@@ -22,6 +24,7 @@ public class Cliente {
 		this.cedula = cedula;
 		this.productos = productos;
 		this.dependiente = dependiente;
+		this.recibos = new ArrayList<String>();
 	}
 	
 	public void solicitarReparacion(Producto producto) {
@@ -75,6 +78,10 @@ public class Cliente {
 
 	public void setDependiente(Dependiente dependiente) {
 		this.dependiente = dependiente;
+	}
+
+	public void recibirRecibo(String recibo) {
+		this.recibos.add(recibo);
 	}
 	
 	
