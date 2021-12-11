@@ -9,6 +9,11 @@ public class Componente {
 	private String nombre;
 	private boolean averiado;
 	private double precio;
+	public Componente(String nombre, boolean averiado) {
+		this.nombre = nombre;
+		this.averiado = averiado;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

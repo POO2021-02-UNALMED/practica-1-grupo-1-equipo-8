@@ -32,8 +32,8 @@ public class Cliente {
 	 * @param producto
 	 */
 	public void solicitarReparacion(Producto producto) {
-		productos.remove(producto);
 		this.dependiente.atenderCliente(this, producto);
+		productos.remove(producto);
 	}
 	
 	/**

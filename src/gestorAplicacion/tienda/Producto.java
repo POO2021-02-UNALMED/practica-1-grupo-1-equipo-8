@@ -14,11 +14,10 @@ public class Producto {
 	private Cliente dueno;
 	private List<Componente> componentes;
 	
-	public Producto(String nombre, String tipo, Cliente dueno, List<Componente> componentes) {
+	public Producto(String nombre, String tipo, List<Componente> componentes) {
 		super();
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.dueno = dueno;
 		this.componentes = componentes;
 	}
 	/**
