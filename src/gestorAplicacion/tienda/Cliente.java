@@ -18,12 +18,14 @@ public class Cliente {
 	private List<Producto> productos;
 	private List<String> recibos;
 	private Dependiente dependiente;
+	private double cartera;
 	
-	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente) {
+	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente, double cartera) {
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.productos = productos;
 		this.dependiente = dependiente;
+		this.cartera = cartera;
 		this.recibos = new ArrayList<String>();
 	}
 	
@@ -42,7 +44,7 @@ public class Cliente {
 	 * @param servicio
 	 * @return boolean
 	 */
-	public void pagarServicio(Servicio servicio) {
+	public void pagarServicio(Servicio servicio, double cobro) {
 		if(!servicio.isPagado()) {
 			servicio.pagar();
 		}

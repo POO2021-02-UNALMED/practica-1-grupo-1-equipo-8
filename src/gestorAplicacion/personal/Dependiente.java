@@ -13,11 +13,21 @@ import gestorAplicacion.tienda.*;
  */
 public class Dependiente extends Empleado {
 	
+	static List<Dependiente> dependientes;
+	static {
+		dependientes = new ArrayList<Dependiente>();
+		CajaRegistradora caja = new CajaRegistradora();
+		Dependiente dependiente1 = new Dependiente("Esteban", 1237465, caja);
+		Dependiente dependiente2 = new Dependiente("Felipe", 123987, caja);
+	}
+	
 	private CajaRegistradora cajaRegistradora;
+	private static final double MARGEN_GANANCIA = 1.5;
 	
 	public Dependiente(String nombre, int cedula, CajaRegistradora caja) {
 		super(nombre, cedula);
 		this.cajaRegistradora = caja;
+		dependientes.add(this);
 	}
 	
 	/**
@@ -30,8 +40,7 @@ public class Dependiente extends Empleado {
 	public void atenderCliente(Cliente cliente, Producto producto) {
 		Random rand = new Random();
         Tecnico tecnico = Tecnico.tecnicos.get(rand.nextInt(Tecnico.tecnicos.size()));
-		producto.setDueno(cliente);
-        generarServicio(tecnico, producto);
+        generarServicio(tecnico, producto, cliente);
 	}
 	
 	/**
@@ -73,8 +82,8 @@ public class Dependiente extends Empleado {
 	 * dependiente que lo creo y al tecnico que va a realizarlo.
 	 * 
 	 */
-	public void generarServicio(Tecnico tecnico, Producto producto) {
-		Servicio servicio = new Servicio(tecnico, producto, producto.getDueno(), this);
+	public void generarServicio(Tecnico tecnico, Producto producto, Cliente cliente) {
+		Servicio servicio = new Servicio(tecnico, producto, cliente, this);
 		tecnico.asignarServicio(servicio);
 		asignarServicio(servicio);
 	}
@@ -86,7 +95,7 @@ public class Dependiente extends Empleado {
 	 */
 	public void finalizarServicio(Servicio servicio) {
 		notificarCliente(servicio);
-		entregarProducto(servicio.getProducto());		
+		entregarProducto(servicio);		
 	}
 	
 	/**
@@ -94,9 +103,9 @@ public class Dependiente extends Empleado {
 	 * @param cliente
 	 */
 	private void notificarCliente(Servicio servicio) {
-		Cliente cliente = servicio.getProducto().getDueno();
+		Cliente cliente = servicio.getCliente();
 		String recibo = "Factura #" + servicio.getIdentificador() + "\n" + 
-						"Cliente: " +cliente.getNombre() + " con cedula " + cliente.getCedula() + "\n" + 
+						"Cliente: " + cliente.getNombre() + " con cedula " + cliente.getCedula() + "\n" + 
 						"Recibir el producto: " + servicio.getProducto().toString();
 		cliente.recibirRecibo(recibo);
 	}
@@ -107,9 +116,14 @@ public class Dependiente extends Empleado {
 	 * @summary metodo de entrega del producto al cliente dueno.
 	 * 
 	 */
-	private void entregarProducto(Producto producto) {
+	private void entregarProducto(Servicio servicio) {
 		
-		producto.getDueno().recibirProducto(producto);;
+		servicio.getCliente().recibirProducto(servicio.getProducto());
 		System.out.println("El producto ha sido devuelvo al dueno");
+	}
+	
+	public void cobrarServicio(Servicio servicio) {
+		 double cobro = servicio.getCosto()*MARGEN_GANANCIA;
+		 servicio.getCliente().pagarServicio(servicio, cobro);
 	}
 }

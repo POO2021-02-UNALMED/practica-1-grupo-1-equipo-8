@@ -83,6 +83,16 @@ public class Servicio {
 
 	public int getIdentificador() {
 		return identificador;
-	}	
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 }
 

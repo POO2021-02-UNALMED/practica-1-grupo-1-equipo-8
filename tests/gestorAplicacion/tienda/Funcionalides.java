@@ -23,7 +23,7 @@ class Funcionalides {
 		
 		Dependiente dependiente = new Dependiente("Esteban", 123, cajaRegistradora);
 
-		Cliente cliente = new Cliente("Felipe", "123456", listaProductos, dependiente);
+		Cliente cliente = new Cliente("Felipe", "123456", listaProductos, dependiente, 100000);
 		cliente.solicitarReparacion(producto);
 		
 	}
