@@ -30,4 +30,10 @@ public class CajaRegistradora {
 	public double getTotalIngresos() {
 		return this.totalIngresos;
 	}
+
+	public void setTotalIngresos(double totalIngresos) {
+		this.totalIngresos = totalIngresos;
+	}
+	
+	
 }
