@@ -14,6 +14,11 @@ public class Componente {
 		this.averiado = averiado;
 	}
 
+	public Componente(String nombre, boolean averiado, double precio) {
+		this(nombre, averiado);
+		this.precio = precio;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

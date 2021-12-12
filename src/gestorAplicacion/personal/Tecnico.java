@@ -28,23 +28,13 @@ public class Tecnico extends Empleado {
 	}
 	
 	/**
-	 * @param servicio
-	 * @summary Método auxiliar para ser llamado al final del método reparar. El método notificarDependiente recibe como parámetro un servicio y llama el método finalizarServicio del Dependiente correspondiente
-	 * a dicho servicio. Adicionalmente, quita el servicio de la lista del técnico al ser llamado.
-	 * 
-	 */
-	private void notificarDependiente(Servicio servicio) {
-		servicio.getDependiente().finalizarServicio(servicio);
-		quitarServicio(servicio);
-	}
-
-	/**
 	 * 
 	 * @param servicio
 	 * @summary El método verificarProblemas es un método auxiliar de la clase, el cual recibe un servicio y devuelve una lista con los componentes
 	 * dañados en el producto correspondiente a ese servicio
 	 * 
 	 */
+	
 	private List<Componente> verificarProblemas(Servicio servicio){
 		Producto producto = servicio.getProducto();
 		List<Componente> averiados = new ArrayList<Componente>();
@@ -101,7 +91,7 @@ public class Tecnico extends Empleado {
 				servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio());
 			}
 		}
-		notificarDependiente(servicio);
+		quitarServicio(servicio);
 	}
 	/**
 	 * 

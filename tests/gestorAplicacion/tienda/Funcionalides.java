@@ -1,5 +1,6 @@
 package gestorAplicacion.tienda;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ class Funcionalides {
 		Producto producto = new Producto("Iphone", "celular", lista);
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		
-		Bodega.agregarComponente(new Componente("puerto de carga", false));
+		Bodega.agregarComponente(new Componente("puerto de carga", false, 50000));
 		
 		CajaRegistradora cajaRegistradora = new CajaRegistradora();
 		
@@ -49,9 +50,13 @@ class Funcionalides {
 
 		Cliente cliente = new Cliente("Felipe", "123456", listaProductos, dependiente, 100000);
 		cliente.solicitarReparacion(producto);
+		Servicio servicio = dependiente.getServicios().get(0);
+		Tecnico.tecnicos.get(0).reparar(servicio);
 		
-		Tecnico.tecnicos.get(0).diagnosticar(dependiente.getServicios().get(0));
-		
-		
+		assertTrue(!producto.getComponentes().get(1).isAveriado());
+		assertEquals(50000, servicio.getCosto());
+		assertEquals(0, Bodega.getComponentes().size());
 	}
+	
+	
 }
