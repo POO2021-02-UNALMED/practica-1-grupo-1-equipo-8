@@ -9,12 +9,14 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import gestorAplicacion.tienda.Producto;
+import gestorAplicacion.tienda.Bodega;
+import gestorAplicacion.tienda.Componente;
 
 public class Serializador {
 
 		private static File rutaTemp = new File("sr\\baseDatos\\Temp");
 
-		public static void serializar(Producto producto) {
+		public static void serializar(Componente componente) {
 			FileOutputStream fos;
 			ObjectOutputStream oos;
 			File[] docs = rutaTemp.listFiles();
@@ -30,11 +32,11 @@ public class Serializador {
 
 			}
 			for (File file: docs) {
-				if (file.getAbsolutePath().contains("asignatruas")) {
+				if (file.getAbsolutePath().contains("componentes")) {
 					try {
 						fos = new FileOutputStream(file);
 						oos = new ObjectOutputStream(fos);
-						oos.writeObject(producto);
+						oos.writeObject(Bodega.getComponentes());
 						
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
