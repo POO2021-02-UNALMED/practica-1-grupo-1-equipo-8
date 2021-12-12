@@ -108,5 +108,7 @@ class Funcionalides {
 		cliente.solicitarReparacion(producto);
 		Servicio servicio = dependiente.getServicios().get(0);
 		Tecnico.tecnicos.get(0).reparar(servicio);
+		
+		
 	}
 }
