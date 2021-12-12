@@ -89,4 +89,9 @@ class Funcionalides {
 				"Cliente: " + cliente.getNombre() + " con cedula " + cliente.getCedula() + "\n" + 
 				"Recibir el producto: " + servicio.getProducto().toString(), cliente.getRecibos().get(0));
 	}
+	
+	@Test
+	void generarServicio() {
+		
+	}
 }
