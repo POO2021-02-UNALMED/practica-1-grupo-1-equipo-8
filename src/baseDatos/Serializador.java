@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
+import gestorAplicacion.tienda.Producto;
 import gestorAplicacion.tienda.producto;
 
 public class Serializador {
 
-	public class Serializador {
 		private static File rutaTemp = new File("sr\\baseDatos\\Temp");
 
 		public static void serializar(Producto producto) {

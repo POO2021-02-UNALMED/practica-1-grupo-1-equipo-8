@@ -31,5 +31,9 @@ public class Componente {
 		this.precio = precio;
 	}
 	
+	public String toString() {
+		return nombre;
+	}
+	
 	
 }

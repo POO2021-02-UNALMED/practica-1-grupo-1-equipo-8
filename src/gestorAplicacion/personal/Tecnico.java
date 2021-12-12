@@ -11,11 +11,10 @@ import gestorAplicacion.tienda.*;
 */
 
 public class Tecnico extends Empleado {
-	static List<Tecnico> tecnicos;
+	public static List<Tecnico> tecnicos;
 	static {
 		tecnicos = new ArrayList<Tecnico>();
 		Tecnico tecnico1 = new Tecnico("Emilio", 987654);
-		Tecnico tecnico2 = new Tecnico("Erik", 6574839);
 	}
 	
 	public Tecnico(String nombre, int cedula, List<Servicio> servicios) {
