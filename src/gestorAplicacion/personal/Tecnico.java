@@ -14,7 +14,10 @@ public class Tecnico extends Empleado {
 	static List<Tecnico> tecnicos;
 	static {
 		tecnicos = new ArrayList<Tecnico>();
+		Tecnico tecnico1 = new Tecnico("Emilio", 987654);
+		Tecnico tecnico2 = new Tecnico("Erik", 6574839);
 	}
+	
 	public Tecnico(String nombre, int cedula, List<Servicio> servicios) {
 		super(nombre, cedula, servicios);
 		tecnicos.add(this);
@@ -24,6 +27,7 @@ public class Tecnico extends Empleado {
 		super(nombre, cedula);
 		tecnicos.add(this);
 	}
+	
 	/**
 	 * @param servicio
 	 * @summary Método auxiliar para ser llamado al final del método reparar. El método notificarDependiente recibe como parámetro un servicio y llama el método finalizarServicio del Dependiente correspondiente
@@ -52,6 +56,7 @@ public class Tecnico extends Empleado {
 		}
 		return averiados;
 	}
+	
 	/**
 	 * 
 	 * @param componente

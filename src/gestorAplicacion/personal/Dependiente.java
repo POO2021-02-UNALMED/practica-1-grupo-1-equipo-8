@@ -20,6 +20,13 @@ public class Dependiente extends Empleado {
 		this.cajaRegistradora = caja;
 	}
 	
+	/**
+	 * 
+	 * @param cliente
+	 * @param producto
+	 * @summary Este metodo elige a alguno de los tecnicos disponibles para asignarle un nuevo servicio con
+	 * el producto entregado por el cliente.
+	 */
 	public void atenderCliente(Cliente cliente, Producto producto) {
 		Random rand = new Random();
         Tecnico tecnico = Tecnico.tecnicos.get(rand.nextInt(Tecnico.tecnicos.size()));
@@ -27,6 +34,12 @@ public class Dependiente extends Empleado {
         generarServicio(tecnico, producto);
 	}
 	
+	/**
+	 * 
+	 * @param servicio
+	 * @summary Registra el pago en la caja registradora con el costodel servicio que decidio el tecnico y luego quita el servicio.
+	 * 
+	 */
 	public void registrarPago(Servicio servicio) {
 		cajaRegistradora.registrarVenta(servicio.getCosto(), servicio);
 		quitarServicio(servicio);
@@ -35,7 +48,7 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El metodo quitarServicio recibe como par�metro un servicio y lo remueve de la lista de servicios del t�cnico en cuesti�n.
+	 * @summary El metodo quitarServicio recibe como parametro un servicio y lo remueve de la lista de servicios del tecnico en cuestion.
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {
@@ -45,7 +58,7 @@ public class Dependiente extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El metodo asignarServicio recibe como par�metro un servicio y lo agrega a la lista de servicios del t�cnico en cuesti�n.
+	 * @summary El metodo asignarServicio recibe como parametro un servicio y lo agrega a la lista de servicios del tecnico en cuestion.
 	 * 
 	 */
 	public void asignarServicio(Servicio servicio) {
