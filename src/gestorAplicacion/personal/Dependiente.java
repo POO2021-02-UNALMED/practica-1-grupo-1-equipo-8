@@ -50,7 +50,7 @@ public class Dependiente extends Empleado {
 	 * 
 	 */
 	public void registrarPago(Servicio servicio) {
-		cajaRegistradora.registrarVenta(servicio.getCosto(), servicio);
+		cajaRegistradora.registrarVenta(servicio.getCosto()*MARGEN_GANANCIA, servicio);
 		quitarServicio(servicio);
 	}
 	
