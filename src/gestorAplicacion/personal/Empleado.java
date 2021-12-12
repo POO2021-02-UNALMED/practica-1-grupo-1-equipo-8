@@ -14,13 +14,7 @@ public abstract class Empleado {
 
 	private String nombre;
 	private int cedula;
-	private List<Servicio> servicios;
-	
-	public Empleado(String nombre, int cedula, List<Servicio> servicios) {
-		this.nombre = nombre;
-		this.cedula = cedula;
-		this.servicios = servicios;
-	}
+	protected List<Servicio> servicios;
 	
 	public Empleado(String nombre, int cedula) {
 		this.nombre = nombre;

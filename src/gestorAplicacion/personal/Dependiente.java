@@ -30,6 +30,12 @@ public class Dependiente extends Empleado {
 		dependientes.add(this);
 	}
 	
+	public Dependiente(String nombre, int cedula, CajaRegistradora caja, List<Servicio> servicios) {
+		this(nombre, cedula, caja);
+		this.servicios = servicios;
+		dependientes.add(this);
+	}
+	
 	/**
 	 * 
 	 * @param cliente

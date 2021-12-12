@@ -17,13 +17,14 @@ public class Tecnico extends Empleado {
 		Tecnico tecnico1 = new Tecnico("Emilio", 987654);
 	}
 	
-	public Tecnico(String nombre, int cedula, List<Servicio> servicios) {
-		super(nombre, cedula, servicios);
+	public Tecnico(String nombre, int cedula) {
+		super(nombre, cedula);
 		tecnicos.add(this);
 	}
 	
-	public Tecnico(String nombre, int cedula) {
-		super(nombre, cedula);
+	public Tecnico(String nombre, int cedula, List<Servicio> servicios) {
+		this(nombre, cedula);
+		this.servicios = servicios;
 		tecnicos.add(this);
 	}
 	
