@@ -11,7 +11,6 @@ import java.util.*;
 public class Producto {
 	private String nombre;
 	private String tipo;
-	//private Cliente dueno;
 	private List<Componente> componentes;
 	
 	public Producto(String nombre, String tipo, List<Componente> componentes) {
@@ -39,10 +38,6 @@ public class Producto {
 		componentes.remove(componente);
 	}
 
-//	public Cliente getDueno() {
-//		return dueno;
-//	}
-
 	public List<Componente> getComponentes() {
 		return componentes;
 	}
@@ -51,7 +46,4 @@ public class Producto {
 		return this.nombre + " de tipo " + this.tipo;
 	}
 	
-//	public void setDueno(Cliente cliente) {
-//		dueno = cliente;		
-//	}
 }
