@@ -45,8 +45,9 @@ public class Cliente {
 	 * @return boolean
 	 */
 	public void pagarServicio(Servicio servicio, double cobro) {
-		if(!servicio.isPagado()) {
-			servicio.pagar();
+		if(!servicio.isPagado() && cartera >= cobro) {
+			servicio.setPagado(true);
+			cartera-=cobro;
 		}
 	}
 	

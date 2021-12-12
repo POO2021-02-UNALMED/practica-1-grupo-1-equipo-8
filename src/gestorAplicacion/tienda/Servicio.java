@@ -38,9 +38,8 @@ public class Servicio {
 	}
 
 
-	public void pagar(){
-		
-		
+	public void setPagado(boolean pagado){
+		this.pagado = pagado;
 	}
 	
 	
