@@ -37,4 +37,9 @@ public class Bodega {
 	public static List<Componente> getComponentes(){
 		return componentes;
 	}
+
+	public static void setComponentes(List<Componente> componentes) {
+		Bodega.componentes = componentes;
+	}
+	
 }
