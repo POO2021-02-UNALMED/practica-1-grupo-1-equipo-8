@@ -91,5 +91,8 @@ public class Cliente {
 		this.recibos.add(recibo);
 	}
 	
+	public List<String> getRecibos() {
+		return this.recibos;
+	}
 	
 }

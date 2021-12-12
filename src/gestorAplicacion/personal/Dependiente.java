@@ -117,9 +117,7 @@ public class Dependiente extends Empleado {
 	 * 
 	 */
 	private void entregarProducto(Servicio servicio) {
-		
 		servicio.getCliente().recibirProducto(servicio.getProducto());
-		System.out.println("El producto ha sido devuelvo al dueno");
 	}
 	
 	public void cobrarServicio(Servicio servicio) {

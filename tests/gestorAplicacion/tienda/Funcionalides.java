@@ -58,5 +58,35 @@ class Funcionalides {
 		assertEquals(0, Bodega.getComponentes().size());
 	}
 	
-	
+	@Test
+	void finalizarServicio() {
+		List<Componente> lista = new ArrayList<Componente>();
+		lista.add(new Componente("display", false));
+		lista.add(new Componente("puerto de carga", true));
+		Producto producto = new Producto("Iphone", "celular", lista);
+		List<Producto> listaProductos = new ArrayList<Producto>();
+		
+		Bodega.agregarComponente(new Componente("puerto de carga", false, 50000));
+		
+		CajaRegistradora cajaRegistradora = new CajaRegistradora();
+		
+		Dependiente dependiente = new Dependiente("Esteban", 123, cajaRegistradora);
+
+		Cliente cliente = new Cliente("Felipe", "123456", listaProductos, dependiente, 100000);
+		cliente.solicitarReparacion(producto);
+		Servicio servicio = dependiente.getServicios().get(0);
+		Tecnico.tecnicos.get(0).reparar(servicio);
+		
+		// el cliente no puede tener el producto ni recibos ya que lo habia entregado para reparar
+		assertEquals(0, cliente.getProductos().size());
+		assertEquals(0, cliente.getRecibos().size());
+		
+		dependiente.finalizarServicio(servicio);
+		
+		assertEquals(1, cliente.getProductos().size());
+		assertEquals(1, cliente.getRecibos().size());
+		assertEquals("Factura #" + servicio.getIdentificador() + "\n" + 
+				"Cliente: " + cliente.getNombre() + " con cedula " + cliente.getCedula() + "\n" + 
+				"Recibir el producto: " + servicio.getProducto().toString(), cliente.getRecibos().get(0));
+	}
 }
