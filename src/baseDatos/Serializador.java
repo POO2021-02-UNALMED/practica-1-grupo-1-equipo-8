@@ -9,7 +9,6 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import gestorAplicacion.tienda.Producto;
-import gestorAplicacion.tienda.producto;
 
 public class Serializador {
 
@@ -19,7 +18,7 @@ public class Serializador {
 			FileOutputStream fos;
 			ObjectOutputStream oos;
 			File[] docs = rutaTemp.listFiles();
-			Printwriter pw;
+			PrintWriter pw;
 
 			for (File file : docs) {
 				try {
@@ -30,6 +29,23 @@ public class Serializador {
 				}
 
 			}
+			for (File file: docs) {
+				if (file.getAbsolutePath().contains("asignatruas")) {
+					try {
+						fos = new FileOutputStream(file);
+						oos = new ObjectOutputStream(fos);
+						oos.writeObject(producto);
+						
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+						
+					
+					}catch (IOException e) {
+						e.printStackTrace();
+					
+					}
+				}
+			}
 		}
 	}
-}
+
