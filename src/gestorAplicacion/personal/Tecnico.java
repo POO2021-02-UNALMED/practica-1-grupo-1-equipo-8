@@ -5,8 +5,8 @@ import gestorAplicacion.tienda.*;
 /**
  * 
  * @author Emilio Porras
- * @summary Esta clase busca representar el comportamiento de un empleado tipo técnico
- * Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el técnico toma o finaliza servicios
+ * @summary Esta clase busca representar el comportamiento de un empleado tipo tï¿½cnico
+ * Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el tï¿½cnico toma o finaliza servicios
  *
 */
 
@@ -31,8 +31,8 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método verificarProblemas es un método auxiliar de la clase, el cual recibe un servicio y devuelve una lista con los componentes
-	 * dañados en el producto correspondiente a ese servicio
+	 * @summary El mï¿½todo verificarProblemas es un mï¿½todo auxiliar de la clase, el cual recibe un servicio y devuelve una lista con los componentes
+	 * daï¿½ados en el producto correspondiente a ese servicio
 	 * 
 	 */
 	
@@ -50,7 +50,7 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param componente
-	 * @summary El método buscarComponente es un método auxiliar de la clase, el cual recibe un componente y devuelve booleano dependiendo de si un componente
+	 * @summary El mï¿½todo buscarComponente es un mï¿½todo auxiliar de la clase, el cual recibe un componente y devuelve booleano dependiendo de si un componente
 	 * con el mismo nombre se encuentra en la Bodega o no.
 	 * 
 	 */
@@ -60,7 +60,7 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método diagnosticar recibe como parámetro un servicio y modifica en él su atributo diagnóstico, brindando información 
+	 * @summary El mï¿½todo diagnosticar recibe como parï¿½metro un servicio y modifica en ï¿½l su atributo diagnï¿½stico, brindando informaciï¿½n 
 	 * sobre los problemas del producto correspondiente.
 	 *  
 	 */
@@ -70,8 +70,8 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método reparar recibe como parámetro un servicio. Luego, revisa si los componentes dañados están disponibles en la bodega y, a 
-	 * aquellos que estén disponibles, los remueve de la lista de Bodega y los reemplaza en la lista de componentes del producto. También, va sumando
+	 * @summary El mï¿½todo reparar recibe como parï¿½metro un servicio. Luego, revisa si los componentes daï¿½ados estï¿½n disponibles en la bodega y, a 
+	 * aquellos que estï¿½n disponibles, los remueve de la lista de Bodega y los reemplaza en la lista de componentes del producto. Tambiï¿½n, va sumando
 	 * el precio de los componentes utilizados en el atributo costo de servicio.
 	 * 
 	 */
@@ -91,7 +91,7 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método asignarServicio recibe como parámetro un servicio y lo agrega a la lista de servicios del técnico en cuestión.
+	 * @summary El mï¿½todo asignarServicio recibe como parï¿½metro un servicio y lo agrega a la lista de servicios del tï¿½cnico en cuestiï¿½n.
 	 * 
 	 */
 	public void asignarServicio(Servicio servicio) {
@@ -101,7 +101,7 @@ public class Tecnico extends Empleado {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El método quitarServicio recibe como parámetro un servicio y lo remueve de la lista de servicios del técnico en cuestión.
+	 * @summary El mï¿½todo quitarServicio recibe como parï¿½metro un servicio y lo remueve de la lista de servicios del tï¿½cnico en cuestiï¿½n.
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {

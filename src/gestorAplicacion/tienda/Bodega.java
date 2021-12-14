@@ -3,6 +3,8 @@ package gestorAplicacion.tienda;
 import java.util.ArrayList;
 import java.util.List;
 
+import baseDatos.Deserializador;
+
 /**
  * @author Erik Gonzalez
  * @summary La bodega se encarga de almacenar los componentes de los cuales 
@@ -12,6 +14,7 @@ public class Bodega {
 	private static List<Componente> componentes;
 	static {
 		componentes = new ArrayList<Componente>();
+		//Deserializador.deserializarBodega(this);
 	}
 	
 	public static void agregarComponente(Componente componente) {

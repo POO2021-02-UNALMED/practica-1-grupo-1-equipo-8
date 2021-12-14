@@ -13,6 +13,7 @@ public class Producto {
 	private String tipo;
 	private List<Componente> componentes;
 	
+	
 	public Producto(String nombre, String tipo, List<Componente> componentes) {
 		super();
 		this.nombre = nombre;
