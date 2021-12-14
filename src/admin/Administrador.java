@@ -86,7 +86,7 @@ public class Administrador {
 
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		int i;
-		for (i = 0; i < 2; i++) {
+		for (i = 0; i < cantProductos; i++) {
 			System.out.println("Ingrese el nombre del producto " + (i + 1) + ": ");
 
 			String nombreProducto = readString();
@@ -103,7 +103,7 @@ public class Administrador {
 
 		Cliente cliente = new Cliente(nombre, cedula, listaProductos, dependiente, dinero);
 
-		for (i = 0; i < 2; i++) {
+		for (i = 0; i < cantProductos; i++) {
 			cliente.solicitarReparacion(producto);
 			Servicio servicio = dependiente.getServicios().get(0);
 			Tecnico.tecnicos.get(0).reparar(servicio);
