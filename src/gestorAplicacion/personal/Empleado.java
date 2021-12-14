@@ -15,6 +15,7 @@ public abstract class Empleado {
 	private String nombre;
 	private int cedula;
 	protected List<Servicio> servicios;
+	private double cartera;
 	
 	public Empleado(String nombre, int cedula) {
 		this.nombre = nombre;
