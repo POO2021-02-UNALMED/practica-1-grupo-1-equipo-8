@@ -5,9 +5,9 @@ import java.util.List;
 import gestorAplicacion.tienda.*;
 /**
  * 
- * @author Esteban García
+ * @author Esteban Garcï¿½a
  * @summary Clase padre de Tecnico y Dependiente. Define los comportamientos en comun y en general de las clases que heredan de ella.
- * Punto importante: La lista servicios, la cual mantiene todos los servicios en los que un empleado esté trabajando/involucrado.
+ * Punto importante: La lista servicios, la cual mantiene todos los servicios en los que un empleado estï¿½ trabajando/involucrado.
  *
  */
 public abstract class Empleado implements Personal {
@@ -15,8 +15,11 @@ public abstract class Empleado implements Personal {
 	private String nombre;
 	private int cedula;
 	protected List<Servicio> servicios;
-	private double cartera;
+	protected double cartera;
 	private static List<Empleado> empleados;
+	static {
+		empleados = new ArrayList<Empleado>();
+	}
 	
 	public Empleado (String nombre, int cedula) {
 		this.nombre = nombre;
@@ -49,6 +52,15 @@ public abstract class Empleado implements Personal {
 		this.servicios = servicios;
 	}
 	
+	public double getCartera() {
+		return cartera;
+	}
+
+	public void setCartera(double cartera) {
+		this.cartera = cartera;
+	}
+
+	public abstract String toString();
 	
 	
 	

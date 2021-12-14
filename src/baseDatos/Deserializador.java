@@ -16,7 +16,7 @@ import gestorAplicacion.tienda.Cliente;
 
 public class Deserializador {
 
-		private static File rutaTemp = new File("sr\\baseDatos\\Temp");
+		private static File rutaTemp = new File("src\\baseDatos\\Temp");
 
 		public static void deserializarBodega(Bodega bodega) {
 			File[] docs = rutaTemp.listFiles();

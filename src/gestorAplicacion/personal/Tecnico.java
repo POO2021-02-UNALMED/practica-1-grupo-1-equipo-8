@@ -54,8 +54,8 @@ public class Tecnico extends Empleado {
 	 * con el mismo nombre se encuentra en la Bodega o no.
 	 * 
 	 */
-	private boolean buscarComponente(Componente componente) {
-		return Bodega.sacarComponente(componente.getNombre()) != null;
+	private Componente buscarComponente(Componente componente) {
+		return Bodega.sacarComponente(componente.getNombre());
 	}
 	/**
 	 * 
@@ -79,8 +79,9 @@ public class Tecnico extends Empleado {
 		Producto producto = servicio.getProducto();
 		List<Componente> averiados = verificarProblemas(servicio);
 		for (Componente componente: averiados) {
-			if (buscarComponente(componente)) {
-				Componente componenteBodega = Bodega.sacarComponente(componente);
+			Componente remplazo = buscarComponente(componente);
+			if (remplazo != null) {
+				Componente componenteBodega = Bodega.sacarComponente(remplazo);
 				producto.quitarComponente(componente);
 				producto.agregarComponente(componenteBodega);
 				servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio());
@@ -107,10 +108,13 @@ public class Tecnico extends Empleado {
 	public void quitarServicio(Servicio servicio) {
 		this.getServicios().remove(servicio);
 	}
-
-	@Override
+	
 	public void cobrarSalario(CajaRegistradora caja) {
-		// TODO Auto-generated method stub
-		
+		double porcentaje = 0.02;
+		this.cartera+= caja.descontar(porcentaje);
+	}
+	
+	public String toString() {
+		return "Tecnico: " + this.getNombre();
 	}
 }

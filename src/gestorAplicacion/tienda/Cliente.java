@@ -113,5 +113,8 @@ public class Cliente {
 	public static void setClientes(List<Cliente> clientes) {
 		Cliente.clientes = clientes;
 	}
-	
+
+	public double getCartera() {
+		return cartera;
+	}	
 }

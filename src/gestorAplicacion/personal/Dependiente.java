@@ -21,7 +21,6 @@ public class Dependiente extends Empleado {
 		dependientes = new ArrayList<Dependiente>();
 		CajaRegistradora caja = new CajaRegistradora();
 		Dependiente dependiente1 = new Dependiente("Esteban", 1237465, caja);
-		Dependiente dependiente2 = new Dependiente("Felipe", 123987, caja);
 	}
 	
 	private CajaRegistradora cajaRegistradora;
@@ -134,13 +133,24 @@ public class Dependiente extends Empleado {
 	public void cobrarServicio(Servicio servicio) {
 		 double cobro = servicio.getCosto()*MARGEN_GANANCIA;
 		 servicio.getCliente().pagarServicio(servicio, cobro);
+		 this.cajaRegistradora.registrarVenta(cobro, servicio);
+	}
+	
+	public void cobrarSalario(CajaRegistradora caja) {
+		double porcentaje = 0.01;
+		this.cartera+= caja.descontar(porcentaje);
 	}
 
+	public CajaRegistradora getCajaRegistradora() {
+		return cajaRegistradora;
+	}
 
-	@Override
-	public void cobrarSalario(CajaRegistradora caja) {
-		// TODO Auto-generated method stub
-		
+	public void setCajaRegistradora(CajaRegistradora cajaRegistradora) {
+		this.cajaRegistradora = cajaRegistradora;
+	}
+	
+	public String toString() {
+		return "Dependiente: " + this.getNombre();
 	}
 
 	public static List<Dependiente> getDependientes() {
