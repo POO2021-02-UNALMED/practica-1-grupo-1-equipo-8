@@ -136,10 +136,4 @@ public class Dependiente extends Empleado {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public String agradecer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
