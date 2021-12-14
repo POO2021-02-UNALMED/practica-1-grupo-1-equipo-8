@@ -109,6 +109,12 @@ class Funcionalides {
 		Servicio servicio = dependiente.getServicios().get(0);
 		Tecnico.tecnicos.get(0).reparar(servicio);
 		
+		dependiente.cobrarServicio(servicio);
+		assertEquals(25000, cliente.getCartera());
+	}
+	
+	@Test
+	void liquidar() {
 		
 	}
 }
