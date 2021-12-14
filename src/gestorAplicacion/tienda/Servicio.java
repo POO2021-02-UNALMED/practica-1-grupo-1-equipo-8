@@ -8,7 +8,7 @@ import gestorAplicacion.personal.Tecnico;
 /**
  * 
  * @author Felipe Miranda
- * {@summary} Servicio deber� contener toda la informaci�n que relaciona a un cliente y su producto a reparar 
+ * @summary Servicio deber� contener toda la informaci�n que relaciona a un cliente y su producto a reparar 
  * con los empleados (el dependiente que le atendi� y el t�cnico encargado de la reparaci�n) del sistema. 
  *
  */
