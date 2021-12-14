@@ -1,4 +1,5 @@
 package gestorAplicacion.tienda;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -20,5 +21,23 @@ class BodegaTest {
 		Componente componente = new Componente("display", false);
 		componente.setNombre("mm");
 		assertNull(Bodega.sacarComponente("mm"));
+	}
+	
+	@Test
+	void retornaYNoElimina() {
+		Bodega.setComponentes(new ArrayList<Componente>());
+		Componente componente = new Componente("display", false);
+		Bodega.agregarComponente(componente);
+		Bodega.sacarComponente("display");
+		assertEquals(Bodega.getComponentes().size(), 1);
+		}
+	
+	@Test
+	void retornaYElimina() {
+		Bodega.setComponentes(new ArrayList<Componente>());
+		Componente componente = new Componente("display", false);
+		Bodega.agregarComponente(componente);
+		Bodega.sacarComponente(componente);
+		assertEquals(Bodega.getComponentes().size(), 0);
 	}
 }

@@ -55,13 +55,7 @@ public class Tecnico extends Empleado {
 	 * 
 	 */
 	private boolean buscarComponente(Componente componente) {
-		List<Componente> componentes = Bodega.getComponentes();
-		for(Componente componenteBodega: componentes) {
-			if (componente.getNombre().equals(componenteBodega.getNombre())) {
-				return true;
-			}
-		}
-		return false;
+		return Bodega.sacarComponente(componente.getNombre()) != null;
 	}
 	/**
 	 * 
@@ -86,7 +80,7 @@ public class Tecnico extends Empleado {
 		List<Componente> averiados = verificarProblemas(servicio);
 		for (Componente componente: averiados) {
 			if (buscarComponente(componente)) {
-				Componente componenteBodega = Bodega.sacarComponente(componente.getNombre());
+				Componente componenteBodega = Bodega.sacarComponente(componente);
 				producto.quitarComponente(componente);
 				producto.agregarComponente(componenteBodega);
 				servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio());
