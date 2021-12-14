@@ -135,8 +135,8 @@ public class Deserializador {
 				}
 			}
 		}
-		public static void deserealizartodo () {
-			deserializarDependiente();
-			deserializar
-		}
+//		public static void deserealizartodo () {
+//			deserializarDependiente();
+//			deserializar
+//		}
 }
