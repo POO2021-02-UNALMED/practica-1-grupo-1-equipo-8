@@ -106,5 +106,14 @@ public class Tecnico extends Empleado {
 	 */
 	public void quitarServicio(Servicio servicio) {
 		this.getServicios().remove(servicio);
-	}	
+	}
+	
+	public void cobrarSalario(CajaRegistradora caja) {
+		double porcentaje = 0.02;
+		this.cartera+= caja.descontar(porcentaje);
+	}
+	
+	public String toString() {
+		return "Tecnico: " + this.getNombre();
+	}
 }

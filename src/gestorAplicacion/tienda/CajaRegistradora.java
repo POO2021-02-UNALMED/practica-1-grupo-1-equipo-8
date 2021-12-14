@@ -2,7 +2,7 @@ package gestorAplicacion.tienda;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import gestorAplicacion.personal.*;
 /**
  * 
  * @author Erik Gonzalez
@@ -35,5 +35,9 @@ public class CajaRegistradora {
 		this.totalIngresos = totalIngresos;
 	}
 	
-	
+	public double descontar(double porcentaje) {
+		double descuento = this.totalIngresos*porcentaje;
+		this.totalIngresos-= descuento;
+		return descuento;
+	}
 }

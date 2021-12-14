@@ -15,7 +15,7 @@ public abstract class Empleado implements Personal {
 	private String nombre;
 	private int cedula;
 	protected List<Servicio> servicios;
-	private double cartera;
+	protected double cartera;
 	private static List<Empleado> empleados;
 	
 	public Empleado (String nombre, int cedula) {
@@ -49,6 +49,15 @@ public abstract class Empleado implements Personal {
 		this.servicios = servicios;
 	}
 	
+	public double getCartera() {
+		return cartera;
+	}
+
+	public void setCartera(double cartera) {
+		this.cartera = cartera;
+	}
+
+	public abstract String toString();
 	
 	
 	
