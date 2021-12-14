@@ -16,11 +16,13 @@ public abstract class Empleado {
 	private int cedula;
 	protected List<Servicio> servicios;
 	private double cartera;
+	private static List<Empleado> empleados;
 	
 	public Empleado(String nombre, int cedula) {
 		this.nombre = nombre;
 		this.cedula = cedula;
 		servicios = new ArrayList<Servicio>();
+		Empleado.empleados.add(this);
 	}
 
 	public String getNombre() {
