@@ -16,7 +16,7 @@ import gestorAplicacion.tienda.Cliente;
 
 public class Deserializador {
 
-		private static File rutaTemp = new File("sr\\baseDatos\\Temp");
+		private static File rutaTemp = new File("src\\baseDatos\\Temp");
 
 		public static void deserializarBodega(Bodega bodega) {
 			File[] docs = rutaTemp.listFiles();
@@ -78,62 +78,62 @@ public class Deserializador {
 			}
 		}
 		public static void deserializarDependiente(Dependiente dependiente) {
-			File[] docs = rutaTemp.listFiles();
-			FileInputStream fis;
-			ObjectInputStream ois;
-			
-
-			for (File file : docs) {
-				if (file.getAbsolutePath().contains("dependientes")) {
-					try {
-						fis = new FileInputStream(file);
-						ois = new ObjectInputStream(fis);
-						
-						dependiente.setDependientes((List<Dependiente>) ois.readObject());
-						
-
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-					
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-					
-				}
-				}
-			}
+//			File[] docs = rutaTemp.listFiles();
+//			FileInputStream fis;
+//			ObjectInputStream ois;
+//			
+//
+//			for (File file : docs) {
+//				if (file.getAbsolutePath().contains("dependientes")) {
+//					try {
+//						fis = new FileInputStream(file);
+//						ois = new ObjectInputStream(fis);
+//						
+//						dependiente.setDependientes((List<Dependiente>) ois.readObject());
+//						
+//
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
+//					
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//					
+//				} catch (ClassNotFoundException e) {
+//					e.printStackTrace();
+//					
+//				}
+//				}
+//			}
 		}
 		
 		public static void deserializarCliente(Cliente cliente) {
-			File[] docs = rutaTemp.listFiles();
-			FileInputStream fis;
-			ObjectInputStream ois;
-			
-
-			for (File file : docs) {
-				if (file.getAbsolutePath().contains("clientes")) {
-					try {
-						fis = new FileInputStream(file);
-						ois = new ObjectInputStream(fis);
-						
-						Cliente.setClientes((List<Cliente>) ois.readObject());
-						
-						
-
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-					
-				} catch (IOException e) {
-					e.printStackTrace();
-					
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-					
-				}
-				}
-			}
+//			File[] docs = rutaTemp.listFiles();
+//			FileInputStream fis;
+//			ObjectInputStream ois;
+//			
+//
+//			for (File file : docs) {
+//				if (file.getAbsolutePath().contains("clientes")) {
+//					try {
+//						fis = new FileInputStream(file);
+//						ois = new ObjectInputStream(fis);
+//						
+//						Cliente.setClientes((List<Cliente>) ois.readObject());
+//						
+//						
+//
+//				} catch (FileNotFoundException e) {
+//					e.printStackTrace();
+//					
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//					
+//				} catch (ClassNotFoundException e) {
+//					e.printStackTrace();
+//					
+//				}
+//				}
+//			}
 		}
 //		public static void deserealizartodo () {
 //			deserializarDependiente();

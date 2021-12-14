@@ -133,6 +133,7 @@ public class Dependiente extends Empleado {
 	public void cobrarServicio(Servicio servicio) {
 		 double cobro = servicio.getCosto()*MARGEN_GANANCIA;
 		 servicio.getCliente().pagarServicio(servicio, cobro);
+		 this.cajaRegistradora.registrarVenta(cobro, servicio);
 	}
 	
 	public void cobrarSalario(CajaRegistradora caja) {
