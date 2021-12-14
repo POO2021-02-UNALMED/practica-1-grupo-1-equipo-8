@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.List;
 
+import gestorAplicacion.personal.Dependiente;
 import gestorAplicacion.tienda.Bodega;
 import gestorAplicacion.tienda.Componente;
 import gestorAplicacion.tienda.CajaRegistradora;
+import gestorAplicacion.tienda.Cliente;
 
 public class Deserializador {
 
@@ -37,18 +39,17 @@ public class Deserializador {
 				} catch (IOException e) {
 					e.printStackTrace();
 					
-				}catch (ClassNotFoundException e) {
+				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 					
 				}
 				}
 			}
 		}
-					//else if () {}
 		
 	
 
-		public static void deserializar(CajaRegistradora caja) {
+		public static void deserializarCajaRegistradora(CajaRegistradora caja) {
 			File[] docs = rutaTemp.listFiles();
 			FileInputStream fis;
 			ObjectInputStream ois;
@@ -71,8 +72,71 @@ public class Deserializador {
 					
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
-}
+					
+				}
 				}
 			}
 		}
+		public static void deserializarDependiente(Dependiente dependiente) {
+			File[] docs = rutaTemp.listFiles();
+			FileInputStream fis;
+			ObjectInputStream ois;
+			
+
+			for (File file : docs) {
+				if (file.getAbsolutePath().contains("dependientes")) {
+					try {
+						fis = new FileInputStream(file);
+						ois = new ObjectInputStream(fis);
+						
+						dependiente.setDependientes((List<Dependiente>) ois.readObject());
+						
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+					
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					
+				}
+				}
+			}
+		}
+		
+		public static void deserializarDependiente(Cliente cliente) {
+			File[] docs = rutaTemp.listFiles();
+			FileInputStream fis;
+			ObjectInputStream ois;
+			
+
+			for (File file : docs) {
+				if (file.getAbsolutePath().contains("clientes")) {
+					try {
+						fis = new FileInputStream(file);
+						ois = new ObjectInputStream(fis);
+						
+						Cliente.setClientes((List<Cliente>) ois.readObject());
+						
+						
+
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+					
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					
+				}
+				}
+			}
+		}
+//		public static void deserealizartodo () {
+//			deserializarDependiente();
+//			deserializar
+//		}
 }

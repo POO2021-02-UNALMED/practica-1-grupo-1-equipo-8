@@ -131,9 +131,20 @@ public class Dependiente extends Empleado {
 		 servicio.getCliente().pagarServicio(servicio, cobro);
 	}
 
+<<<<<<< Updated upstream
 	@Override
 	public void cobrarSalario(CajaRegistradora caja) {
 		// TODO Auto-generated method stub
 		
 	}
+=======
+	public static List<Dependiente> getDependientes() {
+		return dependientes;
+	}
+
+	public static void setDependientes(List<Dependiente> dependientes) {
+		Dependiente.dependientes = dependientes;
+	}
+	
+>>>>>>> Stashed changes
 }
