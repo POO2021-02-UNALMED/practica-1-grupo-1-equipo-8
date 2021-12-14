@@ -10,7 +10,7 @@ import gestorAplicacion.tienda.*;
  * Punto importante: La lista servicios, la cual mantiene todos los servicios en los que un empleado esté trabajando/involucrado.
  *
  */
-public abstract class Empleado {
+public abstract class Empleado implements Personal {
 
 	private String nombre;
 	private int cedula;
@@ -18,7 +18,7 @@ public abstract class Empleado {
 	private double cartera;
 	private static List<Empleado> empleados;
 	
-	public Empleado(String nombre, int cedula) {
+	public Empleado (String nombre, int cedula) {
 		this.nombre = nombre;
 		this.cedula = cedula;
 		servicios = new ArrayList<Servicio>();
@@ -49,8 +49,7 @@ public abstract class Empleado {
 		this.servicios = servicios;
 	}
 	
-	public abstract void quitarServicio(Servicio servicio);
-	public abstract void asignarServicio(Servicio servicio);
+	
 	
 	
 }
