@@ -3,6 +3,7 @@ package gestorAplicacion.tienda;
 import java.util.ArrayList;
 import java.util.List;
 
+import baseDatos.Deserializador;
 import gestorAplicacion.personal.Dependiente;
 
 /**
@@ -23,8 +24,12 @@ public class Cliente {
 	static {
 		clientes = new ArrayList<Cliente>();
 	}
-
+	public Cliente() {
+		Deserializador.deserializarCliente(this);
+	}
+	
 	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente, double cartera) {
+		this();
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.productos = productos;

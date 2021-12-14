@@ -1,5 +1,8 @@
 package gestorAplicacion.tienda;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import gestorAplicacion.personal.Dependiente;
 import gestorAplicacion.personal.Tecnico;
 /**
@@ -22,9 +25,11 @@ public class Servicio {
 	double costo;
 	String diagnostico;
 	
+	
 	public Servicio() {
 		this.identificador = proximoIdentificador;
 		proximoIdentificador += 1;
+		
 	}
 
 	public Servicio(Tecnico tecnico, Producto producto, Cliente cliente,

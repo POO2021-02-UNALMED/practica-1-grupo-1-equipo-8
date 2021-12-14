@@ -72,7 +72,7 @@ public class Serializador {
 				try {
 					fos = new FileOutputStream(file);
 					oos = new ObjectOutputStream(fos);
-					oos.writeObject(caja.getTotalIngresos());
+					oos.writeObject(caja);
 
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();

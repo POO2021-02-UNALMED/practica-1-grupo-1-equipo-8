@@ -3,7 +3,10 @@ package gestorAplicacion.personal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import baseDatos.Deserializador;
 import gestorAplicacion.tienda.*;
+
 /**
  * 
  * @author Esteban Garcia
@@ -24,10 +27,12 @@ public class Dependiente extends Empleado {
 	private CajaRegistradora cajaRegistradora;
 	private static final double MARGEN_GANANCIA = 1.5;
 	
+	
 	public Dependiente(String nombre, int cedula, CajaRegistradora caja) {
 		super(nombre, cedula);
 		this.cajaRegistradora = caja;
 		dependientes.add(this);
+		Deserializador.deserializarDependiente(this);
 	}
 	
 	public Dependiente(String nombre, int cedula, CajaRegistradora caja, List<Servicio> servicios) {
@@ -146,5 +151,3 @@ public class Dependiente extends Empleado {
 		Dependiente.dependientes = dependientes;
 	}
 }
-	
-

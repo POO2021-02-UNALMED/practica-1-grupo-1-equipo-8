@@ -18,7 +18,7 @@ public class Deserializador {
 
 		private static File rutaTemp = new File("sr\\baseDatos\\Temp");
 
-		public static void deserializar(Bodega bodega) {
+		public static void deserializarBodega(Bodega bodega) {
 			File[] docs = rutaTemp.listFiles();
 			FileInputStream fis;
 			ObjectInputStream ois;
@@ -106,7 +106,7 @@ public class Deserializador {
 			}
 		}
 		
-		public static void deserializarDependiente(Cliente cliente) {
+		public static void deserializarCliente(Cliente cliente) {
 			File[] docs = rutaTemp.listFiles();
 			FileInputStream fis;
 			ObjectInputStream ois;
