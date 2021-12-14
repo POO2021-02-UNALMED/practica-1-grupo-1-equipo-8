@@ -28,7 +28,6 @@ public class Bodega {
 	public static Componente sacarComponente(String nombreComponente) {
 		for (Componente componente: componentes) {
 			if (componente.getNombre().equals(nombreComponente)) {
-				componentes.remove(componente);
 				return componente;
 			}
 		}
