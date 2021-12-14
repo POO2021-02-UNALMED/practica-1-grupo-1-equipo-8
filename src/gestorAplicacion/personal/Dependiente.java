@@ -130,4 +130,16 @@ public class Dependiente extends Empleado {
 		 double cobro = servicio.getCosto()*MARGEN_GANANCIA;
 		 servicio.getCliente().pagarServicio(servicio, cobro);
 	}
+
+	@Override
+	public void cobrarSalario(CajaRegistradora caja) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String agradecer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
