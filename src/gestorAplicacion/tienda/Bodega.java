@@ -34,6 +34,20 @@ public class Bodega {
 		}
 		return null;
 	}
+	
+	/**
+	 * Sobrecargamos el metodo principal de sacarComponente para buscar por componente.
+	 * @param componente
+	 * @return Componente
+	 */
+	public static Componente sacarComponente(Componente componente) {
+		int index = componentes.indexOf(componente);
+		if (index >= 0) {
+			return componentes.remove(index);
+		}
+		return null;
+	}
+	
 	public static List<Componente> getComponentes(){
 		return componentes;
 	}
