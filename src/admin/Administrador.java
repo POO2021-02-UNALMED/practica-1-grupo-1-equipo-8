@@ -49,6 +49,7 @@ public class Administrador {
 			System.out.println(" 7. Generar cliente");
 			System.out.println(" 8. Mostrar clientes");
 			System.out.println(" 9. Mostrar servicios");
+			System.out.println(" 0. Solicitar reparacion");
 
 			System.out.println("Elija una opcion: ");
 			opcion = (int) readInt();
@@ -57,6 +58,9 @@ public class Administrador {
 
 			case 1:
 				diagnosticar();
+				break;
+			case 2:
+				reparar();
 				break;
 			case 7:
 				 cliente = generarCliente();
@@ -70,12 +74,14 @@ public class Administrador {
 				}
 				break;
 			case 9:
+				System.out.println("Servicio activos:");
 				for(int i= 0; i < Servicio.getServicios().size(); i++) {
 					Servicio servicio = Servicio.getServicios().get(i);
-					if (!servicio.isReparado()) {
 						System.out.println("Servicio id:" + i + servicio.toString());
-					}
 				}
+				break;
+			case 0:
+				solicitarReparacion();
 				break;
 			}
 			if (opcion != 6) {
@@ -107,11 +113,24 @@ public class Administrador {
 			System.out.println("Escoja el servicio con su index para reparar el producto asociado: ");
 			
 			int index = readInt();
-			
 			Servicio servicio = Servicio.getServicios().get(index);
 			servicio.getTecnico().reparar(servicio);
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
+		}
+	}
+	
+	static void solicitarReparacion() {
+		System.out.println("Ingrese el id del cliente para solicitar la reparacion de su producto: ");
+		try {
+		int index = readInt();
+		Cliente cliente = Cliente.getClientes().get(index);
+		cliente.solicitarReparacion(cliente.getProductos().get(0));
+		
+		System.out.println("El cliente fue atendido exitosamente!\n"
+				+ " ya puede consultar en los servicios para inicial su diagnostico o reparacion.");
+		} catch (Exception e) {
+			System.out.println("El id del cliente no es correcto");
 		}
 	}
 	

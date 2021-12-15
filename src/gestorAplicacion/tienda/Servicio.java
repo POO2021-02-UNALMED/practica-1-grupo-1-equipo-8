@@ -44,6 +44,7 @@ public class Servicio {
 		this.cliente = cliente;
 		this.dependiente = dependiente;
 		this.reparado = false;
+		servicios.add(this);
 	}
 
 
