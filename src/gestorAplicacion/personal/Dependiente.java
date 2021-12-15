@@ -20,6 +20,7 @@ public class Dependiente extends Empleado {
 	static {
 		dependientes = new ArrayList<Dependiente>();
 		new Dependiente("Camila", 1237465, new CajaRegistradora());
+		
 	}
 	
 	private CajaRegistradora cajaRegistradora;

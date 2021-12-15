@@ -1,5 +1,6 @@
 package gestorAplicacion.tienda;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,9 @@ import baseDatos.Deserializador;
  * @summary La bodega se encarga de almacenar los componentes de los cuales 
  * dispone la empresa, que puede usar el tecnico para remplazar piezas.
 */
-public class Bodega {
+public class Bodega implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private static List<Componente> componentes;
 	static {
 		componentes = new ArrayList<Componente>();
