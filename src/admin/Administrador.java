@@ -26,8 +26,8 @@ public class Administrador {
 
 	}
 
-	static long readLong() {
-		return sc.nextLong();
+	static double readDouble() {
+		return sc.nextDouble();
 
 	}
 
