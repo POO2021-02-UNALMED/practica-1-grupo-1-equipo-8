@@ -24,6 +24,7 @@ public class Servicio {
 	private Dependiente dependiente;
 	private double costo;
 	private String diagnostico;
+	private boolean reparado;
 	
 	static {
 		servicios = new ArrayList<Servicio>();
@@ -42,6 +43,7 @@ public class Servicio {
 		this.setFecha(new Date());
 		this.cliente = cliente;
 		this.dependiente = dependiente;
+		this.reparado = false;
 	}
 
 
@@ -117,6 +119,14 @@ public class Servicio {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public boolean isReparado() {
+		return reparado;
+	}
+
+	public void setReparado(boolean reparado) {
+		this.reparado = reparado;
 	}
 	
 	

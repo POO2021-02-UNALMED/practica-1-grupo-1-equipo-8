@@ -87,6 +87,7 @@ public class Tecnico extends Empleado {
 				servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio());
 			}
 		}
+		servicio.setReparado(true);
 		quitarServicio(servicio);
 	}
 	/**
