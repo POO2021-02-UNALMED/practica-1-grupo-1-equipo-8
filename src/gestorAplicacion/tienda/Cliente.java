@@ -117,4 +117,8 @@ public class Cliente {
 	public double getCartera() {
 		return cartera;
 	}	
+	
+	public String toString() {
+		return " nombre: " + nombre + " cc: " + cedula + " cartera: " + cartera;
+	}
 }
