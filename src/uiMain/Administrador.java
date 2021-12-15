@@ -1,4 +1,4 @@
-package admin;
+package uiMain;
 
 import java.util.ArrayList;
 import java.util.List;
