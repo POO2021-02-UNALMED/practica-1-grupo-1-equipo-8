@@ -47,4 +47,13 @@ public class Producto {
 		return this.nombre + " de tipo " + this.tipo;
 	}
 	
+	public String getNombre() {
+		return nombre;
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	
 }

@@ -16,6 +16,7 @@ public class Servicio {
 	
 	private int identificador;
 	private static int proximoIdentificador;
+	private static List<Servicio> servicios;
 	Tecnico tecnico;
 	boolean pagado;
 	Producto producto;
@@ -25,10 +26,14 @@ public class Servicio {
 	double costo;
 	String diagnostico;
 	
+	static {
+		servicios = new ArrayList<Servicio>();
+	}
 	
 	public Servicio() {
 		this.identificador = proximoIdentificador;
 		proximoIdentificador += 1;
+		
 		
 	}
 
@@ -96,6 +101,19 @@ public class Servicio {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public static List<Servicio> getServicios() {
+		return servicios;
+	}
+
+	public static void setServicios(List<Servicio> servicios) {
+		Servicio.servicios = servicios;
+	}
+
+	public Tecnico getTecnico() {
+		return tecnico;
+	}
+	
 	
 	
 }
