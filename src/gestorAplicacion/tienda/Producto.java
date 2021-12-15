@@ -10,14 +10,12 @@ import java.util.*;
 */
 public class Producto {
 	private String nombre;
-	private String tipo;
 	private List<Componente> componentes;
 	
 	
-	public Producto(String nombre, String tipo, List<Componente> componentes) {
+	public Producto(String nombre, List<Componente> componentes) {
 		super();
 		this.nombre = nombre;
-		this.tipo = tipo;
 		this.componentes = componentes;
 	}
 	/**
@@ -44,7 +42,7 @@ public class Producto {
 	}
 	
 	public String toString() {
-		return this.nombre + " de tipo " + this.tipo;
+		return this.nombre;
 	}
 	
 	public String getNombre() {

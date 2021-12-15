@@ -14,7 +14,7 @@ public class Tecnico extends Empleado {
 	public static List<Tecnico> tecnicos;
 	static {
 		tecnicos = new ArrayList<Tecnico>();
-		Tecnico tecnico1 = new Tecnico("Emilio", 987654);
+		new Tecnico("Emilio", 987654);
 	}
 	
 	public Tecnico(String nombre, int cedula) {
