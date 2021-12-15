@@ -44,7 +44,7 @@ public class Administrador {
 			System.out.println(" 4. Cobrar un servicio");
 			System.out.println(" 5. Ver liquidacion");
 			
-			System.out.println(" Opciones");
+			System.out.println(" Opciones alternativas");
 			System.out.println(" 6. Guardar y cerrar");
 			System.out.println(" 7. Generar cliente");
 			System.out.println(" 8. Mostrar clientes");
@@ -69,6 +69,12 @@ public class Administrador {
 					System.out.println("Cliente id:" + i + cliente.toString());
 				}
 				break;
+			case 9:
+				for(int i= 0; i < Servicio.getServicios().size(); i++) {
+					Servicio servicio = Servicio.getServicios().get(i);
+					System.out.println("Servicio id:" + i + servicio.toString());
+				}
+				break;
 			}
 			if (opcion != 6) {
 				System.out.println("\nPresione cualquer tecla para continuar");
@@ -84,11 +90,13 @@ public class Administrador {
 
 	static void diagnosticar() {
 		try {
-			System.out.println("Ingrese el id del cliente");
-			int idCliente = readInt();
-			Cliente cliente = Cliente.getClientes().get(idCliente);
+			System.out.println("Ingrese el id del servicio");
+			int idServicio = readInt();
+			Servicio servicio = Servicio.getServicios().get(idServicio);
+			servicio.getTecnico().diagnosticar(servicio);
+			System.out.println(servicio.getDiagnostico());
 		} catch (Exception e) {
-			System.out.println("El id no es correcto");
+			System.out.println("El id del servicio no es correcto");
 		}
 	}
 	
