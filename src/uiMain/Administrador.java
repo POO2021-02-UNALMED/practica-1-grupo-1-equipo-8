@@ -38,8 +38,8 @@ public class Administrador {
 		do {
 			System.out.println("Buenos dias Administrador\n");
 			System.out.println("Que desea hacer?");
-			System.out.println(" 1. Diagnosticar un nuevo producto");
-			System.out.println(" 2. Mandar a reparar un producto");
+			System.out.println(" 1. Diagnosticar un producto");
+			System.out.println(" 2. Reparar un producto");
 			System.out.println(" 3. Finalizar un servicio");
 			System.out.println(" 4. Cobrar un servicio");
 			System.out.println(" 5. Ver liquidacion");
