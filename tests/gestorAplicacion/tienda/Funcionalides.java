@@ -19,7 +19,7 @@ class Funcionalides {
 		List<Componente> lista = new ArrayList<Componente>();
 		lista.add(new Componente("display", false));
 		lista.add(new Componente("puerto de carga", true));
-		Producto producto = new Producto("Iphone", "celular", lista);
+		Producto producto = new Producto("Iphone", lista);
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		
 		CajaRegistradora cajaRegistradora = new CajaRegistradora();
@@ -39,7 +39,7 @@ class Funcionalides {
 		List<Componente> lista = new ArrayList<Componente>();
 		lista.add(new Componente("display", false));
 		lista.add(new Componente("puerto de carga", true));
-		Producto producto = new Producto("Iphone", "celular", lista);
+		Producto producto = new Producto("Iphone", lista);
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		
 		Bodega.agregarComponente(new Componente("puerto de carga", false, 50000));
@@ -63,7 +63,7 @@ class Funcionalides {
 		List<Componente> lista = new ArrayList<Componente>();
 		lista.add(new Componente("display", false));
 		lista.add(new Componente("puerto de carga", true));
-		Producto producto = new Producto("Iphone", "celular", lista);
+		Producto producto = new Producto("Iphone", lista);
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		
 		Bodega.agregarComponente(new Componente("puerto de carga", false, 50000));
@@ -95,7 +95,7 @@ class Funcionalides {
 		List<Componente> lista = new ArrayList<Componente>();
 		lista.add(new Componente("display", false));
 		lista.add(new Componente("puerto de carga", true));
-		Producto producto = new Producto("Iphone", "celular", lista);
+		Producto producto = new Producto("Iphone", lista);
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		
 		Bodega.agregarComponente(new Componente("puerto de carga", false, 50000));
@@ -119,7 +119,7 @@ class Funcionalides {
 		List<Componente> lista = new ArrayList<Componente>();
 		lista.add(new Componente("display", false));
 		lista.add(new Componente("puerto de carga", true));
-		Producto producto = new Producto("Iphone", "celular", lista);
+		Producto producto = new Producto("Iphone", lista);
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		
 		Bodega.agregarComponente(new Componente("puerto de carga", false, 50000));
