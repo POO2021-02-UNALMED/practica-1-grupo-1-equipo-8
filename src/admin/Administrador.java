@@ -72,7 +72,9 @@ public class Administrador {
 			case 9:
 				for(int i= 0; i < Servicio.getServicios().size(); i++) {
 					Servicio servicio = Servicio.getServicios().get(i);
-					System.out.println("Servicio id:" + i + servicio.toString());
+					if (!servicio.isReparado()) {
+						System.out.println("Servicio id:" + i + servicio.toString());
+					}
 				}
 				break;
 			}
@@ -95,6 +97,19 @@ public class Administrador {
 			Servicio servicio = Servicio.getServicios().get(idServicio);
 			servicio.getTecnico().diagnosticar(servicio);
 			System.out.println(servicio.getDiagnostico());
+		} catch (Exception e) {
+			System.out.println("El id del servicio no es correcto");
+		}
+	}
+	
+	static void reparar() {
+		try {
+			System.out.println("Escoja el servicio con su index para reparar el producto asociado: ");
+			
+			int index = readInt();
+			
+			Servicio servicio = Servicio.getServicios().get(index);
+			servicio.getTecnico().reparar(servicio);
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
