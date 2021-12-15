@@ -12,12 +12,12 @@ public class Producto {
 	private String nombre;
 	private List<Componente> componentes;
 	
-	
 	public Producto(String nombre, List<Componente> componentes) {
 		super();
 		this.nombre = nombre;
 		this.componentes = componentes;
 	}
+	
 	/**
 	 * 
 	 * @param componente
@@ -27,6 +27,7 @@ public class Producto {
 	public void agregarComponente(Componente componente) {
 		componentes.add(componente);
 	}
+	
 	/**
 	 * 
 	 * @param componente
@@ -52,6 +53,4 @@ public class Producto {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
 }

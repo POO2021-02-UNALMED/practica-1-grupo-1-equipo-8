@@ -13,18 +13,17 @@ import gestorAplicacion.personal.Tecnico;
  *
  */
 public class Servicio {
-	
 	private int identificador;
 	private static int proximoIdentificador;
 	private static List<Servicio> servicios;
-	Tecnico tecnico;
-	boolean pagado;
-	Producto producto;
-	Date fecha;
-	Cliente cliente;
-	Dependiente dependiente;
-	double costo;
-	String diagnostico;
+	private Tecnico tecnico;
+	private boolean pagado;
+	private Producto producto;
+	private Date fecha;
+	private Cliente cliente;
+	private Dependiente dependiente;
+	private double costo;
+	private String diagnostico;
 	
 	static {
 		servicios = new ArrayList<Servicio>();
@@ -33,8 +32,6 @@ public class Servicio {
 	public Servicio() {
 		this.identificador = proximoIdentificador;
 		proximoIdentificador += 1;
-		
-		
 	}
 
 	public Servicio(Tecnico tecnico, Producto producto, Cliente cliente,
@@ -42,7 +39,7 @@ public class Servicio {
 		this();
 		this.tecnico = tecnico;
 		this.producto = producto;
-		this.fecha = new Date();
+		this.setFecha(new Date());
 		this.cliente = cliente;
 		this.dependiente = dependiente;
 	}
@@ -112,6 +109,14 @@ public class Servicio {
 
 	public Tecnico getTecnico() {
 		return tecnico;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	
 	

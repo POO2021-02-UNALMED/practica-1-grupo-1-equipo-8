@@ -83,7 +83,13 @@ public class Administrador {
 	}
 
 	static void diagnosticar() {
-		
+		try {
+			System.out.println("Ingrese el id del cliente");
+			int idCliente = readInt();
+			Cliente cliente = Cliente.getClientes().get(idCliente);
+		} catch (Exception e) {
+			System.out.println("El id no es correcto");
+		}
 	}
 	
 	public static Cliente generarCliente() {
