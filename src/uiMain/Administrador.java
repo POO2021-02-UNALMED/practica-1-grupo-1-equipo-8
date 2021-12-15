@@ -64,7 +64,7 @@ public class Administrador {
 				break;
 			case 7:
 				 cliente = generarCliente();
-				 System.out.println("Se genero el cliente id:" + 
+				 System.out.println("Se genero el cliente ID:" + 
 				 (Cliente.getClientes().size()-1) + cliente.toString());
 				break;
 			case 8:
@@ -185,7 +185,7 @@ public class Administrador {
         
         List<Producto> productos = new ArrayList<Producto>();
         productos.add(producto);
-		double cartera = 450000 + 1000000 * Math.random();
+		double cartera = Math.round(450000 + 1000000 * Math.random());
 
         Cliente cliente = new Cliente(
         		nombres[rand.nextInt(nombres.length)], 

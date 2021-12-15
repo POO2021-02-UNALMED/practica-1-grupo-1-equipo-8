@@ -119,6 +119,6 @@ public class Cliente {
 	}	
 	
 	public String toString() {
-		return " nombre: " + nombre + " cc: " + cedula + " cartera: " + cartera;
+		return " Nombre: " + nombre + " CC: " + cedula + " Cartera: " + cartera;
 	}
 }
