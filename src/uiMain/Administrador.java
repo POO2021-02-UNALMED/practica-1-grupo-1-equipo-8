@@ -115,6 +115,7 @@ public class Administrador {
 			int index = readInt();
 			Servicio servicio = Servicio.getServicios().get(index);
 			servicio.getTecnico().reparar(servicio);
+			System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por " + servicio.getTecnico() + " tuvo un costo final de " + servicio.getCosto());
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
@@ -133,6 +134,20 @@ public class Administrador {
 			System.out.println("El id del cliente no es correcto");
 		}
 	}
+	static void finalizarServicio() {
+		System.out.println("Escoja el servicio con su index para finalizar: ");
+		int index = readInt();
+		Servicio servicio = Servicio.getServicios().get(index);
+		
+		if (servicio.getCosto() == 0) {
+			System.out.println("El costo es nulo");
+		}
+		Dependiente dependiente = servicio.getDependiente();
+		dependiente.finalizarServicio(servicio);
+		
+			
+	}
+	
 	
 	public static Cliente generarCliente() {
 		String[] nombres = {
