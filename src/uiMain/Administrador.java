@@ -62,6 +62,9 @@ public class Administrador {
 			case 4:
 				cobrarServicio();
 				break;
+			case 5:
+				liquidar();
+				break;
 			case 7:
 				cliente = generarCliente();
 				System.out
@@ -130,7 +133,7 @@ public class Administrador {
 			cliente.solicitarReparacion(cliente.getProductos().get(0));
 
 			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre() +"!\n"
-					+ " ya puede consultar en los servicios para inicial su diagnostico o reparacion.");
+					+ " ya puede consultar en los servicios para iniciar su diagnostico o reparacion.");
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}
@@ -174,6 +177,22 @@ public class Administrador {
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}
+	}
+	
+	static void liquidar() {
+		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
+		for (Empleado empleado: Empleado.getEmpleados()) {
+			double carteraInicial = empleado.getCartera();
+			
+			empleado.cobrarSalario(caja);
+			
+			double carteraAhora = empleado.getCartera();
+			double liquidado = carteraAhora-carteraInicial;
+			
+			System.out.println("El empleado " + empleado.getNombre() + " ha recibido " + liquidado + " por su trabajo.");
+		}
+		//Que se descuente una vez liquidados a todos//
+		System.out.println("En la caja registradora quedan " + caja.getTotalIngresos());
 	}
 
 	public static Cliente generarCliente() {

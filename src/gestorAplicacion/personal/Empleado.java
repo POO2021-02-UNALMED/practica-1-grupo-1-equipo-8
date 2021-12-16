@@ -59,6 +59,14 @@ public abstract class Empleado implements Personal {
 	public void setCartera(double cartera) {
 		this.cartera = cartera;
 	}
+	
+	public static List<Empleado> getEmpleados() {
+		return empleados;
+	}
+
+	public static void setEmpleados(List<Empleado> empleados) {
+		Empleado.empleados = empleados;
+	}
 
 	public abstract String toString();
 	
