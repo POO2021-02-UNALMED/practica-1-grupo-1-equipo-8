@@ -10,7 +10,6 @@ import gestorAplicacion.tienda.*;
 import java.io.IOException;
 import java.lang.Math;
 
-
 public class Administrador {
 	static Scanner sc = new Scanner(System.in);
 	static Bodega bodega = new Bodega();
@@ -59,6 +58,9 @@ public class Administrador {
 				break;
 			case 3:
 				finalizarServicio();
+				break;
+			case 4:
+				cobrarServicio();
 				break;
 			case 7:
 				cliente = generarCliente();
@@ -114,7 +116,7 @@ public class Administrador {
 			Servicio servicio = Servicio.getServicios().get(index);
 			servicio.getTecnico().reparar(servicio);
 			System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
-					+ servicio.getTecnico() + " y tuvo un costo final de " + servicio.getCosto());
+					+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
@@ -135,17 +137,40 @@ public class Administrador {
 	}
 
 	static void finalizarServicio() {
-		System.out.println("Escoja el servicio con su index para finalizar: ");
+		System.out.println("Ingrese el id del servicio a finalizar: ");
 		int index = readInt();
 		Servicio servicio = Servicio.getServicios().get(index);
 
 		if (servicio.getCosto() == 0) {
 			System.out.println("El costo es nulo");
 		}
-		
+
 		Dependiente dependiente = servicio.getDependiente();
 		dependiente.finalizarServicio(servicio);
 		System.out.println(servicio.getCliente().getRecibos().get(0));
+		System.out.println("El servicio ya está listo para ser cobrado");
+	}
+
+	static void cobrarServicio() {
+
+		try {
+			System.out.println("Ingrese el id del servicio a cobrar: ");
+			int index = readInt();
+			Servicio servicio = Servicio.getServicios().get(index);
+			Dependiente dependiente = servicio.getDependiente();
+
+			dependiente.cobrarServicio(servicio);
+			if (servicio.isPagado()) {
+				System.out.println(
+						"Se cobra el servicio por un total de " + servicio.getCosto() * Dependiente.getMargenGanancia());
+				System.out.println("En la caja registradora ahora hay "
+						+ dependiente.getCajaRegistradora().getTotalIngresos() + " pesos");
+			} else {
+				System.out.println("No se ha pagado el servicio! Se llamara a la policia para que lo encanen.");
+			}
+		} catch (Exception e) {
+			System.out.println("El id del cliente no es correcto");
+		}
 	}
 
 	public static Cliente generarCliente() {
@@ -185,6 +210,6 @@ public class Administrador {
 		for (Componente componente : componentes) {
 			Bodega.agregarComponente(componente);
 		}
-			return cliente;
+		return cliente;
 	}
 }

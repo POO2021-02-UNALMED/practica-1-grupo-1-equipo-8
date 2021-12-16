@@ -49,11 +49,10 @@ public class Cliente {
 	}
 
 	/**
-	 * El cliente solo puede pagar el servicio cuando esta finalizado, al finalizar
-	 * el metodo retorna un boolean que confirma si pago o no el servicio.
+	 * El cliente solo puede pagar el servicio cuando esta finalizado.
 	 * 
 	 * @param servicio
-	 * @return boolean
+	 * 
 	 */
 	public void pagarServicio(Servicio servicio, double cobro) {
 		if (!servicio.isPagado() && cartera >= cobro) {

@@ -160,4 +160,9 @@ public class Dependiente extends Empleado {
 	public static void setDependientes(List<Dependiente> dependientes) {
 		Dependiente.dependientes = dependientes;
 	}
+
+	public static double getMargenGanancia() {
+		return MARGEN_GANANCIA;
+	}
+	
 }
