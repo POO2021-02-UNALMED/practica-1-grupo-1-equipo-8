@@ -31,6 +31,7 @@ public class Administrador {
 
 	public static void main(String[] args) {
 		cargar();
+		inicializar();
 		int opcion;
 		Cliente cliente;
 		do {
@@ -137,8 +138,8 @@ public class Administrador {
 			Cliente cliente = Cliente.getClientes().get(index);
 			cliente.solicitarReparacion(cliente.getProductos().get(0));
 
-			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre() +"!\n"
-					+ " ya puede consultar en los servicios para iniciar su diagnostico o reparacion.");
+			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre()
+					+ "!\n" + " ya puede consultar en los servicios para iniciar su diagnostico o reparacion.");
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}
@@ -149,7 +150,7 @@ public class Administrador {
 			System.out.println("Ingrese el id del servicio a finalizar: ");
 			int index = readInt();
 			Servicio servicio = Servicio.getServicios().get(index);
-			
+
 			if (servicio.isReparado()) {
 				Dependiente dependiente = servicio.getDependiente();
 				dependiente.finalizarServicio(servicio);
@@ -170,36 +171,35 @@ public class Administrador {
 			Servicio servicio = Servicio.getServicios().get(index);
 			Dependiente dependiente = servicio.getDependiente();
 
-			
 			if (!servicio.isPagado()) {
 				dependiente.cobrarServicio(servicio);
-				System.out.println(
-						"Se cobra el servicio por un total de " + servicio.getCosto() * Dependiente.getMargenGanancia());
+				System.out.println("Se cobra el servicio por un total de "
+						+ servicio.getCosto() * Dependiente.getMargenGanancia());
 				System.out.println("En la caja registradora ahora hay "
 						+ dependiente.getCajaRegistradora().getTotalIngresos() + " pesos");
 			} else {
 				System.out.println("Ya se ha cobrado el servicio! Se lamenta la molestia.");
-				
+
 			}
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}
 	}
-	
+
 	static void liquidar() {
 		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
 		double contador = 0;
-		for (Empleado empleado: Empleado.getEmpleados()) {
+		for (Empleado empleado : Empleado.getEmpleados()) {
 			double carteraInicial = empleado.getCartera();
-			
+
 			empleado.cobrarSalario(caja);
-			
+
 			double carteraAhora = empleado.getCartera();
-			double liquidado = carteraAhora-carteraInicial;
-			contador+= liquidado;
-			System.out.println("El "+ empleado.toString() + " ha recibido " + liquidado + " por su trabajo.");
+			double liquidado = carteraAhora - carteraInicial;
+			contador += liquidado;
+			System.out.println("El " + empleado.toString() + " ha recibido " + liquidado + " por su trabajo.");
 		}
-		caja.setTotalIngresos(caja.getTotalIngresos()-contador);
+		caja.setTotalIngresos(caja.getTotalIngresos() - contador);
 		System.out.println("En la caja registradora quedan " + caja.getTotalIngresos());
 	}
 
@@ -242,12 +242,20 @@ public class Administrador {
 		}
 		return cliente;
 	}
-	
+
 	public static void guardar() {
 		Serializador.serializarTodo();
 	}
-	
+
 	public static void cargar() {
 		Deserializador.deserializarTodo();
+	}
+
+	public static void inicializar() {
+		if (Dependiente.getDependientes().isEmpty())
+			new Dependiente("Camila", 1237465, new CajaRegistradora());
+
+		if (Tecnico.tecnicos.isEmpty())
+			new Tecnico("Emilio", 987654);
 	}
 }

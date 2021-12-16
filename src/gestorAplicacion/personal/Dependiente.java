@@ -24,7 +24,7 @@ public class Dependiente extends Empleado implements Serializable {
 	static List<Dependiente> dependientes;
 	static {
 		dependientes = new ArrayList<Dependiente>();
-		new Dependiente("Camila", 1237465, new CajaRegistradora());
+		
 
 	}
 

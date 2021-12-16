@@ -16,7 +16,7 @@ public class Tecnico extends Empleado implements Serializable {
 	public static List<Tecnico> tecnicos;
 	static {
 		tecnicos = new ArrayList<Tecnico>();
-		new Tecnico("Emilio", 987654);
+		
 	}
 	
 	public Tecnico(String nombre, int cedula) {
