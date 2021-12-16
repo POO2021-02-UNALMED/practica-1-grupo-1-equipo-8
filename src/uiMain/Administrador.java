@@ -242,24 +242,10 @@ public class Administrador {
 	}
 	
 	public static void guardar() {
-		Serializador.serializar(Dependiente.getDependientes(), "Dependientes");
-		Serializador.serializar(Tecnico.tecnicos, "Tecnicos");
-		Serializador.serializar(CajaRegistradora.cajasRegistradoras, "CajasRegistradoras");
-		Serializador.serializar(Cliente.getClientes(), "Clientes");
-		Serializador.serializar(Componente.componentes, "Componentes");
-		Serializador.serializar(Producto.productos, "Productos");
-		Serializador.serializar(Servicio.getServicios(), "Servicios");
-		Serializador.serializar(Bodega.getComponentes(), "Bodega");
+		Serializador.serializarTodo();
 	}
 	
 	public static void cargar() {
-		Deserializador.deserializador(Dependiente.getDependientes(), "Dependientes");
-		Deserializador.deserializador(Tecnico.tecnicos, "Tecnicos");
-		Deserializador.deserializador(CajaRegistradora.cajasRegistradoras, "CajasRegistradoras");
-		Deserializador.deserializador(Cliente.getClientes(), "Clientes");
-		Deserializador.deserializador(Componente.componentes, "Componentes");
-		Deserializador.deserializador(Producto.productos, "Productos");
-		Deserializador.deserializador(Servicio.getServicios(), "Servicios");
-		Deserializador.deserializador(Bodega.getComponentes(), "Bodega");
+		Deserializador.deserializarTodo();
 	}
 }

@@ -8,6 +8,15 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import gestorAplicacion.personal.Dependiente;
+import gestorAplicacion.personal.Tecnico;
+import gestorAplicacion.tienda.Bodega;
+import gestorAplicacion.tienda.CajaRegistradora;
+import gestorAplicacion.tienda.Cliente;
+import gestorAplicacion.tienda.Componente;
+import gestorAplicacion.tienda.Producto;
+import gestorAplicacion.tienda.Servicio;
+
 public class Deserializador {
 		public static <E> void deserializador(List<E> list, String className) {
 			FileInputStream fileIn;
@@ -43,5 +52,16 @@ public class Deserializador {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		public static void deserializarTodo() {
+			Deserializador.deserializador(Dependiente.getDependientes(), "Dependientes");
+			Deserializador.deserializador(Tecnico.tecnicos, "Tecnicos");
+			Deserializador.deserializador(CajaRegistradora.cajasRegistradoras, "CajasRegistradoras");
+			Deserializador.deserializador(Cliente.getClientes(), "Clientes");
+			Deserializador.deserializador(Componente.componentes, "Componentes");
+			Deserializador.deserializador(Producto.productos, "Productos");
+			Deserializador.deserializador(Servicio.getServicios(), "Servicios");
+			Deserializador.deserializador(Bodega.getComponentes(), "Bodega");
 		}
 }
