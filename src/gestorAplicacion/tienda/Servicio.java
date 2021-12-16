@@ -130,6 +130,12 @@ public class Servicio {
 		this.reparado = reparado;
 	}
 	
+	public String toString() {
+		return "Identificador del servicio: " + this.identificador
+				+ "\nProducto asociado: " + this.producto
+				+ "\nReparado: " + this.reparado
+				+ "\nPagado: " + this.pagado;
+	}
 	
 	
 }
