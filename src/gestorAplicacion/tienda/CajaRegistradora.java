@@ -46,7 +46,6 @@ public class CajaRegistradora implements Serializable {
 	
 	public double descontar(double porcentaje) {
 		double descuento = this.totalIngresos*porcentaje;
-		this.totalIngresos-= descuento;
 		return descuento;
 	}
 }

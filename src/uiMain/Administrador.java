@@ -181,6 +181,7 @@ public class Administrador {
 	
 	static void liquidar() {
 		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
+		double contador = 0;
 		for (Empleado empleado: Empleado.getEmpleados()) {
 			double carteraInicial = empleado.getCartera();
 			
@@ -188,10 +189,10 @@ public class Administrador {
 			
 			double carteraAhora = empleado.getCartera();
 			double liquidado = carteraAhora-carteraInicial;
-			
+			contador+= liquidado;
 			System.out.println("El empleado " + empleado.getNombre() + " ha recibido " + liquidado + " por su trabajo.");
 		}
-		//Que se descuente una vez liquidados a todos//
+		caja.setTotalIngresos(caja.getTotalIngresos()-contador);
 		System.out.println("En la caja registradora quedan " + caja.getTotalIngresos());
 	}
 
