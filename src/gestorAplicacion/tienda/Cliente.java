@@ -1,5 +1,6 @@
 package gestorAplicacion.tienda;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,8 @@ import gestorAplicacion.personal.Dependiente;
  *          pagar es servicio que se se presto y recibir su producto. El cliente
  *          muchas veces puede pa
  */
-public class Cliente {
+public class Cliente implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private String cedula;
 	private List<Producto> productos;
@@ -24,9 +26,7 @@ public class Cliente {
 	static {
 		clientes = new ArrayList<Cliente>();
 	}
-	public Cliente() {
-		Deserializador.deserializarCliente(this);
-	}
+	public Cliente() {}
 	
 	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente, double cartera) {
 		this();

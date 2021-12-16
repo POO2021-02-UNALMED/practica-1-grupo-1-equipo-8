@@ -1,4 +1,5 @@
 package gestorAplicacion.tienda;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,8 @@ import gestorAplicacion.personal.Tecnico;
  * con los empleados (el dependiente que le atendi� y el t�cnico encargado de la reparaci�n) del sistema. 
  *
  */
-public class Servicio {
+public class Servicio implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int identificador;
 	private static int proximoIdentificador;
 	private static List<Servicio> servicios;

@@ -1,4 +1,5 @@
 package gestorAplicacion.personal;
+import java.io.Serializable;
 import java.util.*;
 import gestorAplicacion.tienda.*;
 
@@ -10,7 +11,8 @@ import gestorAplicacion.tienda.*;
  *
 */
 
-public class Tecnico extends Empleado {
+public class Tecnico extends Empleado implements Serializable {
+	private static final long serialVersionUID = 1L;
 	public static List<Tecnico> tecnicos;
 	static {
 		tecnicos = new ArrayList<Tecnico>();

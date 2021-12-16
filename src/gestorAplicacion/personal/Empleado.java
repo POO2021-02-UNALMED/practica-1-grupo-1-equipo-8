@@ -1,5 +1,6 @@
 package gestorAplicacion.personal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import gestorAplicacion.tienda.*;
@@ -10,8 +11,8 @@ import gestorAplicacion.tienda.*;
  * Punto importante: La lista servicios, la cual mantiene todos los servicios en los que un empleado est� trabajando/involucrado.
  *
  */
-public abstract class Empleado implements Personal {
-
+public abstract class Empleado implements Personal, Serializable {
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private int cedula;
 	protected List<Servicio> servicios;

@@ -1,5 +1,6 @@
 package gestorAplicacion.personal;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,9 @@ import gestorAplicacion.tienda.*;
  * Es mediante el cual se efectuan los pagos y pasan los productos solicitados para reparar y se devuelven a sus clientes.  
  *
  */
-public class Dependiente extends Empleado {
+public class Dependiente extends Empleado implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	static List<Dependiente> dependientes;
 	static {
@@ -31,7 +34,6 @@ public class Dependiente extends Empleado {
 		super(nombre, cedula);
 		this.cajaRegistradora = caja;
 		dependientes.add(this);
-		Deserializador.deserializarDependiente(this);
 	}
 	
 	public Dependiente(String nombre, int cedula, CajaRegistradora caja, List<Servicio> servicios) {
