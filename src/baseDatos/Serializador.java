@@ -16,21 +16,33 @@ import gestorAplicacion.tienda.Componente;
 import gestorAplicacion.tienda.Producto;
 import gestorAplicacion.tienda.Servicio;
 
+/**
+ * Se utiliza para serializar todos los objetos creados durante la ejecucion
+ * del proyecto
+ * @author Erik Gonzalez
+ * @author Felipe Miranda
+ */
 public class Serializador {
+	/**
+	 * Serializamos una lista por el nombre de la clase
+	 * 
+	 * @param <E>       el generico se usa para poder agredar las clases que se
+	 *                  crearon
+	 * @param lista     Una lista de objetos
+	 * @param className El nombre de la clase que queremos usar como nombre del
+	 *                  archivo
+	 */
 	public static <E> void serializar(List<E> lista, String className) {
 		FileOutputStream fileOut;
 
 		try {
-			String path = System.getProperty("user.dir") + "/src/baseDatos/Temp/"+className+".txt";
+			String path = System.getProperty("user.dir") + "/src/baseDatos/Temp/" + className + ".txt";
 			fileOut = new FileOutputStream(path);
-			
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			
-			
+			// Guardamos la lista de objetos
 			out.writeObject(lista);
 			out.close();
 			fileOut.close();
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -38,7 +50,10 @@ public class Serializador {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Serializamos todas las clases que necesitamos
+	 */
 	public static void serializarTodo() {
 		Serializador.serializar(Dependiente.getDependientes(), "Dependientes");
 		Serializador.serializar(Tecnico.tecnicos, "Tecnicos");
