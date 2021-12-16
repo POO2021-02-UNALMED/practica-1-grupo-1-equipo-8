@@ -40,18 +40,17 @@ public class Administrador {
 		do {
 			System.out.println("Buenos dias Administrador\n");
 			System.out.println("Que desea hacer?");
-			System.out.println(" 1. Diagnosticar un producto");
+			System.out.println(" 1. Menu diagnosticar un producto");
 			System.out.println(" 2. Reparar un producto");
 			System.out.println(" 3. Finalizar un servicio");
 			System.out.println(" 4. Cobrar un servicio");
 			System.out.println(" 5. Liquidación del periodo");
 
 			System.out.println(" Opciones alternativas");
-			System.out.println(" 6. Guardar y cerrar");
-			System.out.println(" 7. Generar cliente");
-			System.out.println(" 8. Mostrar clientes");
-			System.out.println(" 9. Mostrar servicios");
-			System.out.println(" 0. Solicitar reparacion");
+			System.out.println(" 6. Mostrar clientes");
+			System.out.println(" 7. Mostrar servicios");
+			System.out.println(" 8. Guardar y cerrar");
+		
 
 			System.out.println("Elija una opcion: ");
 			opcion = (int) readInt();
@@ -59,7 +58,7 @@ public class Administrador {
 			switch (opcion) {
 
 			case 1:
-				diagnosticar();
+				menuDiagnosticar();
 				break;
 			case 2:
 				reparar();
@@ -73,29 +72,21 @@ public class Administrador {
 			case 5:
 				liquidar();
 				break;
-			case 7:
-				cliente = generarCliente();
-				System.out
-						.println("Se genero el cliente ID:" + (Cliente.getClientes().size() - 1) + cliente.toString());
-				break;
-			case 8:
+			case 6:
 				for (int i = 0; i < Cliente.getClientes().size(); i++) {
 					cliente = Cliente.getClientes().get(i);
 					System.out.println("Cliente id:" + i + cliente.toString());
 				}
 				break;
-			case 9:
+			case 7:
 				System.out.println("Servicio activos:");
 				for (int i = 0; i < Servicio.getServicios().size(); i++) {
 					Servicio servicio = Servicio.getServicios().get(i);
 					System.out.println("Servicio id:" + i + servicio.toString());
 				}
 				break;
-			case 0:
-				solicitarReparacion();
-				break;
 			}
-			if (opcion != 6) {
+			if (opcion != 8) {
 				guardar();
 				System.out.println("\nPresione cualquier tecla para continuar");
 				try {
@@ -104,7 +95,7 @@ public class Administrador {
 					e.printStackTrace();
 				}
 			}
-		} while (opcion != 6);
+		} while (opcion != 8);
 
 	}
 
@@ -115,6 +106,7 @@ public class Administrador {
 			Servicio servicio = Servicio.getServicios().get(idServicio);
 			servicio.getTecnico().diagnosticar(servicio);
 			System.out.println(servicio.getDiagnostico());
+			System.out.println("Ya puede volver al menu principal para solicitar reparacion");
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
@@ -219,7 +211,7 @@ public class Administrador {
 
 	public static Cliente generarCliente() {
 		String[] nombres = { "Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana",
-				"Dua lipa" };
+				"Dua lipa", "Erika", "Michael", "Juliana" };
 
 		String[] nombreProductos = { "Laptop Legion 5", "Hp zbook 1", "Hp Omen 15", "Asus TUF Gaming", "HP XPS",
 				"Macbook pro", "Lenovo Thinkpad", "Hp pavilion", "Notebook Gigabyte", "MSI Strike" };
@@ -240,7 +232,7 @@ public class Administrador {
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
 		List<Componente> productoComponentes = new ArrayList<Componente>();
 		productoComponentes.add(componentes[rand.nextInt(5)]);
-		productoComponentes.add(componentes[rand.nextInt(5) + 5]);
+		productoComponentes.add(componentes[rand.nextInt(10)]);
 
 		Producto producto = new Producto(nombreProductos[rand.nextInt(nombreProductos.length)], productoComponentes);
 
@@ -256,6 +248,49 @@ public class Administrador {
 		}
 		return cliente;
 	}
+	
+	static void menuDiagnosticar() {
+		Cliente cliente;
+		int opcion;
+		do {
+			System.out.println(" 1. Generar cliente");
+			System.out.println(" 2. Solicitar reparacion");
+			System.out.println(" 3. Diagnosticar producto");
+			System.out.println(" 4. Volver al menu principal");
+			
+			opcion = (int) readInt();
+
+			switch (opcion) {
+				
+			case 1:
+				cliente = generarCliente();
+				System.out
+						.println("Se genero el cliente ID:" + (Cliente.getClientes().size() - 1) + cliente.toString());
+				break;
+			
+			case 2:
+					solicitarReparacion();
+					break;
+					
+			case 3:
+				diagnosticar();
+				
+				
+			}if (opcion != 4) {
+				guardar();
+				System.out.println("\nPresione cualquier tecla para continuar");
+				try {
+					System.in.read();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		
+		} while (opcion !=4);
+	}
+				
+			
+
 
 	public static void guardar() {
 		Serializador.serializarTodo();

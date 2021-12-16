@@ -9,14 +9,14 @@ import gestorAplicacion.personal.Tecnico;
 /**
  * 
  * @author Felipe Miranda
- * @summary Servicio deber� contener toda la informaci�n que relaciona a un cliente y su producto a reparar 
- * con los empleados (el dependiente que le atendi� y el t�cnico encargado de la reparaci�n) del sistema. 
+ * @summary Servicio deberia contener toda la informacion que relaciona a un cliente y su producto a reparar 
+ * con los empleados (el dependiente que le atendio y el tecnico encargado de la reparacion) del sistema. 
  *
  */
 public class Servicio implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int identificador;
-	private static int proximoIdentificador;
+
 	private static List<Servicio> servicios;
 	private Tecnico tecnico;
 	private boolean pagado;
@@ -31,21 +31,21 @@ public class Servicio implements Serializable {
 	static {
 		servicios = new ArrayList<Servicio>();
 	}
-	
-	public Servicio() {
-		this.identificador = proximoIdentificador;
-		proximoIdentificador += 1;
-	}
+		
 
 	public Servicio(Tecnico tecnico, Producto producto, Cliente cliente,
 			Dependiente dependiente) {
-		this();
 		this.tecnico = tecnico;
 		this.producto = producto;
 		this.setFecha(new Date());
 		this.cliente = cliente;
 		this.dependiente = dependiente;
 		this.reparado = false;
+		if (servicios.isEmpty())
+			identificador = 0;
+		else 
+			identificador = servicios.size();
+		
 		servicios.add(this);
 	}
 
@@ -65,8 +65,8 @@ public class Servicio implements Serializable {
 	}
 	/**
 	 * 
-	 * @param costo ser� la suma de los diferentes precios de cada componente que se arregle. 
-	 * Si se va a agregar una pieza a la reparaci�n del producto, se debe sumar ac� su total. 
+	 * @param costo seria la suma de los diferentes precios de cada componente que se arregle. 
+	 * Si se va a agregar una pieza a la reparacion del producto, se debe sumar aca su total. 
 	 */
 	public void anadirCosto(double precio) {
 		this.costo+=precio;
