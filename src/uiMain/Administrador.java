@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import baseDatos.Deserializador;
+import baseDatos.Serializador;
 import gestorAplicacion.personal.*;
 import gestorAplicacion.tienda.*;
 
@@ -27,6 +30,7 @@ public class Administrador {
 	}
 
 	public static void main(String[] args) {
+		cargar();
 		int opcion;
 		Cliente cliente;
 		do {
@@ -88,6 +92,7 @@ public class Administrador {
 				break;
 			}
 			if (opcion != 6) {
+				guardar();
 				System.out.println("\nPresione cualquier tecla para continuar");
 				try {
 					System.in.read();
@@ -236,5 +241,13 @@ public class Administrador {
 			Bodega.agregarComponente(componente);
 		}
 		return cliente;
+	}
+	
+	public static void guardar() {
+		Serializador.serializarTodo();
+	}
+	
+	public static void cargar() {
+		Deserializador.deserializarTodo();
 	}
 }
