@@ -1,5 +1,6 @@
 package baseDatos;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,13 +46,15 @@ public class Deserializador {
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			} catch (EOFException e) {
+				System.out.println("Esta vacio");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
 		}
 		
 		public static void deserializarTodo() {
