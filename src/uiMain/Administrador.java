@@ -123,10 +123,11 @@ public class Administrador {
 
 			int index = readInt();
 			Servicio servicio = Servicio.getServicios().get(index);
-			
+			if(servicio.getDiagnostico().isBlank()) {
 				servicio.getTecnico().reparar(servicio);
 				System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
 						+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
+			}
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
@@ -204,6 +205,7 @@ public class Administrador {
 			contador += liquidado;
 			System.out.println("El " + empleado.toString() + " ha recibido " + liquidado + " por su trabajo.");
 		}
+		System.out.println("En la caja registradora hay " + caja.getTotalIngresos() + "antes de liquidar.");
 		caja.setTotalIngresos(caja.getTotalIngresos() - contador);
 		System.out.println("En la caja registradora quedan " + caja.getTotalIngresos());
 	}
