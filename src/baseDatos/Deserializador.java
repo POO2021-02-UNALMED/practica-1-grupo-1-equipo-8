@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gestorAplicacion.personal.Dependiente;
+import gestorAplicacion.personal.Empleado;
 import gestorAplicacion.personal.Tecnico;
 import gestorAplicacion.tienda.Bodega;
 import gestorAplicacion.tienda.CajaRegistradora;
@@ -85,5 +86,6 @@ public class Deserializador {
 		Deserializador.deserializador(Producto.productos, "Productos");
 		Deserializador.deserializador(Servicio.getServicios(), "Servicios");
 		Deserializador.deserializador(Bodega.getComponentes(), "Bodega");
+		Deserializador.deserializador(Empleado.getEmpleados(), "Empleados");
 	}
 }
