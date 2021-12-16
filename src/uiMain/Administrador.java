@@ -123,9 +123,10 @@ public class Administrador {
 
 			int index = readInt();
 			Servicio servicio = Servicio.getServicios().get(index);
-			servicio.getTecnico().reparar(servicio);
-			System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
-					+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
+			
+				servicio.getTecnico().reparar(servicio);
+				System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
+						+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
@@ -172,11 +173,15 @@ public class Administrador {
 			Dependiente dependiente = servicio.getDependiente();
 
 			if (!servicio.isPagado()) {
-				dependiente.cobrarServicio(servicio);
-				System.out.println("Se cobra el servicio por un total de "
-						+ servicio.getCosto() * Dependiente.getMargenGanancia());
-				System.out.println("En la caja registradora ahora hay "
-						+ dependiente.getCajaRegistradora().getTotalIngresos() + " pesos");
+
+				if (servicio.isReparado()) {
+					dependiente.cobrarServicio(servicio);
+					System.out.println("Se cobra el servicio por un total de "
+							+ servicio.getCosto() * Dependiente.getMargenGanancia());
+					System.out.println("En la caja registradora ahora hay "
+							+ dependiente.getCajaRegistradora().getTotalIngresos() + " pesos");
+				} else
+					System.out.println("Aun no se ha reparado el producto, Que esperas?");
 			} else {
 				System.out.println("Ya se ha cobrado el servicio! Se lamenta la molestia.");
 
