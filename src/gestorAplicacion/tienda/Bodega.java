@@ -17,7 +17,6 @@ public class Bodega implements Serializable{
 	private static List<Componente> componentes;
 	static {
 		componentes = new ArrayList<Componente>();
-		//Deserializador.deserializarBodega(this);
 	}
 	
 	public static void agregarComponente(Componente componente) {

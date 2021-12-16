@@ -1,4 +1,5 @@
 package gestorAplicacion.tienda;
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -8,14 +9,22 @@ import java.util.*;
  * Estructuras relevantes: componentes corresponde a la lista de todos los componentes que conforman el producto, pueden estar a veriados o no.
  *
 */
-public class Producto {
+public class Producto implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private List<Componente> componentes;
+	
+	public static List<Producto> productos;
+	
+	static {
+		productos = new ArrayList<Producto>();
+	}
 	
 	public Producto(String nombre, List<Componente> componentes) {
 		super();
 		this.nombre = nombre;
 		this.componentes = componentes;
+		productos.add(this);
 	}
 	
 	/**

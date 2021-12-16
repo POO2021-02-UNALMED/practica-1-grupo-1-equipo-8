@@ -1,5 +1,6 @@
 package gestorAplicacion.tienda;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import gestorAplicacion.personal.*;
@@ -9,12 +10,20 @@ import gestorAplicacion.personal.*;
  * @summary En la caja registrado se lleva la contabilidad de los servicios, con el total de ingresos y
  * los servicios prestados
 */
-public class CajaRegistradora {
+public class CajaRegistradora implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private double totalIngresos;
 	private List<Servicio> servicios;
 	
+	public static List<CajaRegistradora> cajasRegistradoras;
+	
+	static {
+		cajasRegistradoras = new ArrayList<CajaRegistradora>();
+	}
+	
 	public CajaRegistradora() {
 		servicios = new ArrayList<Servicio>();
+		cajasRegistradoras.add(this);
 	}
 	
 	/**
