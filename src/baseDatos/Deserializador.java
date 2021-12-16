@@ -38,7 +38,7 @@ public class Deserializador {
 	public static <E> void deserializador(List<E> list, String className) {
 		FileInputStream fileIn;
 		try {
-			String path = System.getProperty("user.dir") + "/src/baseDatos/Temp/" + className + ".txt";
+			String path = System.getProperty("user.dir") + "/src/baseDatos/temp/" + className + ".txt";
 			System.out.println(path);
 			File archivo = new File(path);
 			archivo.createNewFile(); // Crea un nuevo archivo si no existe

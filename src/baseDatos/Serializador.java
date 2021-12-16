@@ -37,7 +37,7 @@ public class Serializador {
 		FileOutputStream fileOut;
 
 		try {
-			String path = System.getProperty("user.dir") + "/src/baseDatos/Temp/" + className + ".txt";
+			String path = System.getProperty("user.dir") + "/src/baseDatos/temp/" + className + ".txt";
 			fileOut = new FileOutputStream(path);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			// Guardamos la lista de objetos

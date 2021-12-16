@@ -50,7 +50,6 @@ public class Administrador {
 			System.out.println(" 6. Mostrar clientes");
 			System.out.println(" 7. Mostrar servicios");
 			System.out.println(" 8. Guardar y cerrar");
-		
 
 			System.out.println("Elija una opcion: ");
 			opcion = (int) readInt();
@@ -118,14 +117,16 @@ public class Administrador {
 
 			int index = readInt();
 			Servicio servicio = Servicio.getServicios().get(index);
-			if(servicio.getDiagnostico() != null) {
-				servicio.getTecnico().reparar(servicio);
-				System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
-						+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
-			}
-			else {
-				System.out.println("No se ha diagnosticado el producto del cliente " + servicio.getCliente());
-			}
+			if (!servicio.isReparado()) {
+				if (servicio.getDiagnostico() != null) {
+					servicio.getTecnico().reparar(servicio);
+					System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
+							+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
+				} else
+					System.out.println("No se ha diagnosticado el producto del cliente " + servicio.getCliente());
+
+			} else
+				System.out.println("Ya se ha reparado el producto!");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("El id del servicio no es correcto");
@@ -194,6 +195,8 @@ public class Administrador {
 	static void liquidar() {
 		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
 		double contador = 0;
+		System.out
+				.println("En la caja registradora hay " + Math.round(caja.getTotalIngresos()) + " antes de liquidar.");
 		for (Empleado empleado : Empleado.getEmpleados()) {
 			double carteraInicial = empleado.getCartera();
 
@@ -202,11 +205,12 @@ public class Administrador {
 			double carteraAhora = empleado.getCartera();
 			double liquidado = carteraAhora - carteraInicial;
 			contador += liquidado;
-			System.out.println("El " + empleado.toString() + " ha recibido " + liquidado + " por su trabajo.");
+			System.out.println(
+					"El " + empleado.toString() + " ha recibido " + Math.round(liquidado) + " por su trabajo.");
 		}
-		System.out.println("En la caja registradora hay " + caja.getTotalIngresos() + " antes de liquidar.");
+
 		caja.setTotalIngresos(caja.getTotalIngresos() - contador);
-		System.out.println("En la caja registradora quedan " + caja.getTotalIngresos());
+		System.out.println("En la caja registradora quedan " + Math.round(caja.getTotalIngresos()));
 	}
 
 	public static Cliente generarCliente() {
@@ -248,7 +252,7 @@ public class Administrador {
 		}
 		return cliente;
 	}
-	
+
 	static void menuDiagnosticar() {
 		Cliente cliente;
 		int opcion;
@@ -257,26 +261,26 @@ public class Administrador {
 			System.out.println(" 2. Solicitar reparacion");
 			System.out.println(" 3. Diagnosticar producto");
 			System.out.println(" 4. Volver al menu principal");
-			
+
 			opcion = (int) readInt();
 
 			switch (opcion) {
-				
+
 			case 1:
 				cliente = generarCliente();
 				System.out
 						.println("Se genero el cliente ID:" + (Cliente.getClientes().size() - 1) + cliente.toString());
 				break;
-			
+
 			case 2:
-					solicitarReparacion();
-					break;
-					
+				solicitarReparacion();
+				break;
+
 			case 3:
 				diagnosticar();
-				
-				
-			}if (opcion != 4) {
+
+			}
+			if (opcion != 4) {
 				guardar();
 				System.out.println("\nPresione cualquier tecla para continuar");
 				try {
@@ -285,12 +289,9 @@ public class Administrador {
 					e.printStackTrace();
 				}
 			}
-		
-		} while (opcion !=4);
-	}
-				
-			
 
+		} while (opcion != 4);
+	}
 
 	public static void guardar() {
 		Serializador.serializarTodo();
