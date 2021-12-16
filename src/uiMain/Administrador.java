@@ -151,7 +151,7 @@ public class Administrador {
 			cliente.solicitarReparacion(cliente.getProductos().get(0));
 
 			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre()
-					+ "!\n" + " ya puede consultar en los servicios para iniciar su diagnostico o reparacion.");
+					+ "!\n" + "Ya puede consultar en los servicios para iniciar su diagnostico o reparacion.");
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}
@@ -245,8 +245,8 @@ public class Administrador {
 		Random rand = new Random();
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
 		List<Componente> productoComponentes = new ArrayList<Componente>();
-		productoComponentes.add(componentes[rand.nextInt(5)]);
-		productoComponentes.add(componentes[rand.nextInt(10)]);
+		productoComponentes.add(componentes[rand.nextInt(rand.nextInt(componentes.length))]);
+		productoComponentes.add(componentes[rand.nextInt(rand.nextInt(componentes.length))]);
 
 		Producto producto = new Producto(nombreProductos[rand.nextInt(nombreProductos.length)], productoComponentes);
 
