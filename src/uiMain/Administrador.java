@@ -84,9 +84,13 @@ public class Administrador {
 					System.out.println("Servicio id:" + i + servicio.toString());
 				}
 				break;
+				
+			case 8:
+				guardar();
+				System.out.println("Vuelve pronto");
 			}
 			if (opcion != 8) {
-				guardar();
+				//guardar();
 				System.out.println("\nPresione cualquier tecla para continuar");
 				try {
 					System.in.read();
@@ -116,19 +120,25 @@ public class Administrador {
 			System.out.println("Escoja el servicio con su index para reparar el producto asociado: ");
 
 			int index = readInt();
-			Servicio servicio = Servicio.getServicios().get(index);
-			if (!servicio.isReparado()) {
-				if (servicio.getDiagnostico() != null) {
-					servicio.getTecnico().reparar(servicio);
-					System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
-							+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
-				} else
-					System.out.println("No se ha diagnosticado el producto del cliente " + servicio.getCliente());
+			try {
+				Servicio servicio = Servicio.getServicios().get(index);
 
-			} else
-				System.out.println("Ya se ha reparado el producto!");
+				if (!servicio.isReparado()) {
+					if (servicio.getDiagnostico() != null) {
+						servicio.getTecnico().reparar(servicio);
+						System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
+								+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
+					} else
+						System.out.println("No se ha diagnosticado el producto del cliente " + servicio.getCliente());
+
+				} else
+					System.out.println("Ya se ha reparado el producto!");
+			} catch (Exception e) {
+				
+				System.out.println("No se ha generado el servicio con id: " + index);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 			System.out.println("El id del servicio no es correcto");
 		}
 	}
@@ -226,11 +236,11 @@ public class Administrador {
 						PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER.getPrecio()),
 				new Componente("Procesador AMD", true, PrecioComponente.PROCESADOR_AMD.getPrecio()),
 				new Componente("Display 15 pulgadas", true, PrecioComponente.DISPLAY_LAPTOP_15In.getPrecio()),
-				new Componente("Memoria 8g Kinsgton", false, PrecioComponente.RAM_8GB.getPrecio()),
-				new Componente("Disco duro HDD 512gb", false, PrecioComponente.DISCO_DURO_HDD_512GB.getPrecio()),
-				new Componente("Bateria laptop lenovo", false, PrecioComponente.BATERIA_LAPTOP.getPrecio()),
-				new Componente("Procesador Intel", false, PrecioComponente.PROCESADOR_INTEL.getPrecio()),
-				new Componente("Display 17 pulgadas", false, PrecioComponente.DISPLAY_LAPTOP_17In.getPrecio()), };
+				new Componente("Memoria 8g Kinsgton", true, PrecioComponente.RAM_8GB.getPrecio()),
+				new Componente("Disco duro HDD 512gb", true, PrecioComponente.DISCO_DURO_HDD_512GB.getPrecio()),
+				new Componente("Bateria laptop lenovo", true, PrecioComponente.BATERIA_LAPTOP.getPrecio()),
+				new Componente("Procesador Intel", true, PrecioComponente.PROCESADOR_INTEL.getPrecio()),
+				new Componente("Display 17 pulgadas", true, PrecioComponente.DISPLAY_LAPTOP_17In.getPrecio()), };
 
 		Random rand = new Random();
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
@@ -281,7 +291,7 @@ public class Administrador {
 
 			}
 			if (opcion != 4) {
-				guardar();
+				
 				System.out.println("\nPresione cualquier tecla para continuar");
 				try {
 					System.in.read();
