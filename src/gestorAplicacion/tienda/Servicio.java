@@ -132,6 +132,7 @@ public class Servicio {
 	
 	public String toString() {
 		return "Identificador del servicio: " + this.identificador
+				+ "\nCliente: " + this.cliente
 				+ "\nProducto asociado: " + this.producto
 				+ "\nReparado: " + this.reparado
 				+ "\nPagado: " + this.pagado;
