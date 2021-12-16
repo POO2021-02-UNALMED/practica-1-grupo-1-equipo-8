@@ -32,6 +32,9 @@ public class Administrador {
 	public static void main(String[] args) {
 		cargar();
 		inicializar();
+		for (Empleado empleado : Empleado.getEmpleados()) {
+			System.out.println(empleado.toString());
+		}
 		int opcion;
 		Cliente cliente;
 		do {
