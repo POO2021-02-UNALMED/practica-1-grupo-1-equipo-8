@@ -245,8 +245,8 @@ public class Administrador {
 		Random rand = new Random();
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
 		List<Componente> productoComponentes = new ArrayList<Componente>();
-		productoComponentes.add(componentes[rand.nextInt(rand.nextInt(componentes.length))]);
-		productoComponentes.add(componentes[rand.nextInt(rand.nextInt(componentes.length))]);
+		productoComponentes.add(componentes[rand.nextInt(componentes.length)]);
+		productoComponentes.add(componentes[rand.nextInt(componentes.length)]);
 
 		Producto producto = new Producto(nombreProductos[rand.nextInt(nombreProductos.length)], productoComponentes);
 
