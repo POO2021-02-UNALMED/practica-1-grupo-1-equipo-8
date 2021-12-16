@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 import gestorAplicacion.personal.Dependiente;
+import gestorAplicacion.personal.Empleado;
 import gestorAplicacion.personal.Tecnico;
 import gestorAplicacion.tienda.Bodega;
 import gestorAplicacion.tienda.CajaRegistradora;
@@ -63,5 +64,6 @@ public class Serializador {
 		Serializador.serializar(Producto.productos, "Productos");
 		Serializador.serializar(Servicio.getServicios(), "Servicios");
 		Serializador.serializar(Bodega.getComponentes(), "Bodega");
+		Serializador.serializar(Empleado.getEmpleados(), "Empleados");
 	}
 }
