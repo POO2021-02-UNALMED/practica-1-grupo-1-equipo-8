@@ -6,8 +6,8 @@ import gestorAplicacion.tienda.*;
 /**
  * 
  * @author Emilio Porras
- * @summary Esta clase busca representar el comportamiento de un empleado tipo t�cnico
- * Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el t�cnico toma o finaliza servicios
+ * @summary Esta clase busca representar el comportamiento de un empleado tipo tecnico
+ * Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el tecnico toma o finaliza servicios
  *
 */
 
@@ -33,8 +33,8 @@ public class Tecnico extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El m�todo verificarProblemas es un m�todo auxiliar de la clase, el cual recibe un servicio y devuelve una lista con los componentes
-	 * da�ados en el producto correspondiente a ese servicio
+	 * @summary El metodo verificarProblemas es un metodo auxiliar de la clase, el cual recibe un servicio y devuelve una lista con los componentes
+	 * averiados en el producto correspondiente a ese servicio
 	 * 
 	 */
 	
@@ -52,7 +52,7 @@ public class Tecnico extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param componente
-	 * @summary El m�todo buscarComponente es un m�todo auxiliar de la clase, el cual recibe un componente y devuelve booleano dependiendo de si un componente
+	 * @summary El metodo buscarComponente es un metodo auxiliar de la clase, el cual recibe un componente y devuelve booleano dependiendo de si un componente
 	 * con el mismo nombre se encuentra en la Bodega o no.
 	 * 
 	 */
@@ -62,7 +62,7 @@ public class Tecnico extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El m�todo diagnosticar recibe como par�metro un servicio y modifica en �l su atributo diagn�stico, brindando informaci�n 
+	 * @summary El metodo diagnosticar recibe como paremetro un servicio y modifica en este su atributo diagostico, brindando informacion 
 	 * sobre los problemas del producto correspondiente.
 	 *  
 	 */
@@ -72,8 +72,8 @@ public class Tecnico extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El m�todo reparar recibe como par�metro un servicio. Luego, revisa si los componentes da�ados est�n disponibles en la bodega y, a 
-	 * aquellos que est�n disponibles, los remueve de la lista de Bodega y los reemplaza en la lista de componentes del producto. Tambi�n, va sumando
+	 * @summary El metodo reparar recibe como parametro un servicio. Luego, revisa si los componentes aveados estan disponibles en la bodega y, a 
+	 * aquellos que estan disponibles, los remueve de la lista de Bodega y los reemplaza en la lista de componentes del producto. Tambien, va sumando
 	 * el precio de los componentes utilizados en el atributo costo de servicio.
 	 * 
 	 */
@@ -95,7 +95,7 @@ public class Tecnico extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El m�todo asignarServicio recibe como par�metro un servicio y lo agrega a la lista de servicios del t�cnico en cuesti�n.
+	 * @summary El metodo asignarServicio recibe como parametro un servicio y lo agrega a la lista de servicios del tecnico en cuestion.
 	 * 
 	 */
 	public void asignarServicio(Servicio servicio) {
@@ -105,7 +105,7 @@ public class Tecnico extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary El m�todo quitarServicio recibe como par�metro un servicio y lo remueve de la lista de servicios del t�cnico en cuesti�n.
+	 * @summary El metodo quitarServicio recibe como parametro un servicio y lo remueve de la lista de servicios del tecnico en cuestion.
 	 * 
 	 */
 	public void quitarServicio(Servicio servicio) {

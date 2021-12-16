@@ -36,7 +36,7 @@ public class Administrador {
 			System.out.println(" 2. Reparar un producto");
 			System.out.println(" 3. Finalizar un servicio");
 			System.out.println(" 4. Cobrar un servicio");
-			System.out.println(" 5. Ver liquidacion");
+			System.out.println(" 5. Liquidación del periodo");
 
 			System.out.println(" Opciones alternativas");
 			System.out.println(" 6. Guardar y cerrar");
@@ -165,14 +165,16 @@ public class Administrador {
 			Servicio servicio = Servicio.getServicios().get(index);
 			Dependiente dependiente = servicio.getDependiente();
 
-			dependiente.cobrarServicio(servicio);
-			if (servicio.isPagado()) {
+			
+			if (!servicio.isPagado()) {
+				dependiente.cobrarServicio(servicio);
 				System.out.println(
 						"Se cobra el servicio por un total de " + servicio.getCosto() * Dependiente.getMargenGanancia());
 				System.out.println("En la caja registradora ahora hay "
 						+ dependiente.getCajaRegistradora().getTotalIngresos() + " pesos");
 			} else {
-				System.out.println("No se ha pagado el servicio! Se llamara a la policia para que lo encanen.");
+				System.out.println("Ya se ha cobrado el servicio! Se lamenta la molestia.");
+				
 			}
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
@@ -190,7 +192,7 @@ public class Administrador {
 			double carteraAhora = empleado.getCartera();
 			double liquidado = carteraAhora-carteraInicial;
 			contador+= liquidado;
-			System.out.println("El empleado " + empleado.getNombre() + " ha recibido " + liquidado + " por su trabajo.");
+			System.out.println("El "+ empleado.toString() + " ha recibido " + liquidado + " por su trabajo.");
 		}
 		caja.setTotalIngresos(caja.getTotalIngresos()-contador);
 		System.out.println("En la caja registradora quedan " + caja.getTotalIngresos());

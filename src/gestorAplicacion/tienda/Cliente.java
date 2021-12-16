@@ -56,7 +56,6 @@ public class Cliente implements Serializable {
 	 */
 	public void pagarServicio(Servicio servicio, double cobro) {
 		if (!servicio.isPagado() && cartera >= cobro) {
-			servicio.setPagado(true);
 			cartera -= cobro;
 		}
 	}
