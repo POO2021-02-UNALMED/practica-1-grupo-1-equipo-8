@@ -203,7 +203,7 @@ public class Administrador {
 	}
 
 	static void liquidar() {
-		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
+		CajaRegistradora caja = CajaRegistradora.cajasRegistradoras.get(0);
 		double contador = 0;
 		System.out
 				.println("En la caja registradora hay " + Math.round(caja.getTotalIngresos()) + " antes de liquidar.");
