@@ -129,7 +129,7 @@ public class Administrador {
 			Cliente cliente = Cliente.getClientes().get(index);
 			cliente.solicitarReparacion(cliente.getProductos().get(0));
 
-			System.out.println("El cliente fue atendido exitosamente!\n"
+			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre() +"!\n"
 					+ " ya puede consultar en los servicios para inicial su diagnostico o reparacion.");
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
