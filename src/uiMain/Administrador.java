@@ -137,22 +137,25 @@ public class Administrador {
 	}
 
 	static void finalizarServicio() {
-		System.out.println("Ingrese el id del servicio a finalizar: ");
-		int index = readInt();
-		Servicio servicio = Servicio.getServicios().get(index);
-
-		if (servicio.getCosto() == 0) {
-			System.out.println("El costo es nulo");
+		try {
+			System.out.println("Ingrese el id del servicio a finalizar: ");
+			int index = readInt();
+			Servicio servicio = Servicio.getServicios().get(index);
+			
+			if (servicio.isReparado()) {
+				Dependiente dependiente = servicio.getDependiente();
+				dependiente.finalizarServicio(servicio);
+				System.out.println(servicio.getCliente().getRecibos().get(0));
+				System.out.println("El servicio ya esta listo para ser cobrado");
+			} else {
+				System.out.println("El servicio no ha sido reparado aun y no se puede finalizar");
+			}
+		} catch (Exception e) {
+			System.out.println("El id del servicio es incorrecto");
 		}
-
-		Dependiente dependiente = servicio.getDependiente();
-		dependiente.finalizarServicio(servicio);
-		System.out.println(servicio.getCliente().getRecibos().get(0));
-		System.out.println("El servicio ya está listo para ser cobrado");
 	}
 
 	static void cobrarServicio() {
-
 		try {
 			System.out.println("Ingrese el id del servicio a cobrar: ");
 			int index = readInt();
