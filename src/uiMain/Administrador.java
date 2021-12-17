@@ -203,25 +203,17 @@ public class Administrador {
 	}
 
 	static void liquidar() {
-		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
-		double contador = 0;
-		System.out.println("En la caja registradora hay " + Math.round(caja.getTotalIngresos()) + " antes de liquidar.");
 		
-		for (Empleado empleado : Empleado.getEmpleados()) {
-			double carteraInicial = empleado.getCartera();
-
-			empleado.cobrarSalario(caja);
-
-			double carteraAhora = empleado.getCartera();
-			double liquidado = carteraAhora - carteraInicial;
-			contador += liquidado;
-			System.out.println(
-					"El " + empleado.toString() + " ha recibido " + Math.round(liquidado) + " por su trabajo.");
+		Dependiente dependiente = Dependiente.getDependientes().get(0);
+		System.out.println("En la caja registradora hay " + Math.round(dependiente.getCajaRegistradora().getTotalIngresos()) + " antes de liquidar.");
+		
+		for (String liquidacion: dependiente.liquidar()) {
+			System.out.println(liquidacion);
 		}
-
-		caja.setTotalIngresos(caja.getTotalIngresos() - contador);
-		System.out.println("En la caja registradora quedan " + Math.round(caja.getTotalIngresos()));
+		
+		System.out.println("En la caja registradora quedan " + Math.round(dependiente.getCajaRegistradora().getTotalIngresos()));
 	}
+		
 
 	public static Cliente generarCliente() {
 		String[] nombres = { "Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana",

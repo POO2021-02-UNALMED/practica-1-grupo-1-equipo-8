@@ -95,6 +95,7 @@ public class Dependiente extends Empleado implements Serializable {
 	 * 
 	 * @param tecnico
 	 * @param producto
+	 * @param cliente
 	 * @summary generar servicio crea un servicio para revisar un producto que se le
 	 *          asigna a la lista de servicios dependiente que lo creo y al tecnico
 	 *          que va a realizarlo.
@@ -119,19 +120,21 @@ public class Dependiente extends Empleado implements Serializable {
 
 	/**
 	 * 
-	 * @param cliente
+	 * @param servicio
+	 * @summary metodo que entrega una factura del servicio al cliente
 	 */
 	private void notificarCliente(Servicio servicio) {
 		Cliente cliente = servicio.getCliente();
-		String recibo = "Factura #" + servicio.getIdentificador() + "\n" + "Cliente: " + cliente.getNombre()
-				+ " con cedula " + cliente.getCedula() + "\n" + "Recibir el producto: "
-				+ servicio.getProducto().toString();
+		String recibo = "Factura #" + servicio.getIdentificador() + 
+				"\n" + "Cliente: " + cliente.getNombre()  + " con cedula " + cliente.getCedula()
+				+ "\nCosto total: " + servicio.getCosto()
+				+ "\n" + "Recibir el producto: " + servicio.getProducto().toString();
 		cliente.recibirRecibo(recibo);
 	}
 
 	/**
 	 * 
-	 * @param producto
+	 * @param servicio
 	 * @summary metodo de entrega del producto al cliente dueno.
 	 * 
 	 */
@@ -176,5 +179,35 @@ public class Dependiente extends Empleado implements Serializable {
 	public static double getMargenGanancia() {
 		return MARGEN_GANANCIA;
 	}
+	
+	/**
+	 * 
+	 * @return lista de strings
+	 * @summary Una de las 5 funcionalidades primarias, mira la lista de empleados, y ya sea un dependiente
+	 * o un tecnico, cobra su respectivo salario, lo cual le resta un porcentaje a la caja de la tienda y le suma a la
+	 * cartera de cada empleado su respectivo salario.
+	 */
+	public List<String> liquidar() {
+		
+		CajaRegistradora caja = this.cajaRegistradora;
+				//Dependiente.getDependientes().get(0).getCajaRegistradora();
+		
+		List<String> liquidaciones = new ArrayList<String>();
+		
+		double contador = 0;
+		
+		for (Empleado empleado : Empleado.getEmpleados()) {
+			double carteraInicial = empleado.getCartera();
 
+			empleado.cobrarSalario(caja);
+
+			double carteraAhora = empleado.getCartera();
+			double liquidado = carteraAhora - carteraInicial;
+			contador += liquidado;
+			liquidaciones.add("El " + empleado.toString() + " ha recibido " + Math.round(liquidado) + " por su trabajo.");
+		}
+
+		caja.setTotalIngresos(caja.getTotalIngresos() - contador);
+		return liquidaciones;
+	}
 }
