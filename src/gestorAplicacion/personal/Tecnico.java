@@ -112,6 +112,11 @@ public class Tecnico extends Empleado implements Serializable {
 		this.getServicios().remove(servicio);
 	}
 	
+	/**
+	 * @param CaraRegistradora
+	 * @summary 
+	 * 
+	 */
 	public void cobrarSalario(CajaRegistradora caja) {
 		double porcentaje = 0.02;
 		this.cartera+= caja.descontar(porcentaje);

@@ -32,19 +32,19 @@ public class Administrador {
 	public static void main(String[] args) {
 		cargar();
 		inicializar();
+		System.out.println("Buenos dias Administrador\n");
 		for (Empleado empleado : Empleado.getEmpleados()) {
 			System.out.println(empleado.toString());
 		}
 		int opcion;
 		Cliente cliente;
 		do {
-			System.out.println("Buenos dias Administrador\n");
 			System.out.println("Que desea hacer?");
 			System.out.println(" 1. Menu diagnosticar un producto");
 			System.out.println(" 2. Reparar un producto");
 			System.out.println(" 3. Finalizar un servicio");
 			System.out.println(" 4. Cobrar un servicio");
-			System.out.println(" 5. Liquidaci�n del periodo");
+			System.out.println(" 5. Liquidacion del periodo");
 
 			System.out.println(" Opciones alternativas");
 			System.out.println(" 6. Mostrar clientes");
@@ -90,8 +90,7 @@ public class Administrador {
 				System.out.println("Vuelve pronto");
 			}
 			if (opcion != 8) {
-				//guardar();
-				System.out.println("\nPresione cualquier tecla para continuar");
+				System.out.println("\nPresione Enter para continuar");
 				try {
 					System.in.read();
 				} catch (IOException e) {
@@ -260,7 +259,7 @@ public class Administrador {
 		int opcion;
 		do {
 			System.out.println(" 1. Generar cliente");
-			System.out.println(" 2. Solicitar serivicio");
+			System.out.println(" 2. Solicitar servicio");
 			System.out.println(" 3. Diagnosticar producto");
 			System.out.println(" 4. Volver al menu principal");
 
@@ -284,7 +283,7 @@ public class Administrador {
 			}
 			if (opcion != 4) {
 				
-				System.out.println("\nPresione cualquier tecla para continuar");
+				System.out.println("\nPresione Enter para continuar");
 				try {
 					System.in.read();
 				} catch (IOException e) {

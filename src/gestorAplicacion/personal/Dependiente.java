@@ -25,7 +25,6 @@ public class Dependiente extends Empleado implements Serializable {
 	static {
 		dependientes = new ArrayList<Dependiente>();
 		
-
 	}
 
 	private CajaRegistradora cajaRegistradora;
@@ -50,6 +49,7 @@ public class Dependiente extends Empleado implements Serializable {
 	 * @summary Este metodo elige a alguno de los tecnicos disponibles para
 	 *          asignarle un nuevo servicio con el producto entregado por el
 	 *          cliente.
+	 *          
 	 */
 	public void atenderCliente(Cliente cliente, Producto producto) {
 		Random rand = new Random();
@@ -62,7 +62,7 @@ public class Dependiente extends Empleado implements Serializable {
 	 * @param servicio
 	 * @summary Registra el pago en la caja registradora con el costodel servicio
 	 *          que decidio el tecnico y luego quita el servicio.
-	 * 
+	 *          
 	 */
 	public void registrarPago(Servicio servicio) {
 		cajaRegistradora.registrarVenta(servicio.getCosto() * MARGEN_GANANCIA, servicio);
@@ -99,7 +99,7 @@ public class Dependiente extends Empleado implements Serializable {
 	 * @summary generar servicio crea un servicio para revisar un producto que se le
 	 *          asigna a la lista de servicios dependiente que lo creo y al tecnico
 	 *          que va a realizarlo.
-	 * 
+	 *          
 	 */
 	public void generarServicio(Tecnico tecnico, Producto producto, Cliente cliente) {
 		Servicio servicio = new Servicio(tecnico, producto, cliente, this);
@@ -112,6 +112,7 @@ public class Dependiente extends Empleado implements Serializable {
 	 * @param servicio
 	 * @summary Se hace entrega del producto al dueno (cliente) para que lo revise y
 	 *          recibir luego el pago.
+	 *          
 	 */
 	public void finalizarServicio(Servicio servicio) {
 		notificarCliente(servicio);
@@ -121,7 +122,9 @@ public class Dependiente extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary metodo que entrega una factura del servicio al cliente
+	 * @summary metodo que entrega una factura del servicio al cliente, la factura contiene el identificador del servicio,
+	 * el nombre y cedula del cliente, y el producto que fue reparado.
+	 * 
 	 */
 	private void notificarCliente(Servicio servicio) {
 		Cliente cliente = servicio.getCliente();
@@ -141,7 +144,13 @@ public class Dependiente extends Empleado implements Serializable {
 	private void entregarProducto(Servicio servicio) {
 		servicio.getCliente().recibirProducto(servicio.getProducto());
 	}
-
+	
+	/**
+	 * 
+	 * @param servicio
+	 * @summary calcula el precio del servicio que el cliente pagará, utilizando costo asignado por el tecnico.
+	 * 
+	 */
 	public void cobrarServicio(Servicio servicio) {
 		double cobro = servicio.getCosto() * MARGEN_GANANCIA;
 		servicio.getCliente().pagarServicio(servicio, cobro);
@@ -150,7 +159,6 @@ public class Dependiente extends Empleado implements Serializable {
 			servicio.setPagado(true);
 		}
 	}
-
 	public void cobrarSalario(CajaRegistradora caja) {
 		double porcentaje = 0.01;
 		this.cartera += caja.descontar(porcentaje);
@@ -186,6 +194,7 @@ public class Dependiente extends Empleado implements Serializable {
 	 * @summary Una de las 5 funcionalidades primarias, mira la lista de empleados, y ya sea un dependiente
 	 * o un tecnico, cobra su respectivo salario, lo cual le resta un porcentaje a la caja de la tienda y le suma a la
 	 * cartera de cada empleado su respectivo salario.
+	 * 
 	 */
 	public List<String> liquidar() {
 		
