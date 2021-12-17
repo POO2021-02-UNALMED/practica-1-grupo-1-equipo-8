@@ -292,6 +292,7 @@ public class Administrador {
 		boolean crearCliente = true;
 		
 		System.out.println("\nNuevo cliente\n Ingrese el nombre del cliente: ");
+		readString();
 		String nombre = ingresarCampo("", crearCliente);
 		if (nombre.equals("0")) crearCliente = false;
 		System.out.println("\n Cedula: ");
@@ -317,7 +318,11 @@ public class Administrador {
 			Producto producto = generarProductoAleatorio();
 			List<Producto> productos = new ArrayList<Producto>();
 			productos.add(producto);
-			new Cliente(nombre, cc, productos, Dependiente.getDependientes().get(0), cartera, direccion);
+			Cliente cliente = new Cliente(nombre, cc, productos, Dependiente.getDependientes().get(0), cartera, direccion);
+			System.out
+			.println("Se creo el cliente manualmente con ID:" +
+			(Cliente.getClientes().size() - 1) + 
+			cliente.toString() + "\n");
 		}
 	}
 	
