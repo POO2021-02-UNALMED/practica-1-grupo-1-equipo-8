@@ -199,23 +199,25 @@ public class Dependiente extends Empleado implements Serializable {
 	public List<String> liquidar() {
 		
 		CajaRegistradora caja = this.cajaRegistradora;
-				//Dependiente.getDependientes().get(0).getCajaRegistradora();
 		
 		List<String> liquidaciones = new ArrayList<String>();
 		
 		double contador = 0;
-		
+		//Se mira la lista de empleados, donde esta el dependiente y los tecnicos.
 		for (Empleado empleado : Empleado.getEmpleados()) {
 			double carteraInicial = empleado.getCartera();
-
+			
+			//Utiliza la ligadura dinamica para utilizar el metodo ya sea de dependiente o de tecnico.
 			empleado.cobrarSalario(caja);
 
 			double carteraAhora = empleado.getCartera();
 			double liquidado = carteraAhora - carteraInicial;
+			//Se va contando cuanto cobra cada empleado para poder descontarlo de la caja.
 			contador += liquidado;
 			liquidaciones.add("El " + empleado.toString() + " ha recibido " + Math.round(liquidado) + " por su trabajo.");
 		}
-
+		
+		//Se descuenta de la caja lo cobrado por los empleados.
 		caja.setTotalIngresos(caja.getTotalIngresos() - contador);
 		return liquidaciones;
 	}

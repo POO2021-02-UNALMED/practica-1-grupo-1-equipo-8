@@ -65,7 +65,7 @@ public class Servicio implements Serializable {
 	}
 	/**
 	 * 
-	 * @param costo seria la suma de los diferentes precios de cada componente que se arregle. 
+	 * @summary costo seria la suma de los diferentes precios de cada componente que se arregle. 
 	 * Si se va a agregar una pieza a la reparacion del producto, se debe sumar aca su total. 
 	 */
 	public void anadirCosto(double precio) {
