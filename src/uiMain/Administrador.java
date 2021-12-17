@@ -275,7 +275,6 @@ public class Administrador {
 
 		Cliente cliente = new Cliente(nombres[rand.nextInt(nombres.length)], "" + rand.nextInt(9999999), productos,
 				dependiente, cartera);
-		Cliente.getClientes().add(cliente);
 		for (Componente componente : componentes) {
 			Bodega.agregarComponente(componente);
 		}
@@ -403,7 +402,9 @@ public class Administrador {
 		if (Dependiente.getDependientes().isEmpty())
 			new Dependiente("Camila", 1237465, new CajaRegistradora());
 
-		if (Tecnico.tecnicos.isEmpty())
+		if (Tecnico.tecnicos.isEmpty()) {
 			new Tecnico("Emilio", 987654);
+			new Tecnico("Sebastian", 496875);
+		}
 	}
 }
