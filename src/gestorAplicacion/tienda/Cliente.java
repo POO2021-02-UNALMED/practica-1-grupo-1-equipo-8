@@ -22,20 +22,25 @@ public class Cliente implements Serializable {
 	private List<String> recibos;
 	private Dependiente dependiente;
 	private double cartera;
+	private String direccion;
 	static List<Cliente> clientes;
 	static {
 		clientes = new ArrayList<Cliente>();
 	}
-	public Cliente() {}
+	
+	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente, double cartera, String direccion) {
+		this(nombre, cedula, productos, dependiente, cartera);	
+		this.direccion = direccion;
+	}
 	
 	public Cliente(String nombre, String cedula, List<Producto> productos, Dependiente dependiente, double cartera) {
-		this();
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.productos = productos;
 		this.dependiente = dependiente;
 		this.cartera = cartera;
 		this.recibos = new ArrayList<String>();
+		clientes.add(this);
 	}
 
 	/**
@@ -117,6 +122,6 @@ public class Cliente implements Serializable {
 	}	
 	
 	public String toString() {
-		return " Nombre: " + nombre + " CC: " + cedula + " Cartera: " + cartera;
+		return " Nombre: " + nombre + " CC: " + cedula + " Cartera: " + cartera + " Direccion: " + direccion;
 	}
 }

@@ -219,9 +219,7 @@ public class Administrador {
 		String[] nombres = { "Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana",
 				"Dua lipa", "Erika", "Michael", "Juliana" };
 
-		String[] nombreProductos = { "Laptop Legion 5", "Hp zbook 1", "Hp Omen 15", "Asus TUF Gaming", "HP XPS",
-				"Macbook pro", "Lenovo Thinkpad", "Hp pavilion", "Notebook Gigabyte", "MSI Strike" };
-
+		
 		Componente[] componentes = { new Componente("Memoria 4g Kinsgton", true, PrecioComponente.RAM_4GB.getPrecio()),
 				new Componente("Disco duro SSD 256gb", true, PrecioComponente.DISCO_DURO_SSD_256GB.getPrecio()),
 				new Componente("Bateria laptop lenovo supercharger", true,
@@ -236,12 +234,8 @@ public class Administrador {
 
 		Random rand = new Random();
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
-		List<Componente> productoComponentes = new ArrayList<Componente>();
-		productoComponentes.add(componentes[rand.nextInt(componentes.length)]);
-		productoComponentes.add(componentes[rand.nextInt(componentes.length)]);
-
-		Producto producto = new Producto(nombreProductos[rand.nextInt(nombreProductos.length)], productoComponentes);
-
+		
+		Producto producto = generarProductoAleatorio();
 		List<Producto> productos = new ArrayList<Producto>();
 		productos.add(producto);
 		double cartera = Math.round(450000 + 1000000 * Math.random());
@@ -259,40 +253,31 @@ public class Administrador {
 		Cliente cliente;
 		int opcion;
 		do {
-			System.out.println(" 1. Generar cliente");
-			System.out.println(" 2. Solicitar servicio");
-			System.out.println(" 3. Diagnosticar producto");
-			System.out.println(" 4. Volver al menu principal");
+			System.out.println(" 1. Crear cliente manualmente");
+			System.out.println(" 2. Generar cliente");
+			System.out.println(" 3. Solicitar servicio");
+			System.out.println(" 4. Diagnosticar producto");
+			System.out.println(" 5. Volver al menu principal");
 
 			opcion = (int) readInt();
 
 			switch (opcion) {
-
 			case 1:
+				crearClienteManualmente();
+				break;
+			case 2:
 				cliente = generarCliente();
 				System.out
-						.println("Se genero el cliente ID:" + (Cliente.getClientes().size() - 1) + cliente.toString());
+				.println("Se genero el cliente ID:" + (Cliente.getClientes().size() - 1) + cliente.toString());
 				break;
-
-			case 2:
+			case 3:
 				solicitarReparacion();
 				break;
-
-			case 3:
+			case 4:
 				diagnosticar();
-
+				break;
 			}
-			if (opcion != 4) {
-				
-				System.out.println("\nPresione Enter para continuar");
-				try {
-					System.in.read();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-
-		} while (opcion != 4);
+		} while (opcion != 5);
 	}
 
 	public static void guardar() {
@@ -302,7 +287,78 @@ public class Administrador {
 	public static void cargar() {
 		Deserializador.deserializarTodo();
 	}
+	
+	public static void crearClienteManualmente() {
+		boolean crearCliente = true;
+		
+		System.out.println("\nNuevo cliente\n Ingrese el nombre del cliente: ");
+		String nombre = ingresarCampo("", crearCliente);
+		if (nombre.equals("0")) crearCliente = false;
+		System.out.println("\n Cedula: ");
+		String cc = ingresarCampo("", crearCliente);
+		if (cc.equals("0")) crearCliente = false;
+		System.out.println("\n Direccion: ");
+		String direccion = ingresarCampo("", crearCliente);
+		if (direccion.equals("0")) crearCliente = false;
+		
+		double cartera = 0;
+		while( cartera < 400000 && crearCliente) {
+			if (cartera > 0) 
+				System.out.println("Ingrese un valor mayor a 400000 \n O ingrese 0 para regresar al menu anterior");
+			System.out.println("\n cartera: ");			
+			cartera = readDouble();
+			if(cartera == 0) {
+				crearCliente = false;
+				break;
+			}
+		};
+		
+		if(crearCliente) {
+			Producto producto = generarProductoAleatorio();
+			List<Producto> productos = new ArrayList<Producto>();
+			productos.add(producto);
+			new Cliente(nombre, cc, productos, Dependiente.getDependientes().get(0), cartera, direccion);
+		}
+	}
+	
+	public static Producto generarProductoAleatorio() {
+		Random rand = new Random();
+		String[] nombreProductos = { "Laptop Legion 5", "Hp zbook 1", "Hp Omen 15", "Asus TUF Gaming", "HP XPS",
+				"Macbook pro", "Lenovo Thinkpad", "Hp pavilion", "Notebook Gigabyte", "MSI Strike" };
+		
+		//Componentes solo para productos, no para la bodega
+		Componente[] componentes = { 
+				new Componente("Memoria 4g Kinsgton", true),
+				new Componente("Disco duro SSD 256gb", true),
+				new Componente("Bateria laptop lenovo supercharger", true),
+				new Componente("Procesador AMD", true),
+				new Componente("Display 15 pulgadas", true),
+				new Componente("Memoria 8g Kinsgton", true),
+				new Componente("Disco duro HDD 512gb", true),
+				new Componente("Bateria laptop lenovo", true),
+				new Componente("Procesador Intel", true),
+				new Componente("Display 17 pulgadas", true), 
+		};
+		
+		List<Componente> productoComponentes = new ArrayList<Componente>();
+		productoComponentes.add(componentes[rand.nextInt(componentes.length)]);
+		productoComponentes.add(componentes[rand.nextInt(componentes.length)]);
+		
+		return new Producto(nombreProductos[rand.nextInt(nombreProductos.length)], productoComponentes);
+	}
 
+	private static String ingresarCampo(String campo, boolean crearCliente) {
+		while(campo.equals("") && crearCliente) {
+			campo = readString();
+			if(campo.equals("")) {
+				System.out.println("\nIngrese el campo valido o presione 0 para cancelar.");
+			}
+			if(campo.equals("0")) {
+				break;
+			}
+		}
+		return campo;
+	}
 	public static void inicializar() {
 		if (Dependiente.getDependientes().isEmpty())
 			new Dependiente("Camila", 1237465, new CajaRegistradora());
