@@ -168,11 +168,16 @@ public class Administrador {
 		try {
 			int index = readInt();
 			Cliente cliente = Cliente.getClientes().get(index);
-			Producto producto = cliente.getProductos().get(0);
-			cliente.solicitarReparacion(producto);
+			if (cliente.getRecibos().size() == 0) {
+				Producto producto = cliente.getProductos().get(0);
+				cliente.solicitarReparacion(producto);
 
-			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre()
-					+ " y se ha generado el servicio con: "+ producto + ".\nYa puede consultar en los servicios para iniciar su diagnostico.");
+				System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre()
+						+ " y se ha generado el servicio con: " + producto
+						+ ".\nYa puede consultar en los servicios para iniciar su diagnostico.");
+			} else {
+				System.out.println("El cliente " + cliente.getNombre() + " ya habia sido atendido\n");
+			}
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}

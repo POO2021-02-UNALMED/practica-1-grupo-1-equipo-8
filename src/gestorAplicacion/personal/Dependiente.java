@@ -52,9 +52,11 @@ public class Dependiente extends Empleado implements Serializable {
 	 *          
 	 */
 	public void atenderCliente(Cliente cliente, Producto producto) {
-		Random rand = new Random();
-		Tecnico tecnico = Tecnico.tecnicos.get(rand.nextInt(Tecnico.tecnicos.size()));
-		generarServicio(tecnico, producto, cliente);
+		if(cliente.getRecibos().size() == 0) {
+			Random rand = new Random();
+			Tecnico tecnico = Tecnico.tecnicos.get(rand.nextInt(Tecnico.tecnicos.size()));
+			generarServicio(tecnico, producto, cliente);
+		}
 	}
 
 	/**
@@ -148,7 +150,7 @@ public class Dependiente extends Empleado implements Serializable {
 	/**
 	 * 
 	 * @param servicio
-	 * @summary calcula el precio del servicio que el cliente pagará, utilizando costo asignado por el tecnico.
+	 * @summary calcula el precio del servicio que el cliente pagarï¿½, utilizando costo asignado por el tecnico.
 	 * 
 	 */
 	public void cobrarServicio(Servicio servicio) {
