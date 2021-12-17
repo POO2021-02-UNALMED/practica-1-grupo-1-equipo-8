@@ -205,8 +205,8 @@ public class Administrador {
 	static void liquidar() {
 		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
 		double contador = 0;
-		System.out
-				.println("En la caja registradora hay " + Math.round(caja.getTotalIngresos()) + " antes de liquidar.");
+		System.out.println("En la caja registradora hay " + Math.round(caja.getTotalIngresos()) + " antes de liquidar.");
+		
 		for (Empleado empleado : Empleado.getEmpleados()) {
 			double carteraInicial = empleado.getCartera();
 
