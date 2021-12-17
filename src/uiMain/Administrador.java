@@ -44,7 +44,7 @@ public class Administrador {
 			System.out.println(" 2. Reparar un producto");
 			System.out.println(" 3. Finalizar un servicio");
 			System.out.println(" 4. Cobrar un servicio");
-			System.out.println(" 5. Liquidación del periodo");
+			System.out.println(" 5. Liquidaciï¿½n del periodo");
 
 			System.out.println(" Opciones alternativas");
 			System.out.println(" 6. Mostrar clientes");
@@ -203,7 +203,7 @@ public class Administrador {
 	}
 
 	static void liquidar() {
-		CajaRegistradora caja = CajaRegistradora.cajasRegistradoras.get(0);
+		CajaRegistradora caja = Dependiente.getDependientes().get(0).getCajaRegistradora();
 		double contador = 0;
 		System.out
 				.println("En la caja registradora hay " + Math.round(caja.getTotalIngresos()) + " antes de liquidar.");
