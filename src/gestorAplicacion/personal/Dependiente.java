@@ -130,7 +130,7 @@ public class Dependiente extends Empleado implements Serializable {
 		Cliente cliente = servicio.getCliente();
 		String recibo = "Factura #" + servicio.getIdentificador() + 
 				"\n" + "Cliente: " + cliente.getNombre()  + " con cedula " + cliente.getCedula()
-				+ "\nCosto total: " + servicio.getCosto()
+				+ "\nCosto total: " + servicio.getCosto() * MARGEN_GANANCIA
 				+ "\n" + "Recibir el producto: " + servicio.getProducto().toString();
 		cliente.recibirRecibo(recibo);
 	}

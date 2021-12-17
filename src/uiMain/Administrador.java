@@ -104,48 +104,61 @@ public class Administrador {
 		} while (opcion != 8);
 
 	}
-	//Diagnostica el servicio seleccionado por el administrador.
+	
+	/**
+	 * @summary Diagnostica el servicio seleccionado por el administrador.
+	 */
 	static void diagnosticar() {
 		try {
 			System.out.println("Ingrese el id del servicio");
 			int idServicio = readInt();
 			Servicio servicio = Servicio.getServicios().get(idServicio);
+			//Busca los componentes con problemas en el producto asociado al servicio.
 			servicio.getTecnico().diagnosticar(servicio);
+			//Devuelve el diagnostico hecho por el tecnico.
 			System.out.println(servicio.getDiagnostico());
 			System.out.println("Ya puede volver al menu principal para solicitar reparacion");
 		} catch (Exception e) {
 			System.out.println("El id del servicio no es correcto");
 		}
 	}
-
+	
+	/**
+	 * @summary Revisa varias condiciones ante de intentar reparar, adicional, Revisa que el producto 
+	 * asociado al servicio haya sido diagnosticado, y lo repara con el metodo reparar de tecnico.
+	 * Printea el nombre del cliente, el tecnico que repara, y el costo para la empresa.
+	 */
 	static void reparar() {
 		try {
 			System.out.println("Escoja el servicio con su index para reparar el producto asociado: ");
 
 			int index = readInt();
-			try {
-				Servicio servicio = Servicio.getServicios().get(index);
 
-				if (!servicio.isReparado()) {
-					if (servicio.getDiagnostico() != null) {
-						servicio.getTecnico().reparar(servicio);
-						System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
+			Servicio servicio = Servicio.getServicios().get(index);
+
+			if (!servicio.isReparado()) {
+				if (servicio.getDiagnostico() != null) {
+					servicio.getTecnico().reparar(servicio);
+					System.out.println("El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "
 								+ servicio.getTecnico() + " y tuvo un costo para la empresa de " + servicio.getCosto());
-					} else
-						System.out.println("No se ha diagnosticado el producto del cliente " + servicio.getCliente());
-
+					
+				//Excepciones para revisar que se haya reparado, diagnosticado, y exista el servicio.
 				} else
-					System.out.println("Ya se ha reparado el producto!");
-			} catch (Exception e) {
-				
-				System.out.println("No se ha generado el servicio con id: " + index);
-			}
+					System.out.println("No se ha diagnosticado el producto del cliente " + servicio.getCliente());
+
+			} else
+				System.out.println("Ya se ha reparado el producto!");
+
 		} catch (Exception e) {
 			
 			System.out.println("El id del servicio no es correcto");
 		}
 	}
-
+	
+	/**
+	 * @summary Se le genera un servicio al cliente seleccionado con su producto.
+	 * 
+	 */
 	static void solicitarReparacion() {
 		System.out.println("Ingrese el id del cliente para solicitar la reparacion de su producto: ");
 		try {
@@ -160,7 +173,10 @@ public class Administrador {
 			System.out.println("El id del cliente no es correcto");
 		}
 	}
-
+	/**
+	 * @summary Genera el recibo para el cliente y le entrega el producto reparado al cliente.
+	 * 
+	 */
 	static void finalizarServicio() {
 		try {
 			System.out.println("Ingrese el id del servicio a finalizar: ");
@@ -179,7 +195,12 @@ public class Administrador {
 			System.out.println("El id del servicio es incorrecto");
 		}
 	}
-
+	
+	/**
+	 * @summary Se cobra el servicio utilizando el costo calculado por el tecnico, multiplicado por el margen de ganancia,
+	 * y una vez el cliente pague, se le agrega el pago a la caja registradora.
+	 * 
+	 */
 	static void cobrarServicio() {
 		try {
 			System.out.println("Ingrese el id del servicio a cobrar: ");
@@ -205,7 +226,10 @@ public class Administrador {
 			System.out.println("El id del cliente no es correcto");
 		}
 	}
-
+	
+	/**
+	 * @summary Calcula y devuelve lo cobrado por los empleados, y los ingresos de la caja registradora antes y despues de liquidar.
+	 */
 	static void liquidar() {
 		
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
@@ -218,7 +242,12 @@ public class Administrador {
 		System.out.println("En la caja registradora quedan " + Math.round(dependiente.getCajaRegistradora().getTotalIngresos()));
 	}
 		
-
+	/**
+	 * 
+	 * @return Cliente
+	 * @summary funcion para generar un cliente con los parametros de las listas definidas dentro del metodo, utilizando 
+	 * random para escoger aleatoriamente entre ellos.
+	 */
 	public static Cliente generarCliente() {
 		String[] nombres = { "Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana",
 				"Dua lipa", "Erika", "Michael", "Juliana" };
