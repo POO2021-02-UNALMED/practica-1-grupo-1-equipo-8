@@ -181,7 +181,7 @@ public class Administrador {
 			System.out.println("Ingrese el id del servicio a cobrar: ");
 			int index = readInt();
 			Servicio servicio = Servicio.getServicios().get(index);
-			Dependiente dependiente = servicio.getDependiente();
+			Dependiente dependiente = Dependiente.getDependientes().get(0);
 
 			if (!servicio.isPagado()) {
 
