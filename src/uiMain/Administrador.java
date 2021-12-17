@@ -74,7 +74,7 @@ public class Administrador {
 			case 6:
 				for (int i = 0; i < Cliente.getClientes().size(); i++) {
 					cliente = Cliente.getClientes().get(i);
-					System.out.println("Cliente id:" + i + cliente.toString());
+					System.out.println("Cliente id: " + i + cliente.toString());
 				}
 				break;
 			case 7:
