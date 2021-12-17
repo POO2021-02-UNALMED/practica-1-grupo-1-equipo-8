@@ -10,7 +10,7 @@ import gestorAplicacion.tienda.*;
 
 /**
  * 
- * @author Estebanano Graciela Caremona
+ * @author Esteban Garcia
  * @summary Busca representar el comportamiento de un empleado dependiente,
  *          quien esta a cargo de atender a los clientes y asignar servicios. Es
  *          mediante el cual se efectuan los pagos y pasan los productos
