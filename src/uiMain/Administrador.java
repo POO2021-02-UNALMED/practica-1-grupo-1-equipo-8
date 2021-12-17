@@ -16,7 +16,8 @@ import java.lang.Math;
 public class Administrador {
 	static Scanner sc = new Scanner(System.in);
 	static Bodega bodega = new Bodega();
-
+	
+	//Se crean metodos para utilizar el Scanner de Java.
 	static int readInt() {
 		return sc.nextInt();
 	}
@@ -30,6 +31,7 @@ public class Administrador {
 	}
 
 	public static void main(String[] args) {
+		//Deserializa todos los objetos.
 		cargar();
 		inicializar();
 		System.out.println("Buenos dias Administrador\n");
@@ -72,12 +74,14 @@ public class Administrador {
 				liquidar();
 				break;
 			case 6:
+				//Muestra todos los clientes actualmente creados.
 				for (int i = 0; i < Cliente.getClientes().size(); i++) {
 					cliente = Cliente.getClientes().get(i);
 					System.out.println("Cliente id: " + i + cliente.toString());
 				}
 				break;
 			case 7:
+				//Muestra todos los servicios actualmente creados.
 				System.out.println("Servicio activos:");
 				for (int i = 0; i < Servicio.getServicios().size(); i++) {
 					Servicio servicio = Servicio.getServicios().get(i);
@@ -100,7 +104,7 @@ public class Administrador {
 		} while (opcion != 8);
 
 	}
-
+	//Diagnostica el servicio seleccionado por el administrador.
 	static void diagnosticar() {
 		try {
 			System.out.println("Ingrese el id del servicio");
@@ -359,6 +363,8 @@ public class Administrador {
 		}
 		return campo;
 	}
+	
+	//Genera un dependiente y tecnicos si no hay.
 	public static void inicializar() {
 		if (Dependiente.getDependientes().isEmpty())
 			new Dependiente("Camila", 1237465, new CajaRegistradora());
