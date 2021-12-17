@@ -114,7 +114,8 @@ public class Tecnico extends Empleado implements Serializable {
 	
 	/**
 	 * @param CaraRegistradora
-	 * @summary 
+	 * @summary utiliza el porcentaje que se le debe pagar a los tecnicos para calcular cuanto cobrar por su trabajo
+	 * y descontar de la caja registradora.
 	 * 
 	 */
 	public void cobrarSalario(CajaRegistradora caja) {
