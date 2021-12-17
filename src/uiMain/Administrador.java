@@ -36,7 +36,7 @@ public class Administrador {
 		inicializar();
 		System.out.println("Buenos dias Administrador\n");
 		for (Empleado empleado : Empleado.getEmpleados()) {
-			System.out.println(empleado.toString());
+			System.out.println(empleado.toString() + " cartera: " + empleado.getCartera());
 		}
 		int opcion;
 		Cliente cliente;
@@ -113,13 +113,17 @@ public class Administrador {
 			System.out.println("Ingrese el id del servicio");
 			int idServicio = readInt();
 			Servicio servicio = Servicio.getServicios().get(idServicio);
-			//Busca los componentes con problemas en el producto asociado al servicio.
-			servicio.getTecnico().diagnosticar(servicio);
-			//Devuelve el diagnostico hecho por el tecnico.
-			System.out.println(servicio.getDiagnostico());
-			System.out.println("Ya puede volver al menu principal para solicitar reparacion");
+			// Busca los componentes con problemas en el producto asociado al servicio.
+			if (!servicio.isReparado()) {
+				servicio.getTecnico().diagnosticar(servicio);
+				// Devuelve el diagnostico hecho por el tecnico.
+				System.out.println(servicio.getDiagnostico());
+				System.out.println("Ya puede volver al menu principal para solicitar reparacion\n");
+			} else {
+				System.out.println("Este producto ya habia sido reparado\n");
+			}
 		} catch (Exception e) {
-			System.out.println("El id del servicio no es correcto");
+			System.out.println("El id del servicio no es correcto\n");
 		}
 	}
 	
@@ -253,17 +257,17 @@ public class Administrador {
 				"Dua lipa", "Erika", "Michael", "Juliana" };
 
 		
-		Componente[] componentes = { new Componente("Memoria 4g Kinsgton", true, PrecioComponente.RAM_4GB.getPrecio()),
-				new Componente("Disco duro SSD 256gb", true, PrecioComponente.DISCO_DURO_SSD_256GB.getPrecio()),
-				new Componente("Bateria laptop lenovo supercharger", true,
+		Componente[] componentes = { new Componente("Memoria 4g Kinsgton", false, PrecioComponente.RAM_4GB.getPrecio()),
+				new Componente("Disco duro SSD 256gb", false, PrecioComponente.DISCO_DURO_SSD_256GB.getPrecio()),
+				new Componente("Bateria laptop lenovo supercharger", false,
 						PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER.getPrecio()),
-				new Componente("Procesador AMD", true, PrecioComponente.PROCESADOR_AMD.getPrecio()),
-				new Componente("Display 15 pulgadas", true, PrecioComponente.DISPLAY_LAPTOP_15In.getPrecio()),
-				new Componente("Memoria 8g Kinsgton", true, PrecioComponente.RAM_8GB.getPrecio()),
-				new Componente("Disco duro HDD 512gb", true, PrecioComponente.DISCO_DURO_HDD_512GB.getPrecio()),
-				new Componente("Bateria laptop lenovo", true, PrecioComponente.BATERIA_LAPTOP.getPrecio()),
-				new Componente("Procesador Intel", true, PrecioComponente.PROCESADOR_INTEL.getPrecio()),
-				new Componente("Display 17 pulgadas", true, PrecioComponente.DISPLAY_LAPTOP_17In.getPrecio()), };
+				new Componente("Procesador AMD", false, PrecioComponente.PROCESADOR_AMD.getPrecio()),
+				new Componente("Display 15 pulgadas", false, PrecioComponente.DISPLAY_LAPTOP_15In.getPrecio()),
+				new Componente("Memoria 8g Kinsgton", false, PrecioComponente.RAM_8GB.getPrecio()),
+				new Componente("Disco duro HDD 512gb", false, PrecioComponente.DISCO_DURO_HDD_512GB.getPrecio()),
+				new Componente("Bateria laptop lenovo", false, PrecioComponente.BATERIA_LAPTOP.getPrecio()),
+				new Componente("Procesador Intel", false, PrecioComponente.PROCESADOR_INTEL.getPrecio()),
+				new Componente("Display 17 pulgadas", false, PrecioComponente.DISPLAY_LAPTOP_17In.getPrecio()), };
 
 		Random rand = new Random();
 		Dependiente dependiente = Dependiente.getDependientes().get(0);
@@ -323,14 +327,14 @@ public class Administrador {
 	public static void crearClienteManualmente() {
 		boolean crearCliente = true;
 		
-		System.out.println("\nNuevo cliente\n Ingrese el nombre del cliente: ");
+		System.out.println("Nuevo cliente\n Ingrese el nombre del cliente: ");
 		readString();
 		String nombre = ingresarCampo("", crearCliente);
 		if (nombre.equals("0")) crearCliente = false;
-		System.out.println("\n Cedula: ");
+		System.out.println("Cedula: ");
 		String cc = ingresarCampo("", crearCliente);
 		if (cc.equals("0")) crearCliente = false;
-		System.out.println("\n Direccion: ");
+		System.out.println("Direccion: ");
 		String direccion = ingresarCampo("", crearCliente);
 		if (direccion.equals("0")) crearCliente = false;
 		
@@ -338,7 +342,7 @@ public class Administrador {
 		while( cartera < 400000 && crearCliente) {
 			if (cartera > 0) 
 				System.out.println("Ingrese un valor mayor a 400000 \n O ingrese 0 para regresar al menu anterior");
-			System.out.println("\n cartera: ");			
+			System.out.println("cartera: ");			
 			cartera = readDouble();
 			if(cartera == 0) {
 				crearCliente = false;
