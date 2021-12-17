@@ -151,7 +151,7 @@ public class Administrador {
 			cliente.solicitarReparacion(cliente.getProductos().get(0));
 
 			System.out.println("El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre()
-					+ "!\n" + "Ya puede consultar en los servicios para iniciar su diagnostico o reparacion.");
+					+ "!\n" + "Ya puede consultar en los servicios para iniciar su diagnostico.");
 		} catch (Exception e) {
 			System.out.println("El id del cliente no es correcto");
 		}
@@ -268,7 +268,7 @@ public class Administrador {
 		int opcion;
 		do {
 			System.out.println(" 1. Generar cliente");
-			System.out.println(" 2. Solicitar reparacion");
+			System.out.println(" 2. Solicitar serivicio");
 			System.out.println(" 3. Diagnosticar producto");
 			System.out.println(" 4. Volver al menu principal");
 
