@@ -5,11 +5,7 @@
 class Tecnico(Empleado):
     _tecnicos = list()
     def __init__(self, nombre, cedula, servicios = None):
-        if servicios == None:
             super().__init__(nombre, cedula)
-            self.tecnicos.append(self)
-        else:
-            super().__init__(nombre, cedula, servicios)
             self.tecnicos.append(self)
             
     # @param servicio

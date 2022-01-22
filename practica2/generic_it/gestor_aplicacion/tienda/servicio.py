@@ -3,7 +3,7 @@
 from queue import Empty
 
 
-class servicio:
+class Servicio:
     servicios = list()
     def __init__(self, _tecnico, _producto, _cliente, _dependiente):
         self._tecnico = _tecnico

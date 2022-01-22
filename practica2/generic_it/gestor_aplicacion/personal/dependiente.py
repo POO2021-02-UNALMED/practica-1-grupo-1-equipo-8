@@ -1,6 +1,6 @@
 import random
-import Empleado
-import Servicio
+from ..tienda.servicio import Servicio
+from tecnico import Tecnico
 
 
 class Dependiente(Empleado):
@@ -8,10 +8,17 @@ class Dependiente(Empleado):
     dependientes = []
     _MARGEN_GANANCIA = 1.5
 
-    def __init__(self, nombre, cedula, caja):
-        super.__init__(nombre,cedula)
-        self._cajaRegistradora = caja
-        Dependiente.dependientes.append(self)
+    def __init__(self, nombre, cedula, caja, servicios = None):
+        if servicios == None:
+            super.__init__(nombre,cedula)
+            self._cajaRegistradora = caja
+            Dependiente.dependientes.append(self)
+        else:
+            super.__init__(nombre,cedula)
+            self._cajaRegistradora = caja
+            Empleado.servicios = servicios
+            Dependiente.dependientes.append(self)
+
 
     def getCajaRegistradora(self):
         return self._cajaRegistradora
