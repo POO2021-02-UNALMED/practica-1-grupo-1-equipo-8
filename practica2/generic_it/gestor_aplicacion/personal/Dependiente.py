@@ -1,7 +1,6 @@
 import random
 import Empleado
 import Servicio
-import Tecnico
 
 
 class Dependiente(Empleado):
