@@ -1,4 +1,5 @@
 import random
+from empleado import Empleado
 from ..tienda.servicio import Servicio
 from tecnico import Tecnico
 

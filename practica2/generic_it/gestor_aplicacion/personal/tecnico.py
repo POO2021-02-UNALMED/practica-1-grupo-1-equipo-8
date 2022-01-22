@@ -1,3 +1,7 @@
+from empleado import Empleado
+from ..tienda.servicio import Servicio
+from ..tienda.bodega import Bodega
+
 # @author: Emilio Porras
 # @summary Esta clase busca representar el comportamiento de un empleado tipo tecnico
 # Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el tecnico toma o finaliza servicios
