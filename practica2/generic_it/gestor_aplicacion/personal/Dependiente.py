@@ -20,7 +20,7 @@ class Dependiente(Empleado):
         self._cajaRegistradora = caja
     
     def __str__(self):
-        return "Dependiente: " + self.getNombre()
+        return "Dependiente: " + super().getNombre()
     
     def getDependientes(self):
         return Dependiente.dependientes
@@ -32,10 +32,10 @@ class Dependiente(Empleado):
         return Dependiente._MARGEN_GANANCIA
 
     def quitarServicio(self, servicio):
-        self.getServicios().remove(servicio)
+        super().getServicios().remove(servicio)
 
     def asignarServicio(self, servicio):
-        self.getServicios().append(servicio)
+        super().getServicios().append(servicio)
 
     def finalizarServicio(self,servicio):
         self.notificarCliente(servicio)
