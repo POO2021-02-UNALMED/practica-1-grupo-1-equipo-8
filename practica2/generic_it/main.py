@@ -7,13 +7,16 @@ class FieldFrame(Frame):
         self.tituloValores = tituloValores
         self.valores = valores
         self.habilitado = habilitado
+        self.entries = []
         super().__init__(master)
 
         Label(self, text=self.tituloCriterios).grid(padx = 80, column = 0, row = 0)
         Label(self, text=self.tituloValores).grid(padx = 80, column = 1, row = 0)
         for i in range(1, len(criterios)+1):
             Label(self, text=criterios[i-1]).grid(padx = 80,pady=2, column=0, row=i)
-            Entry(self, width = 40).grid(pady =2, column=1, row=i)
+            entrada = Entry(self, width = 40)
+            entrada.grid(pady =2, column=1, row=i)
+            self.entries.append(entrada)
 
         
         aceptar = Button(self, text="Aceptar",command=self.aceptarCheck).grid(pady = 50, column = 0, row = len(self.criterios)+1)
@@ -21,7 +24,9 @@ class FieldFrame(Frame):
         
     #Funcion auxiliar del boton aceptar
     def aceptarCheck(self):
-        pass
+        for entrada in self.entries:
+            print(entrada.get())
+
     
     #Funcion auxiliar del boton borrar
     def borrarEntry(self):
