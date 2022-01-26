@@ -8,18 +8,18 @@
 
 class CajaRegistradora:
     def __init__(self):
-        self.servicios = []
-        self.totalIngresos = 0
+        self._servicios = []
+        self._totalIngresos = 0
 
     def registrarVenta(self, precio, servicio):
-        self.servicios.append(servicio)
-        self.totalIngresos += precio
+        self._servicios.append(servicio)
+        self._totalIngresos += precio
 
     def getTotalIngresos(self):
-        return self.totalIngresos
+        return self._totalIngresos
 
     def setTotalIngresos(self, totalIngresos):
-        self.totalIngresos = totalIngresos
+        self._totalIngresos = totalIngresos
 
     def descontar(self, porcentaje):
-        return self.totalIngresos * porcentaje
+        return self._totalIngresos * porcentaje
