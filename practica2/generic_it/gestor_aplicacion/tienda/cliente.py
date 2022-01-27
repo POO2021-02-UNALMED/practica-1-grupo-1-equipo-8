@@ -8,23 +8,34 @@
              muchas veces puede pa
 '''
 
+
 class Cliente():
     _clientes = []
 
-    def __init__(self, nombre, cedula, productos, dependiente, cartera, direccion = None):
-        self._direccion = direccion if direccion != None 
+    def __init__(
+            self,
+            nombre,
+            cedula,
+            productos,
+            dependiente,
+            cartera,
+            direccion=None
+    ):
+        if direccion is not None:
+            self._direccion = direccion
         self._nombre = nombre
         self._cedula = cedula
         self._productos = productos
         self._dependiente = dependiente
         self._cartera = cartera
+        self._recibos = []
         Cliente._clientes.append(self)
 
     def solicitarReparacion(self, producto):
         self._productos.append(producto)
 
     def pagarServcio(self, servicio, cobro):
-        if(!servicio.isPagado() && self._cartera >= cobro):
+        if(not servicio.isPagado() and self._cartera >= cobro):
             self._cartera -= cobro
 
     def recibirProducto(self, producto):
@@ -34,22 +45,22 @@ class Cliente():
         return self._nombre
 
     def setNombre(self, nombre):
-        return self._nombre = nombre
+        self._nombre = nombre
 
-    def getCedula(self, cedula):
-        return self._cedula = cedula
+    def getCedula(self):
+        return self._cedula
 
     def getProductos(self):
         return self._productos
 
     def setProductos(self, productos):
-        return self._productos = productos
+        self._productos = productos
 
     def getDependiente(self):
         return self._dependiente
 
     def setDepediente(self, dependiente):
-        return self.dependiente = dependiente
+        self._dependiente = dependiente
 
     def recibirRecibo(self, recibo):
         self._recibos.append(recibo)
@@ -63,7 +74,7 @@ class Cliente():
 
     @classmethod
     def setClientes(cls, clientes):
-        return cls._clientes = clientes
+        cls._clientes = clientes
 
     def getCartera(self):
         return self._cartera
