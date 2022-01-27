@@ -80,4 +80,4 @@ class Cliente():
         return self._cartera
 
     def __str__(self):
-        return "Nombre: " + self._nombre + " CC: " + self._cedula + " Cartera: " + self._cartera + " Direccion: " + self._direccion
+        return "Nombre: " + str(self._nombre) + " CC: " + str(self._cedula) + " Cartera: " + str(self._cartera)# + " Direccion: " + str(self._direccion)

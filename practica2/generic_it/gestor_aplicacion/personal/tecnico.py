@@ -1,4 +1,4 @@
-from empleado import Empleado
+from ..personal.empleado import Empleado
 from ..tienda.servicio import Servicio
 from ..tienda.bodega import Bodega
 

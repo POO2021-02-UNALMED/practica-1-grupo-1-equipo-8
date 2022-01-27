@@ -1,24 +1,26 @@
 import random
-from empleado import Empleado
+from ..personal.empleado import Empleado
 from ..tienda.servicio import Servicio
-from tecnico import Tecnico
+from ..personal.tecnico import Tecnico
 
 
 class Dependiente(Empleado):
 
-    dependientes = []
+    _dependientes = []
     _MARGEN_GANANCIA = 1.5
 
-    def __init__(self, nombre, cedula, caja, servicios = None):
+    def __init__(self, nombre, cedula, caja=None, servicios = None):
         if servicios == None:
-            super.__init__(nombre,cedula)
+            super().__init__(nombre,cedula)
             self._cajaRegistradora = caja
-            Dependiente.dependientes.append(self)
+            Dependiente._dependientes.append(self)
+            Empleado._empleados.append(self)
         else:
             super.__init__(nombre,cedula)
             self._cajaRegistradora = caja
             Empleado.servicios = servicios
-            Dependiente.dependientes.append(self)
+            Dependiente._dependientes.append(self)
+            Empleado._empleados.append(self)
 
 
     def getCajaRegistradora(self):
@@ -30,14 +32,17 @@ class Dependiente(Empleado):
     def __str__(self):
         return "Dependiente: " + super().getNombre()
     
-    def getDependientes(self):
-        return Dependiente.dependientes
+    @classmethod
+    def getDependientes(cls):
+        return cls._dependientes
     
-    def setDependientes(self, dependientes):
-        Dependiente.dependientes = dependientes
+    @classmethod
+    def setDependientes(cls, dependientes):
+        cls._dependientes = dependientes
     
-    def getMargenGanancia(self):
-        return Dependiente._MARGEN_GANANCIA
+    @classmethod
+    def getMargenGanancia(cls):
+        return cls._MARGEN_GANANCIA
 
     def quitarServicio(self, servicio):
         super().getServicios().remove(servicio)

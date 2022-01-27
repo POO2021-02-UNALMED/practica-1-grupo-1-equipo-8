@@ -1,6 +1,3 @@
-from curses.ascii import EM
-
-
 class Empleado:
     _empleados = []
 
@@ -35,11 +32,13 @@ class Empleado:
     def setCartera(self, cartera):
         self._cartera = cartera
     
-    def getEmpleados(self):
-        return Empleado._empleados
+    @classmethod
+    def getEmpleados(cls):
+        return cls._empleados
     
-    def setEmpleados(self, empleados):
-        Empleado._empleados = empleados
+    @classmethod
+    def setEmpleados(cls, empleados):
+        cls._empleados = empleados
     
     def __str__():
         pass
