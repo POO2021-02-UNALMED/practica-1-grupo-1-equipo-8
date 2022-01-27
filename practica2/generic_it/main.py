@@ -92,7 +92,6 @@ if __name__ == "__main__":
         solicitarServicio.pack()
     
     
-        
 
     def salir():
         sys.exit()
