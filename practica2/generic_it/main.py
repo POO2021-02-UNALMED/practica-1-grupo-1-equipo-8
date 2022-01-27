@@ -173,11 +173,6 @@ if __name__ == "__main__":
     print('practica 2')
 
 
-
-
-
-
-    
     #Frame de creacion manual del cliente ------------------------------------------------------------
     #window = Tk()
     window.resizable(True,True)
