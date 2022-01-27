@@ -1,10 +1,17 @@
 # @author: Emilio Porras
 # @author: Esteban Garcia
 # @summary programa principal de la aplicacion
+from gestor_aplicacion.personal.empleado import Empleado
+from gestor_aplicacion.tienda.cliente import Cliente
+from gestor_aplicacion.personal.dependiente import Dependiente
 from ctypes import resize
 from os import startfile
 from tkinter import *
 import sys
+
+from numpy import diag
+
+dependiente = Dependiente("Esteban", 102943784)
 
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
 class FieldFrame(Frame):
@@ -48,7 +55,8 @@ class FieldFrame(Frame):
             entrada.delete(0, "end")
         
     def getValue(self, criterio):
-        return dict(zip(self._criterios, self._valores))[criterio]
+        criterios_dict = dict(zip(self._criterios, self._valores))
+        return criterios_dict[criterio]
     
     def getCriterios(self): 
         return self._criterios
@@ -84,6 +92,8 @@ if __name__ == "__main__":
     window.title("Generic IT")
     window.option_add("*tearOff",  FALSE)
 
+
+    #Eventos antes que matar todo esté completo-------------------------------------
     def evtClienteManual():
         clienteManual.pack(fill=BOTH,expand=True)
         interfazInicio.pack_forget()
@@ -91,8 +101,24 @@ if __name__ == "__main__":
     def evtSolicitarServicio():
         solicitarServicio.pack()
     
+    def evtDiagnosticarProducto():
+        diagnosticarProducto.pack()
+        interfazInicio.pack_forget()
     
-
+    def evtRepararProducto():
+        repararProducto.pack()
+        interfazInicio.pack_forget()
+    
+    def evtFinalizarServicio():
+        finalizarServicio.pack()
+        interfazInicio.pack_forget()
+    
+    def evtCobrarServicio():
+        cobrarServicio.pack()
+        interfazInicio.pack_forget()
+        
+    
+    #-------------------------------------------------------------------------------
     def salir():
         sys.exit()
         
@@ -125,16 +151,16 @@ if __name__ == "__main__":
     submenu.add_command(label = "Crear cliente manualmente", command = evtClienteManual)
     submenu.add_command(label = "Generar cliente", command = evento)
     submenu.add_command(label = "Solicitar servicio", command = evtSolicitarServicio)
-    submenu.add_command(label = "Diagnosticar producto", command = evento)
+    submenu.add_command(label = "Diagnosticar producto", command = evtDiagnosticarProducto)
 
     menuarchivo.add_command(label = "Aplicación", command = evento)
     menuarchivo.add_command(label = "Guardar y salir", command = salir)
 
     menuprocesos.add_cascade(label = "Menu diagnosticar un producto", menu = submenu)
 
-    menuprocesos.add_command(label = "Reparar un producto", command = evento)
-    menuprocesos.add_command(label = "Finalizar un servicio", command = evento)
-    menuprocesos.add_command(label = "Cobrar un servicio", command = evento)
+    menuprocesos.add_command(label = "Reparar un producto", command = evtRepararProducto)
+    menuprocesos.add_command(label = "Finalizar un servicio", command = evtFinalizarServicio)
+    menuprocesos.add_command(label = "Cobrar un servicio", command = evtCobrarServicio)
     menuprocesos.add_command(label = "Liquidacion del periodo", command = evento)
     menuprocesos.add_command(label = "Mostrar clientes", command = evento)
     menuprocesos.add_command(label = "Mostrar servicios", command = evento)
@@ -183,7 +209,7 @@ if __name__ == "__main__":
 
     def creacionCliente():
         crearCliente.aceptarCheck()
-        #Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), --Lista de productos elegidos al azar--, Dependiente.getDependientes[0], float(crearCliente.getValue("Cartera")))
+        Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), [], Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
         valores = crearCliente.getValores()
         #Actualizar id del cliente en el FieldFrame
         crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
@@ -223,14 +249,38 @@ if __name__ == "__main__":
 
 
     #Frame de Diagnosticar producto-----------------------------------------------------
-    
+    diagnosticarProducto = Frame(window)
+    nombreDiagnosticarProducto = Label(diagnosticarProducto, text="Diagnosticar un producto", bd=10)
+    FFdiagnosticarProducto = FieldFrame(diagnosticarProducto, None, ["ID Servicio"], None, [None], [])
+
+    def aceptarDiagnosticarProducto():
+        FFdiagnosticarProducto.aceptarCheck()
+        #FUNCIONALIDAD DE DIAGNOSTICAR PRODUCTO
+
+    FFdiagnosticarProducto.crearBotones(aceptarDiagnosticarProducto)
+
+
+    nombreDiagnosticarProducto.pack()
+    FFdiagnosticarProducto.pack()
     #-------------------------------------------------------------------------------
 
     
 
 
     #Frame de Reparar un producto-----------------------------------------------------
- 
+    repararProducto = Frame(window)
+    nombreRepararProducto = Label(repararProducto, text="Reparar un producto", bd=10)
+    FFrepararProducto = FieldFrame(repararProducto, None, ["ID Servicio"], None, [None], [])
+
+    def aceptarRepararProducto():
+        FFrepararProducto.aceptarCheck()
+        #FUNCIONALIDAD DE REPARAR UN PRODUCTO
+
+    FFrepararProducto.crearBotones(aceptarRepararProducto)
+
+
+    nombreRepararProducto.pack()
+    FFrepararProducto.pack()
     #-------------------------------------------------------------------------------
 
 
@@ -238,22 +288,39 @@ if __name__ == "__main__":
 
 
     #Frame de Finalizar un servicio-----------------------------------------------------
- 
+    finalizarServicio = Frame(window)
+    nombreFinalizarServicio = Label(finalizarServicio, text="Finalizar un servicio", bd=10)
+    FFfinalizarServicio = FieldFrame(finalizarServicio, None, ["ID Servicio"], None, [None], [])
+
+    def aceptarFinalizarServicio():
+        FFfinalizarServicio.aceptarCheck()
+        #FUNCIONALIDAD DE REPARAR UN PRODUCTO
+
+    FFfinalizarServicio.crearBotones(aceptarFinalizarServicio)
+
+
+    nombreFinalizarServicio.pack()
+    FFfinalizarServicio.pack()
     #-------------------------------------------------------------------------------
 
-
-
-
-
-    #Frame de solicitar servicio-----------------------------------------------------
-    
-    #-------------------------------------------------------------------------------
 
 
 
 
     #Frame de Cobrar un servicio-----------------------------------------------------
- 
+    cobrarServicio = Frame(window)
+    nombreCobrarServicio = Label(cobrarServicio, text="Cobrar un servicio", bd=10)
+    FFcobrarServicio = FieldFrame(cobrarServicio, None, ["ID Servicio"], None, [None], [])
+
+    def aceptarCobrarServicio():
+        FFfinalizarServicio.aceptarCheck()
+        #FUNCIONALIDAD DE COBRAR SERVICIO
+
+    FFcobrarServicio.crearBotones(aceptarCobrarServicio)
+
+
+    nombreCobrarServicio.pack()
+    FFcobrarServicio.pack()
     #-------------------------------------------------------------------------------
 
 
