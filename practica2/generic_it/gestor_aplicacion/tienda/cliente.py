@@ -4,8 +4,8 @@
 @Author  :   Erik Gonzalez
 @Version :   1.0
 @Desc    :   El cliente tiene tres funcionalidades. solicitar una reparacion,
-             pagar es servicio que se se presto y recibir su producto. El cliente
-             muchas veces puede pa
+             pagar es servicio que se se presto y recibir su producto.
+             El cliente muchas veces puede pa
 '''
 
 
