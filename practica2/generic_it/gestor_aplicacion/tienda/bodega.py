@@ -16,15 +16,14 @@ class Bodega:
 
     @classmethod
     def sacarComponente(cls, nombre):
-        for componente in cls._componentes:
-            if componente.getNombre() == nombre:
-                return componente
-        return None
-
-    @classmethod
-    def sacarComponente(cls, componente):
-        cls._componentes.remove(componente)
-        return componente
+        if type(nombre) is str:
+            for componente in cls._componentes:
+                if componente.getNombre() == nombre:
+                    return componente
+            return None
+        else:
+            cls._componentes.remove(nombre)
+            return nombre
 
     @classmethod
     def getComponentes(cls):
