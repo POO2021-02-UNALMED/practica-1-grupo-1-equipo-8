@@ -6,6 +6,7 @@
 @Desc    :   La caja registradora lleva la contabilidad de la empresa
 '''
 
+
 class CajaRegistradora:
     cajasRegistradoras = []
 
