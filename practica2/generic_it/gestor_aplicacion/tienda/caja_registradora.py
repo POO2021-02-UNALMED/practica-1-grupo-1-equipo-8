@@ -7,9 +7,12 @@
 '''
 
 class CajaRegistradora:
+    cajasRegistradoras = []
+
     def __init__(self):
         self._servicios = []
         self._totalIngresos = 0
+        CajaRegistradora.cajasRegistradoras.append(self)
 
     def registrarVenta(self, precio, servicio):
         self._servicios.append(servicio)
