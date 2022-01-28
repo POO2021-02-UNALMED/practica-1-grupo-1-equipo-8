@@ -4,6 +4,7 @@
 from gestor_aplicacion.personal.empleado import Empleado
 from gestor_aplicacion.tienda.cliente import Cliente
 from gestor_aplicacion.personal.dependiente import Dependiente
+from gestor_aplicacion.tienda.servicio import Servicio
 from ctypes import resize
 from os import startfile
 from tkinter import *
@@ -11,6 +12,7 @@ import sys
 from numpy import diag
 
 dependiente = Dependiente("Esteban", 102943784)
+servicio = Servicio("Emilio", None, "Manel", dependiente)
 
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
 class FieldFrame(Frame):
@@ -43,8 +45,8 @@ class FieldFrame(Frame):
         
     #Funcion auxiliar del boton aceptar
     def aceptarCheck(self):
-        #EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
-        for i in range(len(self._entries)):
+        #***ERICK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
+        for i in range(len(self._entries)): #_entries es la lista con las entradas.
             self._valores[i] = self._entries[i].get()
 
     
@@ -85,10 +87,10 @@ def matarloTodo(frameUtilizado):
         frameUtilizado.pack(fill=BOTH,expand=True)
         
 
-def outPut(string, text):######################################################
+def outPut(string, text):
     text.delete("1.0", "end")
     text.insert(INSERT, string)
-    text.pack()
+    text.pack(fill=X, expand=True)
 
 
 
@@ -102,9 +104,17 @@ if __name__ == "__main__":
     window.option_add("*tearOff",  FALSE)
 
 
-    #Métodos sin argumentos para poder ejecutarlos-------------------------------------########################################
+    #Métodos sin argumentos para poder ejecutarlos-------------------------------------
     def evtClienteManual():
         matarloTodo(clienteManual)
+
+    #Output de Generar cliente  
+    outputGenerarCliente = Text(window, height=3)
+    framesAMatar.append(outputGenerarCliente)    
+    def evtGenerarCliente():
+        ###CREAR CLIENTE RANDOMIZADO
+        outPut("Se genero el cliente ID: ###CLIENTE" ,outputGenerarCliente)
+        matarloTodo(outputGenerarCliente)
 
     def evtSolicitarServicio():
         matarloTodo(solicitarServicio)
@@ -120,8 +130,43 @@ if __name__ == "__main__":
     
     def evtCobrarServicio():
         matarloTodo(cobrarServicio)
+
+    #Output de Liquidar el periodo  
+    outputLiquidarPeriodo = Text(window, height=5)
+    framesAMatar.append(outputLiquidarPeriodo)   
+    def evtLiquidarPeriodo():
+        ###LIQUIDAR EL PERIODO CON LA CAJA REGISTRADORA
+        outPut("En la caja registradora hay ***SALDO CAJA antes de liquidar."+
+        "\nEl Dependiente: ***DEPENDIENTE ha recibido ***PAGO por su trabajo."+
+        "\nEl Tecnico: ***TECNICO ha recibido ***PAGO por su trabajo"+
+        "\nEl Tecnico: ***TECNICO ha recibido ***PAGO por su trabajo"+
+        "\nEn la caja registradora quedan ***SALDO CAJA.", outputLiquidarPeriodo)
+        matarloTodo(outputLiquidarPeriodo)
     
-    #-------------------------------------------------------------------------------##########################################
+    #Output de mostrar clientes
+    outPutMostrarClientes = Text(window, height=len(Cliente.clientes))
+    framesAMatar.append(outPutMostrarClientes)
+    #Evento para mostrar clientes
+    def evtMostrarClientes():
+        stri = ""
+        for i in range(len(Cliente.clientes)):
+            stri+="ID cliente: " + str(i) + " " + Cliente.clientes[i].__str__() + "\n"
+        outPut(stri, outPutMostrarClientes)
+        matarloTodo(outPutMostrarClientes)
+    
+    #Output de mostrar servicios
+    outPutMostrarServicios = Text(window, height=len(Servicio.servicios))
+    framesAMatar.append(outPutMostrarServicios)
+    #Evento para mostrar servicios
+    def evtMostrarServicios():
+        stri = ""
+        for i in range(len(Servicio.servicios)):
+            stri+= "ID servicio: " + str(i) + " " + Servicio.servicios[i].__str__() + "\n"
+        outPut(stri, outPutMostrarServicios)
+        matarloTodo(outPutMostrarServicios)
+        
+    
+    #-------------------------------------------------------------------------------
     def salir():
         sys.exit()
         
@@ -152,11 +197,11 @@ if __name__ == "__main__":
     #submenu de procesos y consultas
     submenu = Menu(window)
     submenu.add_command(label = "Crear cliente manualmente", command = evtClienteManual)
-    submenu.add_command(label = "Generar cliente", command = evento)
+    submenu.add_command(label = "Generar cliente", command = evtGenerarCliente)
     submenu.add_command(label = "Solicitar servicio", command = evtSolicitarServicio)
     submenu.add_command(label = "Diagnosticar producto", command = evtDiagnosticarProducto)
 
-    menuarchivo.add_command(label = "Aplicación", command = evento)
+    menuarchivo.add_command(label = "Aplicacion", command = evento)
     menuarchivo.add_command(label = "Guardar y salir", command = salir)
 
     menuprocesos.add_cascade(label = "Menu diagnosticar un producto", menu = submenu)
@@ -164,24 +209,21 @@ if __name__ == "__main__":
     menuprocesos.add_command(label = "Reparar un producto", command = evtRepararProducto)
     menuprocesos.add_command(label = "Finalizar un servicio", command = evtFinalizarServicio)
     menuprocesos.add_command(label = "Cobrar un servicio", command = evtCobrarServicio)
-    menuprocesos.add_command(label = "Liquidacion del periodo", command = evento)
-    menuprocesos.add_command(label = "Mostrar clientes", command = evento)
-    menuprocesos.add_command(label = "Mostrar servicios", command = evento)
+    menuprocesos.add_command(label = "Liquidar el periodo", command = evtLiquidarPeriodo)
+    menuprocesos.add_command(label = "Mostrar clientes", command = evtMostrarClientes)
+    menuprocesos.add_command(label = "Mostrar servicios", command = evtMostrarServicios)
 
     menuayuda.add_command(label = "Acerca de", command = evento)
 
     window['menu'] = menubar
 
-    #window.mainloop()
     print('practica 2')
 
 
     #Frame de creacion manual del cliente ------------------------------------------------------------
-    #window = Tk()
     window.resizable(True,True)
 
     clienteManual = Frame(window, bd=10)
-    #clienteManual.pack(fill="both", expand=True)
     nombre = Label(clienteManual, text="Crear cliente manualmente", bd= 10)
 
 
@@ -212,12 +254,14 @@ if __name__ == "__main__":
     crearCliente.grid_rowconfigure(4, weight=1)
     crearCliente.grid_rowconfigure(5, weight=1)
     
-    output = Text(clienteManual, height=3)#####################################################
-    framesAMatar.append(output)################################################################
+    output = Text(clienteManual, height=3)
+    framesAMatar.append(output)
 
     def creacionCliente():
         crearCliente.aceptarCheck()
+        #***ERIK*** REVISAR QUE EL NOMBRE, CEDULA Y CARTERA SEAN DE SUS TIPOS CORRESPONDIENTES
         cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), [], Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
+        
         valores = crearCliente.getValores()
         #Actualizar id del cliente en el FieldFrame
         crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
@@ -225,7 +269,7 @@ if __name__ == "__main__":
         crearCliente.setEntries(list())
         #Refrescar el FieldFrame
         crearCliente.actualizacion()
-        outPut(cliente.__str__(), output)#######################################################
+        outPut("Se ha generado manualmente el cliente con ID: " + str(len(Cliente.clientes)-1) + " " + cliente.__str__(), output)
 
     #Creacion de los botones para aceptar y borrar de creacion manual de cliente
     crearCliente.crearBotones(creacionCliente)   #     Aceptar             Borrar
@@ -238,22 +282,29 @@ if __name__ == "__main__":
     framesAMatar.append(clienteManual)
     
     #--------------------------------------------------------------------------------
-    
+     
     
     
     #Frame de Solicitar servicio-----------------------------------------------------
     solicitarServicio = Frame(window)
     nombreSolicitarServicio = Label(solicitarServicio, text="Solicitar servicio", bd=10)
+    dcrSolicitarServicio = Label(solicitarServicio, text="Ingrese el ID del cliente para solicitar la reparacion de su producto", bd=10)
     FFsolicitarServicio = FieldFrame(solicitarServicio, None, ["ID Servicio"], None, [None], [])
+    outputsolicitarServicio = Text(solicitarServicio, height=3)
+    framesAMatar.append(outputsolicitarServicio)
+
 
     def aceptarSolicitarServicio():
         FFsolicitarServicio.aceptarCheck()
-        #FUNCIONALIDAD DE SOLICITAR SERVICIO 
+        #FUNCIONALIDAD DE SOLICITAR SERVICIO
+        outPut("El cliente fue atendido exitosamente por ***DEPENDIENTE y se ha generado el servicio con: ***PRODUCTO" + 
+                "\nYa puede consultar en los servicios para iniciar su diagnostico.", outputsolicitarServicio) 
 
     FFsolicitarServicio.crearBotones(aceptarSolicitarServicio)
 
 
     nombreSolicitarServicio.pack()
+    dcrSolicitarServicio.pack()
     FFsolicitarServicio.pack()
     framesAMatar.append(solicitarServicio)
     #-------------------------------------------------------------------------------
@@ -263,16 +314,21 @@ if __name__ == "__main__":
     #Frame de Diagnosticar producto-----------------------------------------------------
     diagnosticarProducto = Frame(window)
     nombreDiagnosticarProducto = Label(diagnosticarProducto, text="Diagnosticar un producto", bd=10)
+    dcrDiagnosticarProducto = Label(diagnosticarProducto, text = "Ingrese el ID del servicio a diagnosticar", bd=10)
     FFdiagnosticarProducto = FieldFrame(diagnosticarProducto, None, ["ID Servicio"], None, [None], [])
+    outputDiagnosticarProducto = Text(diagnosticarProducto, height=3)
+    framesAMatar.append(outputDiagnosticarProducto)
 
     def aceptarDiagnosticarProducto():
         FFdiagnosticarProducto.aceptarCheck()
         #FUNCIONALIDAD DE DIAGNOSTICAR PRODUCTO
+        outPut("***STRING DE LO ENCONTRADO POR EL TECNICO AL DIAGNOSTICAR", outputDiagnosticarProducto)
 
     FFdiagnosticarProducto.crearBotones(aceptarDiagnosticarProducto)
 
 
     nombreDiagnosticarProducto.pack()
+    dcrDiagnosticarProducto.pack()
     FFdiagnosticarProducto.pack()
     framesAMatar.append(diagnosticarProducto)
     #-------------------------------------------------------------------------------
@@ -283,16 +339,21 @@ if __name__ == "__main__":
     #Frame de Reparar un producto-----------------------------------------------------
     repararProducto = Frame(window)
     nombreRepararProducto = Label(repararProducto, text="Reparar un producto", bd=10)
+    dcrRepararProducto = Label(repararProducto, text="Ingrese el ID del servicio a reparar", bd=10)
     FFrepararProducto = FieldFrame(repararProducto, None, ["ID Servicio"], None, [None], [])
+    outputRepararProducto = Text(repararProducto, height=3)
+    framesAMatar.append(outputRepararProducto)
 
     def aceptarRepararProducto():
         FFrepararProducto.aceptarCheck()
         #FUNCIONALIDAD DE REPARAR UN PRODUCTO
+        outPut("El servicio de ***CLIENTE fue arreglado por ***TECNICO y tuvo un costo para la empresa de ***COSTO SERVICIO", outputRepararProducto)
 
     FFrepararProducto.crearBotones(aceptarRepararProducto)
 
 
     nombreRepararProducto.pack()
+    dcrDiagnosticarProducto.pack()
     FFrepararProducto.pack()
     framesAMatar.append(repararProducto)
     #-------------------------------------------------------------------------------
@@ -304,16 +365,27 @@ if __name__ == "__main__":
     #Frame de Finalizar un servicio-----------------------------------------------------
     finalizarServicio = Frame(window)
     nombreFinalizarServicio = Label(finalizarServicio, text="Finalizar un servicio", bd=10)
+    dcrFinalizarServicio = Label(finalizarServicio, text="Ingrese el ID del servicio a finalizar", bd=10)
     FFfinalizarServicio = FieldFrame(finalizarServicio, None, ["ID Servicio"], None, [None], [])
+    outputFinalizarServicio = Text(finalizarServicio, height=5)
+    framesAMatar.append(outputFinalizarServicio)
+
 
     def aceptarFinalizarServicio():
         FFfinalizarServicio.aceptarCheck()
-        #FUNCIONALIDAD DE REPARAR UN PRODUCTO
+        #FUNCIONALIDAD DE FINALIZAR SERVICIO
+        outPut("Factura # ***ID SERVICIO"+
+        "\nCliente: ***CLIENTE con cedula ###CEDULA CLIENTE"+
+        "\nCosto total: **COSTO SERVICIO"+
+        "\nRecibir el producto: ###PRODUCTO"+
+        "\nEl servicio ya esta listo para ser cobrado.", outputFinalizarServicio)
+
 
     FFfinalizarServicio.crearBotones(aceptarFinalizarServicio)
 
 
     nombreFinalizarServicio.pack()
+    dcrFinalizarServicio.pack()
     FFfinalizarServicio.pack()
     framesAMatar.append(finalizarServicio)
     #-------------------------------------------------------------------------------
@@ -325,16 +397,23 @@ if __name__ == "__main__":
     #Frame de Cobrar un servicio-----------------------------------------------------
     cobrarServicio = Frame(window)
     nombreCobrarServicio = Label(cobrarServicio, text="Cobrar un servicio", bd=10)
+    dcrCobrarServicio = Label(cobrarServicio, text="Ingrese el ID del servicio a cobrar", bd=10)
     FFcobrarServicio = FieldFrame(cobrarServicio, None, ["ID Servicio"], None, [None], [])
+    outputCobrarServicio = Text(cobrarServicio, height=3)
+    framesAMatar.append(outputCobrarServicio)
+
 
     def aceptarCobrarServicio():
         FFfinalizarServicio.aceptarCheck()
         #FUNCIONALIDAD DE COBRAR SERVICIO
+        outPut("Se cobra el servicio por un total de ***COSTO*MARGEN_GANANCIA." + 
+               "\nEn la caja registradora ahora hay ***TOTAL_INGRESOS_CAJA pesos.", outputCobrarServicio)
 
     FFcobrarServicio.crearBotones(aceptarCobrarServicio)
 
 
     nombreCobrarServicio.pack()
+    dcrCobrarServicio.pack()
     FFcobrarServicio.pack()
     framesAMatar.append(cobrarServicio)
     #-------------------------------------------------------------------------------

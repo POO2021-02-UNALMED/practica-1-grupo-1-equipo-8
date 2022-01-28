@@ -1,5 +1,7 @@
-
-
+# from ..tienda.cliente import Cliente
+# from ..tienda.producto import Producto
+# from ..personal.dependiente import Dependiente
+# from ..personal.tecnico import Tecnico
 from queue import Empty
 
 
@@ -13,10 +15,11 @@ class Servicio:
         self._reparado = False
         self._costo = 0
         self._diagnostico = ""
+        self._pagado = False
         if self.servicios is Empty:
             self.identificador = 0
         else:
-            self.identificador = self.servicios.size
+            self.identificador = len(self.servicios)
         self.servicios.append(self)
 
     def setPagado(self, _pagado):
@@ -69,5 +72,5 @@ class Servicio:
     def setReparado(self, reparado):
         self._reparado = reparado
 
-    def toString(self):
-        return "\nIdentificador del servicio: " + self.identificador+ "\nCliente: " + self._cliente+ "\nProducto asociado: " + self._producto+ "\nReparado: " + self._reparado+ "\nPagado: " + self._pagado + "\n"
+    def __str__(self):
+        return "\nIdentificador del servicio: " + str(self.identificador) + "\nCliente: " + str(self._cliente) + "\nProducto asociado: " + str(self._producto)+ "\nReparado: " + str(self._reparado) + "\nPagado: " + str(self._pagado) + "\n"

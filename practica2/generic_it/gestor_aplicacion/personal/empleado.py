@@ -42,3 +42,10 @@ class Empleado:
     
     def __str__():
         pass
+
+    def quitarServicio(self, servicio):
+        pass
+    def asignarServicio(self, servicio):
+        pass
+    def cobrarSalario(self, caja):
+        pass

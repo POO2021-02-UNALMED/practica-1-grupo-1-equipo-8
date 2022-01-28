@@ -10,7 +10,7 @@
 
 
 class Cliente():
-    _clientes = []
+    clientes = []
 
     def __init__(
             self,
@@ -29,7 +29,7 @@ class Cliente():
         self._dependiente = dependiente
         self._cartera = cartera
         self._recibos = []
-        Cliente._clientes.append(self)
+        Cliente.clientes.append(self)
 
     def solicitarReparacion(self, producto):
         self._productos.append(producto)
@@ -70,11 +70,11 @@ class Cliente():
 
     @classmethod
     def getClientes(cls):
-        return cls._clientes
+        return cls.clientes
 
     @classmethod
     def setClientes(cls, clientes):
-        cls._clientes = clientes
+        cls.clientes = clientes
 
     def getCartera(self):
         return self._cartera

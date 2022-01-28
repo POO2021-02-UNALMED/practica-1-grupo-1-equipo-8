@@ -76,5 +76,5 @@ class Tecnico(Empleado):
         porcentaje = 0.02
         self._cartera += cajaRegistradora.descontar(porcentaje)
         
-    def toString(self):
+    def __str__(self):
         return "Tecnico: " + self.getNombre()    
