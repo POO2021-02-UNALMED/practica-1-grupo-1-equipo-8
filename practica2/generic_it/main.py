@@ -3,16 +3,129 @@
 # @summary programa principal de la aplicacion
 from gestor_aplicacion.personal.empleado import Empleado
 from gestor_aplicacion.tienda.cliente import Cliente
+from gestor_aplicacion.personal.tecnico import Tecnico
 from gestor_aplicacion.personal.dependiente import Dependiente
 from gestor_aplicacion.tienda.servicio import Servicio
+from gestor_aplicacion.tienda.componente import Componente
+from gestor_aplicacion.tienda.precio_componente import PrecioComponente
+from gestor_aplicacion.tienda.bodega import Bodega
+from gestor_aplicacion.tienda.producto import Producto
 from ctypes import resize
 from os import startfile
 from tkinter import *
 import sys
 from numpy import diag
+from random import choice, random, randint
 
 dependiente = Dependiente("Esteban", 102943784)
+tecnico = Tecnico("Emilio", 12312391)
 #servicio = Servicio("Emilio", None, "Manel", dependiente)
+
+#FUNCIONALIDADES---------------------------------------------------------------------------------------
+
+def generarProductoAleatorio():
+    rand = random()
+    nombreProductos = [ "Laptop Legion 5", "Hp zbook 1", "Hp Omen 15", "Asus TUF Gaming", "HP XPS",
+				"Macbook pro", "Lenovo Thinkpad", "Hp pavilion", "Notebook Gigabyte", "MSI Strike" ]
+    componentes = [ Componente("Memoria 4g Kinsgton", True),
+                    Componente("Disco duro SSD 256gb", True),
+                    Componente("Bateria laptop lenovo supercharger", True),
+                    Componente("Procesador AMD", True),
+                    Componente("Display 15 pulgadas", True),
+                    Componente("Memoria 8g Kinsgton", True),
+                    Componente("Disco duro HDD 512gb", True),
+                    Componente("Bateria laptop lenovo", True),
+                    Componente("Procesador Intel", True),
+                    Componente("Display 17 pulgadas", True)]
+    
+    productoComponentes = list()
+    productoComponentes.append(choice(componentes))
+    productoComponentes.append(choice(componentes))
+
+    return Producto(choice(nombreProductos), productoComponentes)
+    
+
+def generarCliente():
+    nombres = ["Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana", "Dua lipa", "Erika", "Michael", "Juliana"]
+    componentes = [Componente("Memoria 4g Kingston", False, PrecioComponente.RAM_4GB.value),
+    Componente("Disco duro SSD 256gb", False, PrecioComponente.DISCO_DURO_SSD_256GB.value),
+    Componente("Bateria laptop lenovo supercharger", False, PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER),
+    Componente("Procesador AMD", False, PrecioComponente.PROCESADOR_AMD.value),
+    Componente("Display 15 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_15In.value),
+    Componente("Memoria 8g Kingston", False, PrecioComponente.RAM_8GB.value),
+    Componente("Disco duro HDD 512gb", False, PrecioComponente.DISCO_DURO_HDD_512GB),
+    Componente("Bateria laptop lenovo", False, PrecioComponente.BATERIA_LAPTOP),
+    Componente("Procesador Intel", False, PrecioComponente.PROCESADOR_INTEL),
+    Componente("Display 17 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_17In.value)]
+    dependiente = Dependiente.dependientes[0]
+    producto = generarProductoAleatorio()
+    productos = [producto]
+    cartera = int(450000+1000000*random())
+    cliente = Cliente(choice(nombres), randint(100000000, 9999999999), productos, dependiente, cartera)
+
+    valores = crearCliente.getValores()
+    #Actualizar id del cliente en el FieldFrame
+    crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
+    #Resetear entries del FieldFrame
+    crearCliente.setEntries(list())
+    #Refrescar el FieldFrame
+    crearCliente.actualizacion()
+
+    for componente in componentes:
+        Bodega.agregarComponente(componente)
+    return cliente
+
+    
+
+
+
+def funSolicitarServicio(index):
+        cliente = Cliente.getClientes()[int(index)]
+        if len(cliente.getRecibos()) == 0:
+            producto = cliente.getProductos()[0]
+            cliente.solicitarReparacion(producto)
+            return "El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre() + " y se ha generado el servicio con: " + producto.__str__() + ".\nYa puede consultar en los servicios para iniciar su diagnostico."
+        else:
+            return "El cliente " + cliente.getNombre() + " ya habia sido atendido\n"
+
+def diagnosticarUnProducto():
+            servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
+            #except = "El id del servicio no es correcto\n"
+            #Busca los componentes con problemas en el producto asociado al servicio.
+            if not servicio.isReparado():
+                servicio.getTecnico().diagnosticar(servicio)
+                # Devuelve el diagnostico hecho por el tecnico.
+                stringDiagnostico = servicio.__str__()
+                stringDiagnostico += "Ya puede volver al menu principal para solicitar reparacion\n"
+            else:
+                stringDiagnostico = "Este producto ya habia sido reparado\n"
+            return stringDiagnostico
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#------------------------------------------------------------------------------------------------------
 
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
 class FieldFrame(Frame):
@@ -112,8 +225,8 @@ if __name__ == "__main__":
     outputGenerarCliente = Text(window, height=3)
     framesAMatar.append(outputGenerarCliente)    
     def evtGenerarCliente():
-        ###CREAR CLIENTE RANDOMIZADO
-        outPut("Se genero el cliente ID: ###CLIENTE" ,outputGenerarCliente)
+        cliente = generarCliente()
+        outPut("Se genero el cliente ID: "+str(Cliente.clientes.index(cliente))+" "+cliente.__str__() ,outputGenerarCliente)
         matarloTodo(outputGenerarCliente)
 
     def evtSolicitarServicio():
@@ -164,8 +277,6 @@ if __name__ == "__main__":
             stri+= "ID servicio: " + str(i) + " " + Servicio.servicios[i].__str__() + "\n"
         outPut(stri, outPutMostrarServicios)
         matarloTodo(outPutMostrarServicios)
-        
-    
     #-------------------------------------------------------------------------------
     def salir():
         sys.exit()
@@ -244,7 +355,7 @@ if __name__ == "__main__":
     descripcion = Label(clienteManual, text="Diligenciar la siguiente información para el correcto ingreso del cliente al sistema: ", bd= 10)
 
     #VALOR DE ID = len(Cliente.clientes)
-    crearCliente = FieldFrame(clienteManual, "Datos cliente",["ID","Nombre", "Cedula", "Cartera"], "Valor", [0, None, None, None], ["ID"])
+    crearCliente = FieldFrame(clienteManual, "Datos cliente",["ID","Nombre", "Cedula", "Cartera"], "Valor", [len(Cliente.clientes), None, None, None], ["ID"])
     crearCliente.grid_columnconfigure(0, weight=1)
     crearCliente.grid_columnconfigure(1, weight=1)
     crearCliente.grid_rowconfigure(0, weight=1)
@@ -259,8 +370,10 @@ if __name__ == "__main__":
 
     def creacionCliente():
         crearCliente.aceptarCheck()
+        producto = generarProductoAleatorio()
+        productos = [producto] 
         #***ERIK*** REVISAR QUE EL NOMBRE, CEDULA Y CARTERA SEAN DE SUS TIPOS CORRESPONDIENTES
-        cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), [], Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
+        cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), productos, Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
         
         valores = crearCliente.getValores()
         #Actualizar id del cliente en el FieldFrame
@@ -289,16 +402,15 @@ if __name__ == "__main__":
     solicitarServicio = Frame(window)
     nombreSolicitarServicio = Label(solicitarServicio, text="Solicitar servicio", bd=10)
     dcrSolicitarServicio = Label(solicitarServicio, text="Ingrese el ID del cliente para solicitar la reparacion de su producto", bd=10)
-    FFsolicitarServicio = FieldFrame(solicitarServicio, None, ["ID Servicio"], None, [None], [])
+    FFsolicitarServicio = FieldFrame(solicitarServicio, None, ["ID cliente"], None, [None], [])
     outputsolicitarServicio = Text(solicitarServicio, height=3)
     framesAMatar.append(outputsolicitarServicio)
 
 
     def aceptarSolicitarServicio():
         FFsolicitarServicio.aceptarCheck()
-        #FUNCIONALIDAD DE SOLICITAR SERVICIO
-        outPut("El cliente fue atendido exitosamente por ***DEPENDIENTE y se ha generado el servicio con: ***PRODUCTO" + 
-                "\nYa puede consultar en los servicios para iniciar su diagnostico.", outputsolicitarServicio) 
+        funSolicitarServicio(FFsolicitarServicio.getValue("ID cliente"))
+        outPut(funSolicitarServicio(FFsolicitarServicio.getValue("ID cliente")), outputsolicitarServicio) 
 
     FFsolicitarServicio.crearBotones(aceptarSolicitarServicio)
 
@@ -308,21 +420,19 @@ if __name__ == "__main__":
     FFsolicitarServicio.pack()
     framesAMatar.append(solicitarServicio)
     #-------------------------------------------------------------------------------
-
-
-
+    #@summary Diagnostica el servicio seleccionado por el administrador.
     #Frame de Diagnosticar producto-----------------------------------------------------
     diagnosticarProducto = Frame(window)
     nombreDiagnosticarProducto = Label(diagnosticarProducto, text="Diagnosticar un producto", bd=10)
     dcrDiagnosticarProducto = Label(diagnosticarProducto, text = "Ingrese el ID del servicio a diagnosticar", bd=10)
     FFdiagnosticarProducto = FieldFrame(diagnosticarProducto, None, ["ID Servicio"], None, [None], [])
-    outputDiagnosticarProducto = Text(diagnosticarProducto, height=3)
+    outputDiagnosticarProducto = Text(diagnosticarProducto, height=7)
     framesAMatar.append(outputDiagnosticarProducto)
 
     def aceptarDiagnosticarProducto():
         FFdiagnosticarProducto.aceptarCheck()
-        #FUNCIONALIDAD DE DIAGNOSTICAR PRODUCTO
-        outPut("***STRING DE LO ENCONTRADO POR EL TECNICO AL DIAGNOSTICAR", outputDiagnosticarProducto)
+        
+        outPut(diagnosticarUnProducto(), outputDiagnosticarProducto)
 
     FFdiagnosticarProducto.crearBotones(aceptarDiagnosticarProducto)
 

@@ -4,7 +4,7 @@
 from enum import Enum
 class PrecioComponente(Enum):
     RAM_4GB = 20000
-    RAM_4GB = 50000
+    RAM_8GB = 50000
     DISCO_DURO_HDD_512GB = 100000
     DISCO_DURO_SSD_256GB = 200000
     BATERIA_LAPTOP = 150000

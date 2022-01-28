@@ -55,6 +55,9 @@ class Servicio:
     def setCliente(self, cliente):
         self._cliente = cliente
 
+    def setDiagnostico(self, diagnostico):
+        self._diagnostico = diagnostico
+        
     @classmethod
     def getServicios(cls):
         return cls.servicios
@@ -73,4 +76,4 @@ class Servicio:
         self._reparado = reparado
 
     def __str__(self):
-        return "\nIdentificador del servicio: " + str(self.identificador) + "\nCliente: " + str(self._cliente) + "\nProducto asociado: " + str(self._producto)+ "\nReparado: " + str(self._reparado) + "\nPagado: " + str(self._pagado) + "\n"
+        return "Identificador del servicio: " + str(self.identificador) + "\nCliente: " + str(self._cliente) + "\nProducto asociado: " + str(self._producto)+ "\nReparado: " + str(self._reparado) + "\nPagado: " + str(self._pagado) + "\n"

@@ -7,7 +7,7 @@ from ..tienda.bodega import Bodega
 # Estructuras relevantes: servicios es una lista de servicios que se va modificando a medida que el tecnico toma o finaliza servicios
 
 class Tecnico(Empleado):
-    _tecnicos = list()
+    tecnicos = list()
     def __init__(self, nombre, cedula, servicios = None):
             super().__init__(nombre, cedula)
             self.tecnicos.append(self)
@@ -36,7 +36,7 @@ class Tecnico(Empleado):
     # sobre los problemas del producto correspondiente.
     
     def diagnosticar(self, servicio):
-        servicio.setDiagnostico("Se encontraron problemas en los siguientes componentes del producto: "+ self.verificarProblemas(servicio))
+        servicio.setDiagnostico("Se encontraron problemas en los siguientes componentes del producto: "+ str(self.verificarProblemas(servicio)))
         
     # @param servicio
     # @summary El metodo reparar recibe como parametro un servicio. Luego, revisa si los componentes aveados estan disponibles en la bodega y, a 

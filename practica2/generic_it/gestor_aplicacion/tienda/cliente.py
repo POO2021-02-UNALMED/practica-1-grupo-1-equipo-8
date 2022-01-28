@@ -32,6 +32,7 @@ class Cliente():
         Cliente.clientes.append(self)
 
     def solicitarReparacion(self, producto):
+        self._dependiente.atenderCliente(self, producto)
         self._productos.append(producto)
 
     def pagarServcio(self, servicio, cobro):

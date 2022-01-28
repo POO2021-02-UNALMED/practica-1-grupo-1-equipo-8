@@ -6,20 +6,20 @@ from ..personal.tecnico import Tecnico
 
 class Dependiente(Empleado):
 
-    _dependientes = []
+    dependientes = []
     _MARGEN_GANANCIA = 1.5
 
     def __init__(self, nombre, cedula, caja=None, servicios = None):
         if servicios == None:
             super().__init__(nombre,cedula)
             self._cajaRegistradora = caja
-            Dependiente._dependientes.append(self)
+            Dependiente.dependientes.append(self)
             Empleado._empleados.append(self)
         else:
             super.__init__(nombre,cedula)
             self._cajaRegistradora = caja
             Empleado.servicios = servicios
-            Dependiente._dependientes.append(self)
+            Dependiente.dependientes.append(self)
             Empleado._empleados.append(self)
 
 
@@ -34,11 +34,11 @@ class Dependiente(Empleado):
     
     @classmethod
     def getDependientes(cls):
-        return cls._dependientes
+        return cls.dependientes
     
     @classmethod
     def setDependientes(cls, dependientes):
-        cls._dependientes = dependientes
+        cls.dependientes = dependientes
     
     @classmethod
     def getMargenGanancia(cls):
@@ -61,7 +61,7 @@ class Dependiente(Empleado):
 
     def atenderCliente(self, cliente, producto):
         if len(cliente.getRecibos()) == 0:
-            rand = random.randint(0, len(Tecnico.tecnicos))
+            rand = random.randint(0, len(Tecnico.tecnicos)-1)
             tecnico = Tecnico.tecnicos[rand]
             self.generarServicio(tecnico, producto, cliente)
     

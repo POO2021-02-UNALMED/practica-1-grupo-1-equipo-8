@@ -24,7 +24,7 @@ class Producto:
     def getComponentes(self):
         return self._componentes
     
-    def toString(self):
+    def __str__(self):
         return self._nombre
     
     def setNombre(self, nombre):

@@ -1,8 +1,10 @@
-class componente:
-    def __init__ (self, _nombre, _averiado):
-        self._nombre = _nombre
-        self._averiado = _averiado
-        precio = 0
+class Componente:
+    componentes = list()
+    def __init__ (self, _nombre, _averiado, _precio = 0):
+            self._nombre = _nombre
+            self._averiado = _averiado
+            self._precio = _precio
+            Componente.componentes.append(self)
 
     def setNombre(self, nombre):
         self._nombre = nombre
@@ -19,7 +21,7 @@ class componente:
     def setPrecio(self, precio):
         self.precio = precio
 
-    def toString(self):
+    def __str__(self):
         return self._nombre
 
     
