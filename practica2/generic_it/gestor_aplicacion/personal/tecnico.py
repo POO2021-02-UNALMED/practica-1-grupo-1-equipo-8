@@ -36,7 +36,7 @@ class Tecnico(Empleado):
     # sobre los problemas del producto correspondiente.
     
     def diagnosticar(self, servicio):
-        servicio.setDiagnostico("Se encontraron problemas en los siguientes componentes del producto: "+ str(self.verificarProblemas(servicio)))
+        servicio.setDiagnostico("Se encontraron problemas en los siguientes componentes del producto: "+ str([componente.__str__() for componente in self.verificarProblemas(servicio)]))
         
     # @param servicio
     # @summary El metodo reparar recibe como parametro un servicio. Luego, revisa si los componentes aveados estan disponibles en la bodega y, a 
@@ -52,6 +52,8 @@ class Tecnico(Empleado):
                 componenteBodega = Bodega.sacarComponente(remplazo)
                 producto.quitarComponente(componente)
                 producto.agregarComponente(componenteBodega)
+                print(servicio.getCosto())
+                print(componenteBodega.getPrecio())
                 servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio())
         servicio.setReparado(True)
         self.quitarServicio(servicio)

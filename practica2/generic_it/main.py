@@ -10,6 +10,7 @@ from gestor_aplicacion.tienda.componente import Componente
 from gestor_aplicacion.tienda.precio_componente import PrecioComponente
 from gestor_aplicacion.tienda.bodega import Bodega
 from gestor_aplicacion.tienda.producto import Producto
+from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 from ctypes import resize
 from os import startfile
 from tkinter import *
@@ -17,7 +18,8 @@ import sys
 from numpy import diag
 from random import choice, random, randint
 
-dependiente = Dependiente("Esteban", 102943784)
+
+dependiente = Dependiente("Esteban", 102943784, CajaRegistradora())
 tecnico = Tecnico("Emilio", 12312391)
 #servicio = Servicio("Emilio", None, "Manel", dependiente)
 
@@ -49,13 +51,13 @@ def generarCliente():
     nombres = ["Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana", "Dua lipa", "Erika", "Michael", "Juliana"]
     componentes = [Componente("Memoria 4g Kingston", False, PrecioComponente.RAM_4GB.value),
     Componente("Disco duro SSD 256gb", False, PrecioComponente.DISCO_DURO_SSD_256GB.value),
-    Componente("Bateria laptop lenovo supercharger", False, PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER),
+    Componente("Bateria laptop lenovo supercharger", False, PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER.value),
     Componente("Procesador AMD", False, PrecioComponente.PROCESADOR_AMD.value),
     Componente("Display 15 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_15In.value),
     Componente("Memoria 8g Kingston", False, PrecioComponente.RAM_8GB.value),
-    Componente("Disco duro HDD 512gb", False, PrecioComponente.DISCO_DURO_HDD_512GB),
-    Componente("Bateria laptop lenovo", False, PrecioComponente.BATERIA_LAPTOP),
-    Componente("Procesador Intel", False, PrecioComponente.PROCESADOR_INTEL),
+    Componente("Disco duro HDD 512gb", False, PrecioComponente.DISCO_DURO_HDD_512GB.value),
+    Componente("Bateria laptop lenovo", False, PrecioComponente.BATERIA_LAPTOP.value),
+    Componente("Procesador Intel", False, PrecioComponente.PROCESADOR_INTEL.value),
     Componente("Display 17 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_17In.value)]
     dependiente = Dependiente.dependientes[0]
     producto = generarProductoAleatorio()
@@ -85,30 +87,30 @@ def funSolicitarServicio(index):
             return "El cliente " + cliente.getNombre() + " ya habia sido atendido\n"
 
 def diagnosticarUnProducto():
-            servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
-            #except = "El id del servicio no es correcto\n"
+            servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] 
+            #***ERIK***: Error id no correcto}
             #Busca los componentes con problemas en el producto asociado al servicio.
             if not servicio.isReparado():
                 servicio.getTecnico().diagnosticar(servicio)
                 # Devuelve el diagnostico hecho por el tecnico.
-                stringDiagnostico = servicio.__str__()
-                stringDiagnostico += "Ya puede volver al menu principal para solicitar reparacion\n"
+                stringDiagnostico = servicio.getDiagnostico()
+                stringDiagnostico += "\nYa puede volver al menu principal para solicitar reparacion\n"
             else:
                 stringDiagnostico = "Este producto ya habia sido reparado\n"
             return stringDiagnostico
+            ##***ERIKKKK*** catch (Exception e) {
+			#System.out.println("El id del cliente no es correcto");
 
 def reparar():
     servicio = Servicio.getServicios()[int(FFrepararProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
     if not servicio.isReparado():
         if servicio.getDiagnostico != None:
             servicio.getTecnico().reparar(servicio)
-            return "El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "+ servicio.getTecnico().__str__() 
-            + " y tuvo un costo para la empresa de " + str(servicio.getCosto())
+            return "El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "+ servicio.getTecnico().__str__() + " y tuvo un costo para la empresa de " + str(servicio.getCosto())
         else:
             return "No se ha diagnosticado el producto del cliente "+ servicio.getCliente().__str__()
     else: 
         return "Ya se ha reparado el producto!"
-
 
 def finalizar():
     #***ERIK*** Exception si el index no es correcto 
@@ -121,18 +123,25 @@ def finalizar():
         return servicio.getCliente().getRecibos()[0] + "\nEl servicio ya esta listo para ser cobrado."
     else:
         return "El servicio no ha sido reparado aun y no se puede finalizar."
-        
 
+def cobrar():
+    servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
+    dependiente = Dependiente.getDependientes()[0]
 
+    if not servicio.isPagado():
+        if servicio.isReparado():
+            dependiente.cobrarServicio(servicio)
+            sancocho = "Se cobra el servicio por un total de "+ str(servicio.getCosto() * Dependiente.getMargenGanancia())
+            sancocho += "\nEn la caja registradora ahora hay "+ str(dependiente.getCajaRegistradora().getTotalIngresos()) + " pesos."
+            return sancocho
+        else: #***ERIKPORFA***ERROR reparado
+            return "Aun no se ha reparado el producto, Que esperas?"
+    else: #***ERIKKKK*** ERROR not pagado
+        return "Ya se ha cobrado el servicio! Se lamenta la molestia."
 
-
-
-
-
-
-
-
-
+    ##***ERIKKKK*** catch (Exception e) {
+			#System.out.println("El id del cliente no es correcto");
+                
 #------------------------------------------------------------------------------------------------------
 
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
@@ -253,15 +262,17 @@ if __name__ == "__main__":
         matarloTodo(cobrarServicio)
 
     #Output de Liquidar el periodo  
-    outputLiquidarPeriodo = Text(window, height=5)
+    outputLiquidarPeriodo = Text(window, height=6)
     framesAMatar.append(outputLiquidarPeriodo)   
     def evtLiquidarPeriodo():
-        ###LIQUIDAR EL PERIODO CON LA CAJA REGISTRADORA
-        outPut("En la caja registradora hay ***SALDO CAJA antes de liquidar."+
-        "\nEl Dependiente: ***DEPENDIENTE ha recibido ***PAGO por su trabajo."+
-        "\nEl Tecnico: ***TECNICO ha recibido ***PAGO por su trabajo"+
-        "\nEl Tecnico: ***TECNICO ha recibido ***PAGO por su trabajo"+
-        "\nEn la caja registradora quedan ***SALDO CAJA.", outputLiquidarPeriodo)
+        dependiente = Dependiente.getDependientes()[0]
+        stringqueseprintiara = "En la caja registradora hay " + str(round(dependiente.getCajaRegistradora().getTotalIngresos(),2)) + " antes de liquidar.\n"
+        for liquidacion in dependiente.liquidar():
+            stringqueseprintiara += "\n" + liquidacion
+
+        stringqueseprintiara += "\n\nEn la caja registradora quedan " + str(round(dependiente.getCajaRegistradora().getTotalIngresos(),2))
+        
+        outPut(stringqueseprintiara, outputLiquidarPeriodo)
         matarloTodo(outputLiquidarPeriodo)
     
     #Output de mostrar clientes
@@ -285,6 +296,9 @@ if __name__ == "__main__":
             stri+= "ID servicio: " + str(i) + " " + Servicio.servicios[i].__str__() + "\n"
         outPut(stri, outPutMostrarServicios)
         matarloTodo(outPutMostrarServicios)
+
+    
+
     #-------------------------------------------------------------------------------
     def salir():
         sys.exit()
@@ -417,7 +431,6 @@ if __name__ == "__main__":
 
     def aceptarSolicitarServicio():
         FFsolicitarServicio.aceptarCheck()
-        funSolicitarServicio(FFsolicitarServicio.getValue("ID cliente"))
         outPut(funSolicitarServicio(FFsolicitarServicio.getValue("ID cliente")), outputsolicitarServicio) 
 
     FFsolicitarServicio.crearBotones(aceptarSolicitarServicio)
@@ -484,13 +497,12 @@ if __name__ == "__main__":
     nombreFinalizarServicio = Label(finalizarServicio, text="Finalizar un servicio", bd=10)
     dcrFinalizarServicio = Label(finalizarServicio, text="Ingrese el ID del servicio a finalizar", bd=10)
     FFfinalizarServicio = FieldFrame(finalizarServicio, None, ["ID Servicio"], None, [None], [])
-    outputFinalizarServicio = Text(finalizarServicio, height=5)
+    outputFinalizarServicio = Text(finalizarServicio, height=6)
     framesAMatar.append(outputFinalizarServicio)
 
 
     def aceptarFinalizarServicio():
         FFfinalizarServicio.aceptarCheck()
-        #FUNCIONALIDAD DE FINALIZAR SERVICIO
         outPut(finalizar(), outputFinalizarServicio)
 
 
@@ -517,10 +529,9 @@ if __name__ == "__main__":
 
 
     def aceptarCobrarServicio():
-        FFfinalizarServicio.aceptarCheck()
+        FFcobrarServicio.aceptarCheck()
         #FUNCIONALIDAD DE COBRAR SERVICIO
-        outPut("Se cobra el servicio por un total de ***COSTO*MARGEN_GANANCIA." + 
-               "\nEn la caja registradora ahora hay ***TOTAL_INGRESOS_CAJA pesos.", outputCobrarServicio)
+        outPut(cobrar(), outputCobrarServicio)
 
     FFcobrarServicio.crearBotones(aceptarCobrarServicio)
 
@@ -531,7 +542,7 @@ if __name__ == "__main__":
     framesAMatar.append(cobrarServicio)
     #-------------------------------------------------------------------------------
     
-
+    
     window.mainloop()
 
 

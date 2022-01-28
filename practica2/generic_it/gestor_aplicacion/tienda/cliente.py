@@ -35,7 +35,7 @@ class Cliente():
         self._dependiente.atenderCliente(self, producto)
         self._productos.append(producto)
 
-    def pagarServcio(self, servicio, cobro):
+    def pagarServicio(self, servicio, cobro):
         if(not servicio.isPagado() and self._cartera >= cobro):
             self._cartera -= cobro
 

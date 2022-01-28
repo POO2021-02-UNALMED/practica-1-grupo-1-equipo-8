@@ -9,18 +9,16 @@ class Dependiente(Empleado):
     dependientes = []
     _MARGEN_GANANCIA = 1.5
 
-    def __init__(self, nombre, cedula, caja=None, servicios = None):
+    def __init__(self, nombre, cedula, caja, servicios = None):
         if servicios == None:
             super().__init__(nombre,cedula)
             self._cajaRegistradora = caja
             Dependiente.dependientes.append(self)
-            Empleado._empleados.append(self)
         else:
             super.__init__(nombre,cedula)
             self._cajaRegistradora = caja
             Empleado.servicios = servicios
             Dependiente.dependientes.append(self)
-            Empleado._empleados.append(self)
 
 
     def getCajaRegistradora(self):
@@ -45,10 +43,10 @@ class Dependiente(Empleado):
         return cls._MARGEN_GANANCIA
 
     def quitarServicio(self, servicio):
-        super().getServicios().remove(servicio)
+        self.getServicios().remove(servicio)
 
     def asignarServicio(self, servicio):
-        super().getServicios().append(servicio)
+        self.getServicios().append(servicio)
 
     def finalizarServicio(self,servicio):
         self.notificarCliente(servicio)
@@ -71,10 +69,7 @@ class Dependiente(Empleado):
     
     def notificarCliente(self, servicio):
         cliente = servicio.getCliente()
-        recibo = """Factura # {} 
-                    \nCliente: {} con cedula {}
-                    \nCostoTotal: {} 
-                    \nRecibir el producto: {}""".format(str(servicio.getIdentificador()), str(cliente.getNombre()), str(cliente.getCedula()), str(servicio.getCosto() * Dependiente._MARGEN_GANANCIA), servicio.getProducto.__str__())
+        recibo = """Factura # {} \nCliente: {} con cedula {} \nCostoTotal: {} \nRecibir el producto: {}""".format(str(servicio.getIdentificador()), str(cliente.getNombre()), str(cliente.getCedula()), str(servicio.getCosto() * Dependiente._MARGEN_GANANCIA), servicio.getProducto().getNombre())
         cliente.recibirRecibo(recibo)
     
     def entregarProducto(self, servicio):
@@ -82,14 +77,14 @@ class Dependiente(Empleado):
     
     def cobrarServicio(self, servicio):
         cobro = servicio.getCosto() * Dependiente._MARGEN_GANANCIA
-        servicio.getCliente().pagartServicio(servicio, cobro)
+        servicio.getCliente().pagarServicio(servicio, cobro)
         if not servicio.isPagado():
             self._cajaRegistradora.registrarVenta(cobro, servicio)
             servicio.setPagado(True)
     
     def cobrarSalario(self, caja):
         porcentaje = 0.01
-        self.cartera += caja.descontar(porcentaje)
+        self._cartera += caja.descontar(porcentaje)
     
     def liquidar(self):
         caja = self._cajaRegistradora
