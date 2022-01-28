@@ -14,7 +14,7 @@ class Servicio:
         self._dependiente = _dependiente
         self._reparado = False
         self._costo = 0
-        self._diagnostico = ""
+        self._diagnostico = None
         self._pagado = False
         if self.servicios is Empty:
             self.identificador = 0

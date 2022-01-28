@@ -75,10 +75,6 @@ def generarCliente():
         Bodega.agregarComponente(componente)
     return cliente
 
-    
-
-
-
 def funSolicitarServicio(index):
         cliente = Cliente.getClientes()[int(index)]
         if len(cliente.getRecibos()) == 0:
@@ -101,19 +97,31 @@ def diagnosticarUnProducto():
                 stringDiagnostico = "Este producto ya habia sido reparado\n"
             return stringDiagnostico
 
+def reparar():
+    servicio = Servicio.getServicios()[int(FFrepararProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
+    if not servicio.isReparado():
+        if servicio.getDiagnostico != None:
+            servicio.getTecnico().reparar(servicio)
+            return "El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "+ servicio.getTecnico().__str__() 
+            + " y tuvo un costo para la empresa de " + str(servicio.getCosto())
+        else:
+            return "No se ha diagnosticado el producto del cliente "+ servicio.getCliente().__str__()
+    else: 
+        return "Ya se ha reparado el producto!"
 
 
+def finalizar():
+    #***ERIK*** Exception si el index no es correcto 
+    index = FFfinalizarServicio.getValue("ID Servicio")
+    servicio = Servicio.getServicios()[int(index)]
 
-
-
-
-
-
-
-
-
-
-
+    if servicio.isReparado():
+        dependiente = servicio.getDependiente()
+        dependiente.finalizarServicio(servicio)
+        return servicio.getCliente().getRecibos()[0] + "\nEl servicio ya esta listo para ser cobrado."
+    else:
+        return "El servicio no ha sido reparado aun y no se puede finalizar."
+        
 
 
 
@@ -158,7 +166,7 @@ class FieldFrame(Frame):
         
     #Funcion auxiliar del boton aceptar
     def aceptarCheck(self):
-        #***ERICK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
+        #***ERIK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
         for i in range(len(self._entries)): #_entries es la lista con las entradas.
             self._valores[i] = self._entries[i].get()
 
@@ -456,8 +464,7 @@ if __name__ == "__main__":
 
     def aceptarRepararProducto():
         FFrepararProducto.aceptarCheck()
-        #FUNCIONALIDAD DE REPARAR UN PRODUCTO
-        outPut("El servicio de ***CLIENTE fue arreglado por ***TECNICO y tuvo un costo para la empresa de ***COSTO SERVICIO", outputRepararProducto)
+        outPut(reparar(), outputRepararProducto)
 
     FFrepararProducto.crearBotones(aceptarRepararProducto)
 
@@ -484,11 +491,7 @@ if __name__ == "__main__":
     def aceptarFinalizarServicio():
         FFfinalizarServicio.aceptarCheck()
         #FUNCIONALIDAD DE FINALIZAR SERVICIO
-        outPut("Factura # ***ID SERVICIO"+
-        "\nCliente: ***CLIENTE con cedula ###CEDULA CLIENTE"+
-        "\nCosto total: **COSTO SERVICIO"+
-        "\nRecibir el producto: ###PRODUCTO"+
-        "\nEl servicio ya esta listo para ser cobrado.", outputFinalizarServicio)
+        outPut(finalizar(), outputFinalizarServicio)
 
 
     FFfinalizarServicio.crearBotones(aceptarFinalizarServicio)
