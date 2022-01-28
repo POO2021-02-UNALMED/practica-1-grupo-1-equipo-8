@@ -8,7 +8,6 @@ from ctypes import resize
 from os import startfile
 from tkinter import *
 import sys
-
 from numpy import diag
 
 dependiente = Dependiente("Esteban", 102943784)
@@ -77,11 +76,21 @@ class FieldFrame(Frame):
         
 #Fin clase FieldFrame------------------------------------------------------------
 
+framesAMatar = []
 
-def matarloTodo():
-        solicitarServicio.pack_forget()
-        evtSolicitarServicio.pack_forget()
-        interfazInicio.pack_forget()
+def matarloTodo(frameUtilizado):
+
+        for frame in framesAMatar:
+            frame.pack_forget()
+        frameUtilizado.pack(fill=BOTH,expand=True)
+        
+
+def outPut(string, text):######################################################
+    text.delete("1.0", "end")
+    text.insert(INSERT, string)
+    text.pack()
+
+
 
 
 if __name__ == "__main__":
@@ -93,32 +102,26 @@ if __name__ == "__main__":
     window.option_add("*tearOff",  FALSE)
 
 
-    #Eventos antes que matar todo esté completo-------------------------------------
+    #Métodos sin argumentos para poder ejecutarlos-------------------------------------########################################
     def evtClienteManual():
-        clienteManual.pack(fill=BOTH,expand=True)
-        interfazInicio.pack_forget()
+        matarloTodo(clienteManual)
 
     def evtSolicitarServicio():
-        solicitarServicio.pack()
+        matarloTodo(solicitarServicio)
     
     def evtDiagnosticarProducto():
-        diagnosticarProducto.pack()
-        interfazInicio.pack_forget()
+        matarloTodo(diagnosticarProducto)
     
     def evtRepararProducto():
-        repararProducto.pack()
-        interfazInicio.pack_forget()
+        matarloTodo(repararProducto)
     
     def evtFinalizarServicio():
-        finalizarServicio.pack()
-        interfazInicio.pack_forget()
+        matarloTodo(finalizarServicio)
     
     def evtCobrarServicio():
-        cobrarServicio.pack()
-        interfazInicio.pack_forget()
-        
+        matarloTodo(cobrarServicio)
     
-    #-------------------------------------------------------------------------------
+    #-------------------------------------------------------------------------------##########################################
     def salir():
         sys.exit()
         
@@ -181,10 +184,19 @@ if __name__ == "__main__":
     #clienteManual.pack(fill="both", expand=True)
     nombre = Label(clienteManual, text="Crear cliente manualmente", bd= 10)
 
+
+
+    #Interfaz de inicio----------------------------------------------------------------
     interfazInicio = Frame(window)
     texto = Text(interfazInicio)
-    with open("instrucciones.txt", "r") as instrucciones:
+    with open("instrucciones.txt", "r+") as instrucciones:
         texto.insert(INSERT, instrucciones.read())
+
+
+    framesAMatar.append(interfazInicio)
+    #----------------------------------------------------------------------------------
+
+
     
 
     descripcion = Label(clienteManual, text="Diligenciar la siguiente información para el correcto ingreso del cliente al sistema: ", bd= 10)
@@ -200,11 +212,12 @@ if __name__ == "__main__":
     crearCliente.grid_rowconfigure(4, weight=1)
     crearCliente.grid_rowconfigure(5, weight=1)
     
-
+    output = Text(clienteManual, height=3)#####################################################
+    framesAMatar.append(output)################################################################
 
     def creacionCliente():
         crearCliente.aceptarCheck()
-        Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), [], Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
+        cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), [], Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
         valores = crearCliente.getValores()
         #Actualizar id del cliente en el FieldFrame
         crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
@@ -212,6 +225,7 @@ if __name__ == "__main__":
         crearCliente.setEntries(list())
         #Refrescar el FieldFrame
         crearCliente.actualizacion()
+        outPut(cliente.__str__(), output)#######################################################
 
     #Creacion de los botones para aceptar y borrar de creacion manual de cliente
     crearCliente.crearBotones(creacionCliente)   #     Aceptar             Borrar
@@ -221,6 +235,8 @@ if __name__ == "__main__":
     interfazInicio.pack()
     descripcion.pack()
     crearCliente.pack(fill=BOTH,expand=True)
+    framesAMatar.append(clienteManual)
+    
     #--------------------------------------------------------------------------------
     
     
@@ -239,6 +255,7 @@ if __name__ == "__main__":
 
     nombreSolicitarServicio.pack()
     FFsolicitarServicio.pack()
+    framesAMatar.append(solicitarServicio)
     #-------------------------------------------------------------------------------
 
 
@@ -257,6 +274,7 @@ if __name__ == "__main__":
 
     nombreDiagnosticarProducto.pack()
     FFdiagnosticarProducto.pack()
+    framesAMatar.append(diagnosticarProducto)
     #-------------------------------------------------------------------------------
 
     
@@ -276,6 +294,7 @@ if __name__ == "__main__":
 
     nombreRepararProducto.pack()
     FFrepararProducto.pack()
+    framesAMatar.append(repararProducto)
     #-------------------------------------------------------------------------------
 
 
@@ -296,6 +315,7 @@ if __name__ == "__main__":
 
     nombreFinalizarServicio.pack()
     FFfinalizarServicio.pack()
+    framesAMatar.append(finalizarServicio)
     #-------------------------------------------------------------------------------
 
 
@@ -316,8 +336,9 @@ if __name__ == "__main__":
 
     nombreCobrarServicio.pack()
     FFcobrarServicio.pack()
+    framesAMatar.append(cobrarServicio)
     #-------------------------------------------------------------------------------
-
+    
 
     window.mainloop()
 
