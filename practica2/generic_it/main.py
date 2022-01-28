@@ -12,7 +12,7 @@ import sys
 from numpy import diag
 
 dependiente = Dependiente("Esteban", 102943784)
-servicio = Servicio("Emilio", None, "Manel", dependiente)
+#servicio = Servicio("Emilio", None, "Manel", dependiente)
 
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
 class FieldFrame(Frame):
