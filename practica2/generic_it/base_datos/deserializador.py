@@ -11,13 +11,6 @@ from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 import pathlib
 import os
 
-# save_path = '/base_datos'
-# file_name = "test.txt"
-
-# completeName = os.path.join(save_path, file_name)
-# print(completeName)
-print(pathlib.Path(__file__).parent.absolute())
-
 class Deserializador():
     
     def deserializar(lista, className):

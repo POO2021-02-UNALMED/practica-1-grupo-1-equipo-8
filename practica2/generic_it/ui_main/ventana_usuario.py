@@ -101,7 +101,6 @@ def iniciar_ventana_usuario():
             stri+="ID cliente: " + str(i) + " " + Cliente.clientes[i].__str__() + "\n"
         outPut(stri, outPutMostrarClientes)
         matarloTodo(outPutMostrarClientes)
-        print(Cliente.clientes)
     
     #Output de mostrar servicios
     outPutMostrarServicios = Text(window, height=len(Servicio.servicios))
@@ -110,11 +109,19 @@ def iniciar_ventana_usuario():
     def evtMostrarServicios():
         stri = ""
         for i in range(len(Servicio.servicios)):
-            stri+= "ID servicio: " + str(i) + " " + Servicio.servicios[i].__str__() + "\n"
+            stri+= Servicio.servicios[i].__str__() + "\n"
         outPut(stri, outPutMostrarServicios)
         matarloTodo(outPutMostrarServicios)
 
     
+    def open_popup():
+        top= Toplevel(window)
+        top.grid_rowconfigure(0, weight=1)
+        top.geometry("450x250")
+        top.resizable(False,False)
+        top.title("Ayuda")
+        Label(top, text= "Emilio Porras Mejia\nEsteban Garcia Carmona\nErik Alexander Gonzalez Cardona\nFelipe Miranda Arboleda", font=('Times 18 bold')).pack(fill=BOTH, expand=True)
+
 
     #-------------------------------------------------------------------------------
     def salir():
@@ -163,7 +170,7 @@ def iniciar_ventana_usuario():
     menuprocesos.add_command(label = "Mostrar clientes", command = evtMostrarClientes)
     menuprocesos.add_command(label = "Mostrar servicios", command = evtMostrarServicios)
 
-    menuayuda.add_command(label = "Acerca de", command = evento)
+    menuayuda.add_command(label = "Acerca de", command = open_popup)
 
     window['menu'] = menubar
 

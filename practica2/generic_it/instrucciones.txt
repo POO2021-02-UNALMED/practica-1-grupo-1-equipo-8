@@ -1,1 +1,16 @@
-esternocleido
+Instrucciones de uso:
+
+En esta aplicacion, el administrador de Generic IT tiene control sobre todos sus
+empleados y el ingreso de clientes a su base de datos.
+
+Para utilizar el programa desde 0, seguir las siguientes instrucciones:
+
+1. Crear un cliente: puede hacerse manualmente desde 
+Menu diagnosticar un producto -> Crear cliente manualmente y diligenciar la
+informacion solicitada. Para crearlo 
+automáticamente, Menu diagnosticar un producto -> Generar cliente.
+
+2. Una vez creado un cliente, este solicitara un servicio. Para esto, basta con
+
+
+
