@@ -14,6 +14,7 @@ from gestor_aplicacion.tienda.bodega import Bodega
 from gestor_aplicacion.tienda.producto import Producto
 from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 from ui_main.field_frame import FieldFrame
+from ui_main.inicio import Inicio
 from ctypes import resize
 from tkinter import *
 import sys
@@ -300,11 +301,7 @@ if __name__ == "__main__":
 
 
     #Interfaz de inicio----------------------------------------------------------------
-    interfazInicio = Frame(window)
-    texto = Text(interfazInicio)
-    with open("instrucciones.txt", "r+") as instrucciones:
-        texto.insert(INSERT, instrucciones.read())
-
+    interfazInicio = Inicio(window)
 
     framesAMatar.append(interfazInicio)
     #----------------------------------------------------------------------------------
@@ -348,7 +345,7 @@ if __name__ == "__main__":
     crearCliente.crearBotones(creacionCliente)   #     Aceptar             Borrar
 
     nombre.pack()
-    texto.pack()
+    #texto.pack()
     interfazInicio.pack()
     descripcion.pack()
     crearCliente.pack(fill=BOTH,expand=True)
