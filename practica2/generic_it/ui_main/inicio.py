@@ -1,4 +1,4 @@
-from tkinter import Label, Entry, Button, Text, PhotoImage, Frame, INSERT
+from tkinter import Text, Frame, INSERT
 
 class Inicio(Frame):
     def __init__(self, window):
