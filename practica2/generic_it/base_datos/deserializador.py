@@ -32,19 +32,22 @@ class Deserializador():
             picklefile = open(camino(className), 'rb')
         # unpickle los datos
         if os.path.getsize(camino(className)) > 0:
-            lista += pickle.load(picklefile)
+            lista = pickle.load(picklefile)
+        
         # Cierro el archivo
         picklefile.close()
+        return lista
+        # Cierro el archivo
     
     def deserializarTodo():
-        Deserializador.deserializar(Dependiente.dependientes, "Dependientes")
-        Deserializador.deserializar(Tecnico.tecnicos, "Tecnicos")
-        Deserializador.deserializar(CajaRegistradora.cajasRegistradoras, "CajasRegistradoras")
-        Deserializador.deserializar(Cliente.clientes, "Clientes")
-        Deserializador.deserializar(Componente.componentes, "Componentes")
-        Deserializador.deserializar(Producto.productos, "Productos")
-        Deserializador.deserializar(Servicio.servicios, "Servicios")
-        Deserializador.deserializar(Bodega._componentes, "Componentes")
-        Deserializador.deserializar(Empleado._empleados, "Empleados")
+        Dependiente.dependientes = Deserializador.deserializar(Dependiente.dependientes, "Dependientes")
+        Tecnico.tecnicos =  Deserializador.deserializar(Tecnico.tecnicos, "Tecnicos")
+        CajaRegistradora.cajasRegistradoras = Deserializador.deserializar(CajaRegistradora.cajasRegistradoras, "CajasRegistradoras")
+        Cliente.clientes = Deserializador.deserializar(Cliente.clientes, "Clientes")
+        Componente.componentes = Deserializador.deserializar(Componente.componentes, "Componentes")
+        Producto.productos = Deserializador.deserializar(Producto.productos, "Productos")
+        Servicio.servicios = Deserializador.deserializar(Servicio.servicios, "Servicios")
+        Bodega._componentes = Deserializador.deserializar(Bodega._componentes, "Componentes")
+        Empleado._empleados = Deserializador.deserializar(Empleado._empleados, "Empleados")
         
     
