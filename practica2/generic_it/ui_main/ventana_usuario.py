@@ -45,7 +45,7 @@ def outPut(string, text):
 def iniciar_ventana_usuario():
     #Ventana principal
     window = Tk()
-    window.geometry("640x420")
+    window.geometry("680x420")
     window.title("Generic IT")
     window.option_add("*tearOff",  FALSE)
 
@@ -99,6 +99,8 @@ def iniciar_ventana_usuario():
         stri = ""
         for i in range(len(Cliente.clientes)):
             stri+="ID cliente: " + str(i) + " " + Cliente.clientes[i].__str__() + "\n"
+        if stri == "":
+            stri = "Aun no hay ningun cliente. :("
         outPut(stri, outPutMostrarClientes)
         matarloTodo(outPutMostrarClientes)
     
@@ -110,6 +112,8 @@ def iniciar_ventana_usuario():
         stri = ""
         for i in range(len(Servicio.servicios)):
             stri+= Servicio.servicios[i].__str__() + "\n"
+        if stri == "":
+            stri = "Aun no se ha generado ningun servicio. :("
         outPut(stri, outPutMostrarServicios)
         matarloTodo(outPutMostrarServicios)
 
@@ -120,7 +124,17 @@ def iniciar_ventana_usuario():
         top.geometry("450x250")
         top.resizable(False,False)
         top.title("Ayuda")
-        Label(top, text= "Emilio Porras Mejia\nEsteban Garcia Carmona\nErik Alexander Gonzalez Cardona\nFelipe Miranda Arboleda", font=('Times 18 bold')).pack(fill=BOTH, expand=True)
+        Label(top, text= "AUTORES\nEmilio Porras Mejia\nEsteban Garcia Carmona\nErik Alexander Gonzalez Cardona\nFelipe Miranda Arboleda", font=('Times 18 bold')).pack(fill=BOTH, expand=True)
+
+    def aplicacion_popup():
+        top= Toplevel(window)
+        top.geometry("580x320")
+        top.resizable(False,False)
+        top.title("Aplicación")
+        Label(top, text= textonimo , font=('Times 12')).pack(fill=BOTH, expand=True)
+    textonimo = "Generic IT es una compañía tecnológica.\nSe busca crear un programa que emule las interacciones de Generic IT,\npara mejorar la organización de la empresa y proveer un mejor servicio.\nSe tendrá en cuenta toda la cadena de servicio, desde que llega el\ncliente con un producto a reparar, su paso por las manos del ténico,\nlas partes que tendrán que ser cambiadas, hasta finalizar con la\ndevolución del producto y el pago del servicio."
+
+
 
 
     #-------------------------------------------------------------------------------
@@ -158,7 +172,7 @@ def iniciar_ventana_usuario():
     submenu.add_command(label = "Solicitar servicio", command = evtSolicitarServicio)
     submenu.add_command(label = "Diagnosticar producto", command = evtDiagnosticarProducto)
 
-    menuarchivo.add_command(label = "Aplicacion", command = evento)
+    menuarchivo.add_command(label = "Aplicacion", command = aplicacion_popup)
     menuarchivo.add_command(label = "Guardar y salir", command = salir)
 
     menuprocesos.add_cascade(label = "Menu diagnosticar un producto", menu = submenu)
@@ -483,7 +497,6 @@ def iniciar_ventana_usuario():
 
         ##***ERIKKKK*** catch (Exception e) {
                 #System.out.println("El id del cliente no es correcto");
-                    
     #------------------------------------------------------------------------------------------------------
     window.mainloop()
 
