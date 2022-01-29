@@ -14,7 +14,6 @@ from gestor_aplicacion.tienda.bodega import Bodega
 from gestor_aplicacion.tienda.producto import Producto
 from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 from ctypes import resize
-from os import startfile
 from tkinter import *
 import sys
 from numpy import diag
