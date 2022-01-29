@@ -10,136 +10,19 @@ from gestor_aplicacion.tienda.producto import Producto
 from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 from ui_main.field_frame import FieldFrame
 from ui_main.inicio import Inicio
+from base_datos.serializador import Serializador
 from ctypes import resize
 from tkinter import *
 import sys
 from numpy import diag
 from random import choice, random, randint
 
+if len(Dependiente.dependientes) == 0:
+    dependiente = Dependiente("Esteban", 102943784, CajaRegistradora())
 
-dependiente = Dependiente("Esteban", 102943784, CajaRegistradora())
-tecnico = Tecnico("Emilio", 12312391)
-
-#FUNCIONALIDADES---------------------------------------------------------------------------------------
-
-def generarProductoAleatorio():
-    rand = random()
-    nombreProductos = [ "Laptop Legion 5", "Hp zbook 1", "Hp Omen 15", "Asus TUF Gaming", "HP XPS",
-				"Macbook pro", "Lenovo Thinkpad", "Hp pavilion", "Notebook Gigabyte", "MSI Strike" ]
-    componentes = [ Componente("Memoria 4g Kinsgton", True),
-                    Componente("Disco duro SSD 256gb", True),
-                    Componente("Bateria laptop lenovo supercharger", True),
-                    Componente("Procesador AMD", True),
-                    Componente("Display 15 pulgadas", True),
-                    Componente("Memoria 8g Kinsgton", True),
-                    Componente("Disco duro HDD 512gb", True),
-                    Componente("Bateria laptop lenovo", True),
-                    Componente("Procesador Intel", True),
-                    Componente("Display 17 pulgadas", True)]
-    
-    productoComponentes = list()
-    productoComponentes.append(choice(componentes))
-    productoComponentes.append(choice(componentes))
-
-    return Producto(choice(nombreProductos), productoComponentes)
-    
-
-def generarCliente():
-    nombres = ["Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana", "Dua lipa", "Erika", "Michael", "Juliana"]
-    componentes = [Componente("Memoria 4g Kingston", False, PrecioComponente.RAM_4GB.value),
-    Componente("Disco duro SSD 256gb", False, PrecioComponente.DISCO_DURO_SSD_256GB.value),
-    Componente("Bateria laptop lenovo supercharger", False, PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER.value),
-    Componente("Procesador AMD", False, PrecioComponente.PROCESADOR_AMD.value),
-    Componente("Display 15 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_15In.value),
-    Componente("Memoria 8g Kingston", False, PrecioComponente.RAM_8GB.value),
-    Componente("Disco duro HDD 512gb", False, PrecioComponente.DISCO_DURO_HDD_512GB.value),
-    Componente("Bateria laptop lenovo", False, PrecioComponente.BATERIA_LAPTOP.value),
-    Componente("Procesador Intel", False, PrecioComponente.PROCESADOR_INTEL.value),
-    Componente("Display 17 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_17In.value)]
-    dependiente = Dependiente.dependientes[0]
-    producto = generarProductoAleatorio()
-    productos = [producto]
-    cartera = int(450000+1000000*random())
-    cliente = Cliente(choice(nombres), randint(100000000, 9999999999), productos, dependiente, cartera)
-
-    valores = crearCliente.getValores()
-    #Actualizar id del cliente en el FieldFrame
-    crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
-    #Resetear entries del FieldFrame
-    crearCliente.setEntries(list())
-    #Refrescar el FieldFrame
-    crearCliente.actualizacion()
-
-    for componente in componentes:
-        Bodega.agregarComponente(componente)
-    return cliente
-
-def funSolicitarServicio(index):
-        cliente = Cliente.getClientes()[int(index)]
-        if len(cliente.getRecibos()) == 0:
-            producto = cliente.getProductos()[0]
-            cliente.solicitarReparacion(producto)
-            return "El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre() + " y se ha generado el servicio con: " + producto.__str__() + ".\nYa puede consultar en los servicios para iniciar su diagnostico."
-        else:
-            return "El cliente " + cliente.getNombre() + " ya habia sido atendido\n"
-
-def diagnosticarUnProducto():
-            servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] 
-            #***ERIK***: Error id no correcto}
-            #Busca los componentes con problemas en el producto asociado al servicio.
-            if not servicio.isReparado():
-                servicio.getTecnico().diagnosticar(servicio)
-                # Devuelve el diagnostico hecho por el tecnico.
-                stringDiagnostico = servicio.getDiagnostico()
-                stringDiagnostico += "\nYa puede volver al menu principal para solicitar reparacion\n"
-            else:
-                stringDiagnostico = "Este producto ya habia sido reparado\n"
-            return stringDiagnostico
-            ##***ERIKKKK*** catch (Exception e) {
-			#System.out.println("El id del cliente no es correcto");
-
-def reparar():
-    servicio = Servicio.getServicios()[int(FFrepararProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
-    if not servicio.isReparado():
-        if servicio.getDiagnostico != None:
-            servicio.getTecnico().reparar(servicio)
-            return "El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "+ servicio.getTecnico().__str__() + " y tuvo un costo para la empresa de " + str(servicio.getCosto())
-        else:
-            return "No se ha diagnosticado el producto del cliente "+ servicio.getCliente().__str__()
-    else: 
-        return "Ya se ha reparado el producto!"
-
-def finalizar():
-    #***ERIK*** Exception si el index no es correcto 
-    index = FFfinalizarServicio.getValue("ID Servicio")
-    servicio = Servicio.getServicios()[int(index)]
-
-    if servicio.isReparado():
-        dependiente = servicio.getDependiente()
-        dependiente.finalizarServicio(servicio)
-        return servicio.getCliente().getRecibos()[0] + "\nEl servicio ya esta listo para ser cobrado."
-    else:
-        return "El servicio no ha sido reparado aun y no se puede finalizar."
-
-def cobrar():
-    servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
-    dependiente = Dependiente.getDependientes()[0]
-
-    if not servicio.isPagado():
-        if servicio.isReparado():
-            dependiente.cobrarServicio(servicio)
-            sancocho = "Se cobra el servicio por un total de "+ str(servicio.getCosto() * Dependiente.getMargenGanancia())
-            sancocho += "\nEn la caja registradora ahora hay "+ str(dependiente.getCajaRegistradora().getTotalIngresos()) + " pesos."
-            return sancocho
-        else: #***ERIKPORFA***ERROR reparado
-            return "Aun no se ha reparado el producto, Que esperas?"
-    else: #***ERIKKKK*** ERROR not pagado
-        return "Ya se ha cobrado el servicio! Se lamenta la molestia."
-
-    ##***ERIKKKK*** catch (Exception e) {
-			#System.out.println("El id del cliente no es correcto");
-                
-#------------------------------------------------------------------------------------------------------
+if len(Tecnico.tecnicos) == 0:
+    tecnico = Tecnico("Emilio", 12312391)
+    tecnico2 = Tecnico("Sebastian", 496875)
 
 
 framesAMatar = []
@@ -218,6 +101,7 @@ def iniciar_ventana_usuario():
             stri+="ID cliente: " + str(i) + " " + Cliente.clientes[i].__str__() + "\n"
         outPut(stri, outPutMostrarClientes)
         matarloTodo(outPutMostrarClientes)
+        print(Cliente.clientes)
     
     #Output de mostrar servicios
     outPutMostrarServicios = Text(window, height=len(Servicio.servicios))
@@ -234,7 +118,7 @@ def iniciar_ventana_usuario():
 
     #-------------------------------------------------------------------------------
     def salir():
-        sys.exit()
+        Serializador.serializarTodo()
         
     def evento():
         pass
@@ -322,19 +206,22 @@ def iniciar_ventana_usuario():
     def creacionCliente():
         crearCliente.aceptarCheck()
         producto = generarProductoAleatorio()
-        productos = [producto] 
+        productos = [producto]
         #***ERIK*** REVISAR QUE EL NOMBRE, CEDULA Y CARTERA SEAN DE SUS TIPOS CORRESPONDIENTES
-        cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), productos, Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
-        
-        valores = crearCliente.getValores()
-        #Actualizar id del cliente en el FieldFrame
-        crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
-        #Resetear entries del FieldFrame
-        crearCliente.setEntries(list())
-        #Refrescar el FieldFrame
-        crearCliente.actualizacion()
-        outPut("Se ha generado manualmente el cliente con ID: " + str(len(Cliente.clientes)-1) + " " + cliente.__str__(), output)
+        if float(crearCliente.getValue("Cartera")) > 500000:
+            cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), productos, Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
+            valores = crearCliente.getValores()
+            #Actualizar id del cliente en el FieldFrame
+            crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
+            #Resetear entries del FieldFrame
+            crearCliente.setEntries(list())
+            #Refrescar el FieldFrame
+            crearCliente.actualizacion()
+            outPut("Se ha generado manualmente el cliente con ID: " + str(len(Cliente.clientes)-1) + " " + cliente.__str__(), output)
 
+        else: 
+            outPut("No se ha generado el cliente, muy poco dinero!", output)
+        
     #Creacion de los botones para aceptar y borrar de creacion manual de cliente
     crearCliente.crearBotones(creacionCliente)   #     Aceptar             Borrar
 
@@ -412,7 +299,7 @@ def iniciar_ventana_usuario():
 
 
     nombreRepararProducto.pack()
-    dcrDiagnosticarProducto.pack()
+    dcrRepararProducto.pack()
     FFrepararProducto.pack()
     framesAMatar.append(repararProducto)
     #-------------------------------------------------------------------------------
@@ -470,9 +357,129 @@ def iniciar_ventana_usuario():
     FFcobrarServicio.pack()
     framesAMatar.append(cobrarServicio)
     #-------------------------------------------------------------------------------
-    
-    
+
+    #FUNCIONALIDADES---------------------------------------------------------------------------------------
+
+    def generarProductoAleatorio():
+        rand = random()
+        nombreProductos = [ "Laptop Legion 5", "Hp zbook 1", "Hp Omen 15", "Asus TUF Gaming", "HP XPS",
+                    "Macbook pro", "Lenovo Thinkpad", "Hp pavilion", "Notebook Gigabyte", "MSI Strike" ]
+        componentes = [ Componente("Memoria 4g Kinsgton", True),
+                        Componente("Disco duro SSD 256gb", True),
+                        Componente("Bateria laptop lenovo supercharger", True),
+                        Componente("Procesador AMD", True),
+                        Componente("Display 15 pulgadas", True),
+                        Componente("Memoria 8g Kinsgton", True),
+                        Componente("Disco duro HDD 512gb", True),
+                        Componente("Bateria laptop lenovo", True),
+                        Componente("Procesador Intel", True),
+                        Componente("Display 17 pulgadas", True)]
+        
+        productoComponentes = list()
+        productoComponentes.append(choice(componentes))
+        productoComponentes.append(choice(componentes))
+
+        return Producto(choice(nombreProductos), productoComponentes)
+        
+
+    def generarCliente():
+        nombres = ["Esteban", "Emilio", "Felipe", "Erik", "Alexander", "Jaime", "Alejandro", "Emiliana", "Dua lipa", "Erika", "Michael", "Juliana"]
+        componentes = [Componente("Memoria 4g Kingston", False, PrecioComponente.RAM_4GB.value),
+        Componente("Disco duro SSD 256gb", False, PrecioComponente.DISCO_DURO_SSD_256GB.value),
+        Componente("Bateria laptop lenovo supercharger", False, PrecioComponente.BATERIA_LAPTOP_SUPERCHARGER.value),
+        Componente("Procesador AMD", False, PrecioComponente.PROCESADOR_AMD.value),
+        Componente("Display 15 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_15In.value),
+        Componente("Memoria 8g Kingston", False, PrecioComponente.RAM_8GB.value),
+        Componente("Disco duro HDD 512gb", False, PrecioComponente.DISCO_DURO_HDD_512GB.value),
+        Componente("Bateria laptop lenovo", False, PrecioComponente.BATERIA_LAPTOP.value),
+        Componente("Procesador Intel", False, PrecioComponente.PROCESADOR_INTEL.value),
+        Componente("Display 17 pulgadas", False, PrecioComponente.DISPLAY_LAPTOP_17In.value)]
+        dependiente = Dependiente.dependientes[0]
+        producto = generarProductoAleatorio()
+        productos = [producto]
+        cartera = int(450000+1000000*random())
+        cliente = Cliente(choice(nombres), randint(100000000, 9999999999), productos, dependiente, cartera)
+
+        valores = crearCliente.getValores()
+        #Actualizar id del cliente en el FieldFrame
+        crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
+        #Resetear entries del FieldFrame
+        crearCliente.setEntries(list())
+        #Refrescar el FieldFrame
+        crearCliente.actualizacion()
+
+        for componente in componentes:
+            Bodega.agregarComponente(componente)
+        return cliente
+
+    def funSolicitarServicio(index):
+        cliente = Cliente.getClientes()[int(index)]
+        if len(cliente.getRecibos()) == 0:
+            producto = cliente.getProductos()[0]
+            cliente.solicitarReparacion(producto)
+            return "El cliente fue atendido exitosamente por " + cliente.getDependiente().getNombre() + " y se ha generado el servicio con: " + producto.__str__() + ".\nYa puede consultar en los servicios para iniciar su diagnostico."
+        else:
+            return "El cliente " + cliente.getNombre() + " ya habia sido atendido\n"
+
+    def diagnosticarUnProducto():
+        servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] 
+        #***ERIK***: Error id no correcto}
+        #Busca los componentes con problemas en el producto asociado al servicio.
+        if not servicio.isReparado():
+            servicio.getTecnico().diagnosticar(servicio)
+            # Devuelve el diagnostico hecho por el tecnico.
+            stringDiagnostico = servicio.getDiagnostico()
+            stringDiagnostico += "\nYa puede volver al menu principal para solicitar reparacion\n"
+        else:
+            stringDiagnostico = "Este producto ya habia sido reparado\n"
+        return stringDiagnostico
+        ##***ERIKKKK*** catch (Exception e) {
+        #System.out.println("El id del cliente no es correcto");
+
+    def reparar():
+        servicio = Servicio.getServicios()[int(FFrepararProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
+        if not servicio.isReparado():
+            if servicio.getDiagnostico != None:
+                servicio.getTecnico().reparar(servicio)
+                return "El servicio de " + servicio.getCliente().getNombre() + " fue arreglado por "+ servicio.getTecnico().__str__() + " y tuvo un costo para la empresa de " + str(servicio.getCosto())
+            else:
+                return "No se ha diagnosticado el producto del cliente "+ servicio.getCliente().__str__()
+        else: 
+            return "Ya se ha reparado el producto!"
+
+    def finalizar():
+        #***ERIK*** Exception si el index no es correcto 
+        index = FFfinalizarServicio.getValue("ID Servicio")
+        servicio = Servicio.getServicios()[int(index)]
+
+        if servicio.isReparado():
+            dependiente = servicio.getDependiente()
+            dependiente.finalizarServicio(servicio)
+            return servicio.getCliente().getRecibos()[0] + "\nEl servicio ya esta listo para ser cobrado."
+        else:
+            return "El servicio no ha sido reparado aun y no se puede finalizar."
+
+    def cobrar():
+        servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
+        dependiente = Dependiente.getDependientes()[0]
+
+        if not servicio.isPagado():
+            if servicio.isReparado():
+                dependiente.cobrarServicio(servicio)
+                sancocho = "Se cobra el servicio por un total de "+ str(servicio.getCosto() * Dependiente.getMargenGanancia())
+                sancocho += "\nEn la caja registradora ahora hay "+ str(dependiente.getCajaRegistradora().getTotalIngresos()) + " pesos."
+                return sancocho
+            else: #***ERIKPORFA***ERROR reparado
+                return "Aun no se ha reparado el producto, Que esperas?"
+        else: #***ERIKKKK*** ERROR not pagado
+            return "Ya se ha cobrado el servicio! Se lamenta la molestia."
+
+        ##***ERIKKKK*** catch (Exception e) {
+                #System.out.println("El id del cliente no es correcto");
+                    
+    #------------------------------------------------------------------------------------------------------
     window.mainloop()
+
 
 
 

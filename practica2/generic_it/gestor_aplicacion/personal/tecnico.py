@@ -52,8 +52,6 @@ class Tecnico(Empleado):
                 componenteBodega = Bodega.sacarComponente(remplazo)
                 producto.quitarComponente(componente)
                 producto.agregarComponente(componenteBodega)
-                print(servicio.getCosto())
-                print(componenteBodega.getPrecio())
                 servicio.setCosto(servicio.getCosto()+componenteBodega.getPrecio())
         servicio.setReparado(True)
         self.quitarServicio(servicio)

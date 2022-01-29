@@ -15,7 +15,7 @@ class Dependiente(Empleado):
             self._cajaRegistradora = caja
             Dependiente.dependientes.append(self)
         else:
-            super.__init__(nombre,cedula)
+            super().__init__(nombre,cedula)
             self._cajaRegistradora = caja
             Empleado.servicios = servicios
             Dependiente.dependientes.append(self)
