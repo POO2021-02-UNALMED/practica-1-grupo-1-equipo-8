@@ -1,7 +1,7 @@
 # @author: Emilio Porras
 # @author: Esteban Garcia
 # @author: Felipe Miranda
-# @author: Erik Lambnis
+# @author: Erik Gonzalez
 # @summary programa principal de la aplicacion
 from gestor_aplicacion.personal.empleado import Empleado
 from gestor_aplicacion.tienda.cliente import Cliente
