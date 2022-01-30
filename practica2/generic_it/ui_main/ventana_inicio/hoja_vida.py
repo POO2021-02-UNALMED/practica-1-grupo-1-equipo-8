@@ -24,6 +24,7 @@ class HojaVida(Frame):
             (r, c) = HojaVida._posicion_imagen[i]
             label.grid(row=r, column=c)
             self._labels.append(label)
+            # Se cargan las primeras imagenes
             self.cargar_hv_imagen(0, i)
         self._p5.grid()
         self._p6.grid()

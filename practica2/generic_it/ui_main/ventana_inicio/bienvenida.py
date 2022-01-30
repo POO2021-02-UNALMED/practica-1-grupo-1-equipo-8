@@ -1,5 +1,5 @@
 '''
-@File    :   hoja_vida.py
+@File    :   bienvenida.py
 @Time    :   2022/01/29
 @Author  :   Erik Gonzalez
 @Version :   1.0
@@ -44,6 +44,7 @@ class Bienvenida(Frame):
         self._label.configure(image=self._pantallazos[self._next_el])
         self._label.image = self._pantallazos[self._next_el]
 
+    # Carga la ventana principal del admin y cierra la ventana actual
     def abrir_ventana_principal(self):
         self._window.destroy()
         iniciar_ventana_usuario()
