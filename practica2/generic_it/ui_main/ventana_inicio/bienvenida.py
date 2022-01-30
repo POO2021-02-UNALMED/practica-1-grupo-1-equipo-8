@@ -1,0 +1,41 @@
+'''
+@File    :   hoja_vida.py
+@Time    :   2022/01/29
+@Author  :   Erik Gonzalez
+@Version :   1.0
+@Desc    :   La clase Bienvenida representa p1, basado en la figura 1 del documento practica 2
+'''
+
+from tkinter import Label, Entry, Button, Text, PhotoImage, Frame, INSERT
+
+class Bienvenida(Frame):
+    def __init__(self, window):
+        super().__init__(window)
+        self._p3 = Frame(self)
+        self._p4 = Frame(self)
+        self._next_el = 0
+        saludo = Entry(self._p3, width=100)
+        saludo.insert(INSERT, "Bienvenido al software de Generic IT")
+        self._pantallazos = []
+        for i in range(0, 2):
+            path = './assets/pantallazo_{0}.png'.format(i)
+            pantallazo = PhotoImage(file=path)
+            self._pantallazos.append(pantallazo)
+
+        self._label = Label(self._p4, image=self._pantallazos[0])
+        self._label.bind('<Button-1>', self.proximo)
+        self._label.grid(row=0, column=0)
+
+        saludo.grid()
+        self._p3.grid()
+        self._p4.grid()
+
+    # Actualiza el proximo pantallazo de la aplicacion
+    def proximo(self, _):
+        if self._next_el < 1:
+            self._next_el = self._next_el + 1
+        else:
+            self._next_el = 0
+
+        self._label.configure(image=self._pantallazos[self._next_el])
+        self._label.image = self._pantallazos[self._next_el]
