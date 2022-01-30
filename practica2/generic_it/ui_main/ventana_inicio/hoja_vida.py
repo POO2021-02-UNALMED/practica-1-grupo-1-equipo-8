@@ -17,8 +17,13 @@ class HojaVida(Frame):
         self._text = None
         self._next_hv = 0
         self._photos = [None, None, None, None]
+        self._labels = []
         self.cargar_hv(0)
         for i in range(0, 4):
+            label = Label(self._p6)
+            (r, c) = HojaVida._posicion_imagen[i]
+            label.grid(row=r, column=c)
+            self._labels.append(label)
             self.cargar_hv_imagen(0, i)
         self._p5.grid()
         self._p6.grid()
@@ -39,10 +44,9 @@ class HojaVida(Frame):
     # Carga el component imagen que sirve para mostrar las fotos
     def cargar_hv_imagen(self, hv_num, numero):
         path = './assets/hv_{0}_{1}.png'.format(hv_num, numero)
-        self._photos[numero] = PhotoImage(file=path)
-        l = Label(self._p6, image=self._photos[numero])
-        (r, c) = HojaVida._posicion_imagen[numero]
-        l.grid(row=r, column=c)
+        photo = PhotoImage(file=path)
+        self._labels[numero].configure(image=photo)
+        self._labels[numero].image = photo
 
     # Carga el texto para la hoja de vida respecto al numero asignado 
     def cargar_hv(self, numero):
