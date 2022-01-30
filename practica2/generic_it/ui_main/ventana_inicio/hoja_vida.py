@@ -20,7 +20,7 @@ class HojaVida(Frame):
         self._labels = []
         self.cargar_hv(0)
         for i in range(0, 4):
-            label = Label(self._p6)
+            label = Label(self._p6, width=300, height=200)
             (r, c) = HojaVida._posicion_imagen[i]
             label.grid(row=r, column=c)
             self._labels.append(label)
