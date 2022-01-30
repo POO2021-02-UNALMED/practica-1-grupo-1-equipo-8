@@ -14,9 +14,6 @@ class HojaVida(Frame):
         super().__init__(window)
         self._p5 = Frame(self)
         self._p6 = Frame(self)
-        entry = Entry(self._p5)
-        entry.grid(row=0, column=0)
-        entry.insert(INSERT, 'Hoja de vida')
         self._text = None
         self._next_hv = 0
         self._photos = [None, None, None, None]
