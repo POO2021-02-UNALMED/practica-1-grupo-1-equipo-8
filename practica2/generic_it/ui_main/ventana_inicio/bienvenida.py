@@ -24,7 +24,7 @@ class Bienvenida(Frame):
             pantallazo = PhotoImage(file=path)
             self._pantallazos.append(pantallazo)
 
-        self._label = Label(self._p4, image=self._pantallazos[0], height=500)
+        self._label = Label(self._p4, image=self._pantallazos[0], height=500, width=750)
         self._label.bind('<Enter>', self.proximo)
         self._label.pack()
 
