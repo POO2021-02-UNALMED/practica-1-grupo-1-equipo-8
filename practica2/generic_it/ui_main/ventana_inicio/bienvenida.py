@@ -19,7 +19,7 @@ class Bienvenida(Frame):
         saludo = Entry(self._p3, width=100)
         saludo.insert(INSERT, "Bienvenido al software de Generic IT")
         self._pantallazos = []
-        for i in range(0, 2):
+        for i in range(0, 5):
             path = './assets/pantallazo_{0}.png'.format(i)
             pantallazo = PhotoImage(file=path)
             self._pantallazos.append(pantallazo)
@@ -36,7 +36,7 @@ class Bienvenida(Frame):
 
     # Actualiza el proximo pantallazo de la aplicacion
     def proximo(self, _):
-        if self._next_el < 1:
+        if self._next_el < 4:
             self._next_el = self._next_el + 1
         else:
             self._next_el = 0
