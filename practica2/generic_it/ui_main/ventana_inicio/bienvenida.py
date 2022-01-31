@@ -17,6 +17,8 @@ class Bienvenida(Frame):
         self._p4 = Frame(self)
         self._next_el = 0
         saludo = Entry(self._p3, width=100)
+        self.saludo2 = Text(self._p3, height=3)
+        self.saludo2.insert(INSERT, "Bienvenido al software de Generic IT")
         saludo.insert(INSERT, "Bienvenido al software de Generic IT")
         self._pantallazos = []
         for i in range(0, 5):
