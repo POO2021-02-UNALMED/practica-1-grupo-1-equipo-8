@@ -9,4 +9,3 @@ from ui_main.ventana_inicio.inicio import VentanaInicio
 if __name__ == "__main__":
     ventana = VentanaInicio()
     ventana.mainloop()
-
