@@ -1,3 +1,11 @@
+"""/**
+ * 
+ * @author Esteban Garciaa
+ * @summary Clase padre de Tecnico y Dependiente. Define los comportamientos en comun y en general de las clases que heredan de ella.
+ * Punto importante: La lista servicios, la cual mantiene todos los servicios en los que un empleado esta trabajando/involucrado.
+ *
+ */"""
+
 class Empleado:
     _empleados = []
 

@@ -1,4 +1,11 @@
 from tkinter import Text, Frame, INSERT, scrolledtext
+'''
+@File    :   inicio.py
+@Time    :   2022/01/29
+@Author  :   Erik Gonzalez
+@Version :   1.0
+@Desc    :   Ventana de inicio, es la primera en mostrarse cuando se ejecuta el programa
+'''
 
 class Inicio(Frame):
     def __init__(self, window):

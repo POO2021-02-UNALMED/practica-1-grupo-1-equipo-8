@@ -1,5 +1,11 @@
 from tkinter import *
-
+'''
+@File    :   field_frame.py
+@Time    :   2022/01/29
+@Author  :   Emilio Porras, Esteban Garcia
+@Version :   1.0
+@Desc    :   FieldFrames necesarios para todo el codigo con insercion de datos. 
+'''
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
 class FieldFrame(Frame):
     def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado):

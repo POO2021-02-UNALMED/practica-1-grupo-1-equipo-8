@@ -10,7 +10,14 @@ from gestor_aplicacion.tienda.producto import Producto
 from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 import pathlib
 import os
-
+""""
+ * Se utiliza para serializar todos los objetos creados durante la ejecucion
+ * del proyecto
+ * @author Erik Gonzalez
+ * @author Felipe Miranda
+ * @author Esteban Garcia
+ * @author Emilio Porras
+ */"""
 class Serializador():
     
     def serializar(lista, className):

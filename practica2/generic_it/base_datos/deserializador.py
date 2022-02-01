@@ -10,6 +10,15 @@ from gestor_aplicacion.tienda.producto import Producto
 from gestor_aplicacion.tienda.caja_registradora import CajaRegistradora
 import pathlib
 import os
+""""
+/**
+ * Clase para deserializar los objetos que se crearon en ejecucion
+ * @author Erik Gonzalez
+ * @author Felipe Miranda
+ * @author Esteban Garcia
+ * @author Emilio Porras 
+ */"""
+
 
 class Deserializador():
     

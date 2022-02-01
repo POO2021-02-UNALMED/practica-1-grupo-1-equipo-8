@@ -1,3 +1,9 @@
+"""
+ * 
+ * @author Felipe Miranda
+ * @summary Componente son las posibles partes que requiere un producto para ser reparado. Se almacenan en bodega. 
+ * tienen averiado (si el producto esta bueno o no), precio (de aca se calcularan las ganancias), y nombre. 
+ """
 class Componente:
     componentes = list()
     def __init__ (self, _nombre, _averiado, _precio = 0):

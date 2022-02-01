@@ -3,7 +3,13 @@
 # from ..personal.dependiente import Dependiente
 # from ..personal.tecnico import Tecnico
 from queue import Empty
-
+"""
+ * 
+ * @author Felipe Miranda
+ * @summary Servicio deberia contener toda la informacion que relaciona a un cliente y su producto a reparar 
+ * con los empleados (el dependiente que le atendio y el tecnico encargado de la reparacion) del sistema. 
+ *
+ """
 
 class Servicio:
     servicios = list()

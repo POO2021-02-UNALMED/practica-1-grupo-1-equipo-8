@@ -2,7 +2,15 @@ import random
 from ..personal.empleado import Empleado
 from ..tienda.servicio import Servicio
 from ..personal.tecnico import Tecnico
-
+"""/**
+ * 
+ * @author Esteban Garcia
+ * @summary Busca representar el comportamiento de un empleado dependiente,
+ *          quien esta a cargo de atender a los clientes y asignar servicios. Es
+ *          mediante el cual se efectuan los pagos y pasan los productos
+ *          solicitados para reparar y se devuelven a sus clientes.
+ *
+ */"""
 
 class Dependiente(Empleado):
 

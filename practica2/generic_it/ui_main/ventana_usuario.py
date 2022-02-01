@@ -16,6 +16,15 @@ from tkinter import *
 import sys
 from numpy import diag
 from random import choice, random, randint
+""""
+  Ventana principal, donde se crea todo el UI principal y se enlazan
+  las diferentes funciones y archivos para crear funcionalidades con 
+  interfaz grafica. 
+ * @author Erik Gonzalez
+ * @author Felipe Miranda
+ * @author Esteban Garcia
+ * @author Emilio Porras
+ */"""
 
 if len(Dependiente.dependientes) == 0:
     dependiente = Dependiente("Esteban", 102943784, CajaRegistradora())
@@ -117,7 +126,7 @@ def iniciar_ventana_usuario():
         outPut(stri, outPutMostrarServicios)
         matarloTodo(outPutMostrarServicios)
 
-    
+    #Abre la pestana de dialogo con los nombres de los integrantes del equipo
     def open_popup():
         top= Toplevel(window)
         top.grid_rowconfigure(0, weight=1)
@@ -126,6 +135,7 @@ def iniciar_ventana_usuario():
         top.title("Ayuda")
         Label(top, text= "AUTORES\nEmilio Porras Mejia\nEsteban Garcia Carmona\nErik Alexander Gonzalez Cardona\nFelipe Miranda Arboleda", font=('Times 18 bold')).pack(fill=BOTH, expand=True)
 
+    #Abre la pestana de dialogo con la informacion del programa y su funcionalidad. 
     def aplicacion_popup():
         top= Toplevel(window)
         top.geometry("580x320")
