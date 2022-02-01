@@ -18,8 +18,8 @@ class Bienvenida(Frame):
         self._next_el = 0
         saludo = Entry(self._p3, width=100)
         self.saludo2 = Text(self._p3, height=3)
-        self.saludo2.insert(INSERT, "Bienvenido al software de Generic IT")
         saludo.insert(INSERT, "Bienvenido al software de Generic IT")
+        self.saludo2.insert(INSERT, "Generic IT es una compañía tecnológica que se encarga de la reparación de equipos electrónicos. Se busca crear un programa que emule las interacciones de Generic IT, para mejorar la organización de la empresa y proveer un mejor servicio. Se tendrá en cuenta toda la cadena de servicio, desde que llega el cliente con un producto a reparar, su paso por las manos del ténico, las partes que tendrán que ser cambiadas, hasta finalizar con la devolución del producto y el pago del servicio.")
         self._pantallazos = []
         for i in range(0, 5):
             path = './assets/pantallazo_{0}.png'.format(i)
