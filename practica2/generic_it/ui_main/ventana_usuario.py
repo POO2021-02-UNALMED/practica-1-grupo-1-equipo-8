@@ -150,6 +150,10 @@ def iniciar_ventana_usuario():
     #-------------------------------------------------------------------------------
     def salir():
         Serializador.serializarTodo()
+        from ui_main.ventana_inicio.inicio import VentanaInicio
+        window.destroy()
+        ventana = VentanaInicio()
+        ventana.mainloop()
         
     def evento():
         pass
