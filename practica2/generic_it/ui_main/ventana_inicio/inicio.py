@@ -13,7 +13,7 @@ from .bienvenida import Bienvenida
 class VentanaInicio(Tk):
     def __init__(self):
         super().__init__()
-        self.title('Inicio')
+        self.title('Generic IT')
         self.menubar = Menu(self)
         inicio = Menu(self.menubar)
         inicio.add_command(label="Descripcion", command=lambda: self.bienvenida.saludo2.grid())
