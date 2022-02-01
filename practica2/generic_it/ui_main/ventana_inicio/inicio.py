@@ -14,6 +14,7 @@ class VentanaInicio(Tk):
     def __init__(self):
         super().__init__()
         self.title('Generic IT')
+        self.option_add("*tearOff",  False)
         self.menubar = Menu(self)
         inicio = Menu(self.menubar)
         inicio.add_command(label="Descripcion", command=lambda: self.bienvenida.saludo2.grid())
@@ -25,5 +26,5 @@ class VentanaInicio(Tk):
         self.bienvenida = Bienvenida(self)
         self.hoja_vida.grid(row=0, column=1)
         self.bienvenida.grid(row=0, column=0)
-
+        
         
