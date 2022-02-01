@@ -7,6 +7,8 @@
 '''
 
 from tkinter import Label, Entry, Button, Text, PhotoImage, Frame, INSERT
+import os
+import pathlib
 
 class HojaVida(Frame):
     _posicion_imagen = [(0, 0), (0, 1), (1, 0), (1, 1)]
@@ -44,7 +46,7 @@ class HojaVida(Frame):
 
     # Carga el component imagen que sirve para mostrar las fotos
     def cargar_hv_imagen(self, hv_num, numero):
-        path = './assets/hv_{0}_{1}.png'.format(hv_num, numero)
+        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(),'assets/hv_{0}_{1}.png'.format(hv_num, numero))
         photo = PhotoImage(file=path)
         self._labels[numero].configure(image=photo)
         self._labels[numero].image = photo
@@ -55,7 +57,7 @@ class HojaVida(Frame):
         self._text.grid(row=1, column=0)
         self._text.bind('<Button-1>', self.proximo)
 
-        path = './assets/hv{0}.txt'.format(numero)
+        path = os.path.join(pathlib.Path(__file__).parent.parent.parent.absolute(), 'assets/hv{0}.txt'.format(numero))
 
         with open(path, "r+") as hv_text:
             self._text.insert(INSERT, hv_text.read())
