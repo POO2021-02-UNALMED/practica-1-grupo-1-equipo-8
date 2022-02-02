@@ -9,4 +9,5 @@
 from .field_exception import  FieldException
 
 class NumericException(FieldException):
-    pass
+    def __init__(self, message="Esta usando valores no numericos"):
+        super().__init__(message)

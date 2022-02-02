@@ -9,4 +9,5 @@
 from .view_exception import ViewException
 
 class ClientIncorrectoException(ViewException):
-    pass
+    def __init__(self, message="Esta usado un id del cliente incorrecto"):
+        super().__init__(message)

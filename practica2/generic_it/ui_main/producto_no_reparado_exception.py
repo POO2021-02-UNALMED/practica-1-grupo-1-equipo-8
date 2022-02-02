@@ -9,4 +9,5 @@
 from .view_exception import ViewException
 
 class ProductoNoReparadoException(ViewException):
-    pass
+    def __init__(self, message="El producto no ha sido reparado, porfavor revise el servicio prestado"):
+        super().__init__(message)
