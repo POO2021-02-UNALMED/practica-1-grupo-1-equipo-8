@@ -1,4 +1,5 @@
 from tkinter import *
+from .empty_exception import EmptyException
 '''
 @File    :   field_frame.py
 @Time    :   2022/01/29
@@ -38,8 +39,19 @@ class FieldFrame(Frame):
     #Funcion auxiliar del boton aceptar
     def aceptarCheck(self):
         #***ERIK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
+        criteriosFaltantes = []
+        faltan = False
         for i in range(len(self._entries)): #_entries es la lista con las entradas.
             self._valores[i] = self._entries[i].get()
+            print(self._valores[i])
+            if self._valores[i] == "":
+                faltan = True
+                criteriosFaltantes.append(self._criterios[i])
+
+        if faltan:
+            faltantes = ", ".join(criteriosFaltantes)
+            raise EmptyException("Los siguientes campos faltan por rellenar: " + faltantes)
+
 
     
     #Funcion auxiliar del boton borrar

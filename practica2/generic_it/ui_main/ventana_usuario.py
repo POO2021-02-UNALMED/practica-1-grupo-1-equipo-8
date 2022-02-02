@@ -13,12 +13,12 @@ from ui_main.inicio import Inicio
 from base_datos.serializador import Serializador
 from ctypes import resize
 from tkinter import *
-import sys
 from numpy import diag
 from random import choice, random, randint
-from .producto_no_reparado import ProductoNoReparadoException
+from .producto_no_reparado_exception import ProductoNoReparadoException
 from .servicio_pagado_exception import ServicioPagadoException
 from .error_aplicacion import ErrorAplicacion
+from .exception_pop_up import ExceptionPopUp
 """"
   Ventana principal, donde se crea todo el UI principal y se enlazan
   las diferentes funciones y archivos para crear funcionalidades con 
@@ -153,7 +153,7 @@ def iniciar_ventana_usuario():
 
 
 
-    #-------------------------------------------------------------------------------
+    #----------------------------------------------------------------------------------
     def salir():
         Serializador.serializarTodo()
         from ui_main.ventana_inicio.inicio import VentanaInicio
@@ -244,23 +244,26 @@ def iniciar_ventana_usuario():
     framesAMatar.append(output)
 
     def creacionCliente():
-        crearCliente.aceptarCheck()
-        producto = generarProductoAleatorio()
-        productos = [producto]
-        #***ERIK*** REVISAR QUE EL NOMBRE, CEDULA Y CARTERA SEAN DE SUS TIPOS CORRESPONDIENTES
-        if float(crearCliente.getValue("Cartera")) > 500000:
-            cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), productos, Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
-            valores = crearCliente.getValores()
-            #Actualizar id del cliente en el FieldFrame
-            crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
-            #Resetear entries del FieldFrame
-            crearCliente.setEntries(list())
-            #Refrescar el FieldFrame
-            crearCliente.actualizacion()
-            outPut("Se ha generado manualmente el cliente con ID: " + str(len(Cliente.clientes)-1) + " " + cliente.__str__(), output)
+        try:
+            crearCliente.aceptarCheck()
+            producto = generarProductoAleatorio()
+            productos = [producto]
+            #***ERIK*** REVISAR QUE EL NOMBRE, CEDULA Y CARTERA SEAN DE SUS TIPOS CORRESPONDIENTES
+            if float(crearCliente.getValue("Cartera")) > 500000:
+                cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), productos, Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
+                valores = crearCliente.getValores()
+                #Actualizar id del cliente en el FieldFrame
+                crearCliente.setValores([int(valores[0]) + 1] + [valores[i] for i in range(1, len(valores))])
+                #Resetear entries del FieldFrame
+                crearCliente.setEntries(list())
+                #Refrescar el FieldFrame
+                crearCliente.actualizacion()
+                outPut("Se ha generado manualmente el cliente con ID: " + str(len(Cliente.clientes)-1) + " " + cliente.__str__(), output)
 
-        else: 
-            outPut("No se ha generado el cliente, muy poco dinero!", output)
+            else: 
+                outPut("No se ha generado el cliente, muy poco dinero!", output)
+        except ErrorAplicacion as e:
+            ExceptionPopUp(str(e))
         
     #Creacion de los botones para aceptar y borrar de creacion manual de cliente
     crearCliente.crearBotones(creacionCliente)   #     Aceptar             Borrar
@@ -359,7 +362,10 @@ def iniciar_ventana_usuario():
 
     def aceptarFinalizarServicio():
         FFfinalizarServicio.aceptarCheck()
-        outPut(finalizar(), outputFinalizarServicio)
+        try: 
+            outPut(finalizar(), outputFinalizarServicio)
+        except ErrorAplicacion as e:
+            ExceptionPopUp(str(e))
 
 
     FFfinalizarServicio.crearBotones(aceptarFinalizarServicio)
@@ -389,8 +395,8 @@ def iniciar_ventana_usuario():
         #FUNCIONALIDAD DE COBRAR SERVICIO
         try:
             outPut(cobrar(), outputCobrarServicio)
-        except ErrorApplicacion, e:
-            print(e.message)
+        except ErrorAplicacion as e:
+            ExceptionPopUp(str(e))
 
 
     FFcobrarServicio.crearBotones(aceptarCobrarServicio)
@@ -501,7 +507,7 @@ def iniciar_ventana_usuario():
             dependiente.finalizarServicio(servicio)
             return servicio.getCliente().getRecibos()[0] + "\nEl servicio ya esta listo para ser cobrado."
         else:
-            return "El servicio no ha sido reparado aun y no se puede finalizar."
+            raise ProductoNoReparadoException("El servicio no ha sido reparado aun y no se puede finalizar.")
 
     def cobrar():
         servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
