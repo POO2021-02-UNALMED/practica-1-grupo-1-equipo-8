@@ -33,14 +33,6 @@ if len(Tecnico.tecnicos) == 0:
     tecnico = Tecnico("Emilio", 12312391)
     tecnico2 = Tecnico("Sebastian", 496875)
 
-
-framesAMatar = []
-
-def matarloTodo(frameUtilizado):
-
-        for frame in framesAMatar:
-            frame.pack_forget()
-        frameUtilizado.pack(fill=BOTH,expand=True)
         
 
 def outPut(string, text):
@@ -60,6 +52,17 @@ def iniciar_ventana_usuario():
 
 
     #Métodos sin argumentos para poder ejecutarlos-------------------------------------
+
+
+    framesAMatar = []
+
+    def matarloTodo(frameUtilizado):
+
+        for frame in framesAMatar:
+            frame.pack_forget()
+        frameUtilizado.pack(fill=BOTH,expand=True)
+
+
     def evtClienteManual():
         matarloTodo(clienteManual)
 
@@ -151,6 +154,7 @@ def iniciar_ventana_usuario():
     def salir():
         Serializador.serializarTodo()
         from ui_main.ventana_inicio.inicio import VentanaInicio
+        framesAMatar = []
         window.destroy()
         ventana = VentanaInicio()
         ventana.mainloop()
@@ -201,8 +205,6 @@ def iniciar_ventana_usuario():
     menuayuda.add_command(label = "Acerca de", command = open_popup)
 
     window['menu'] = menubar
-
-    print('practica 2')
 
 
     #Frame de creacion manual del cliente ------------------------------------------------------------
