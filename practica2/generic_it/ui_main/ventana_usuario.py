@@ -528,9 +528,9 @@ def iniciar_ventana_usuario():
                 sancocho = "Se cobra el servicio por un total de "+ str(servicio.getCosto() * Dependiente.getMargenGanancia())
                 sancocho += "\nEn la caja registradora ahora hay "+ str(dependiente.getCajaRegistradora().getTotalIngresos()) + " pesos."
                 return sancocho
-            else: #***ERIKPORFA***ERROR reparado
+            else:
                 raise ProductoNoReparadoException("Aun no se ha reparado el producto, Que esperas?")
-        else: #***ERIKKKK*** ERROR not pagado
+        else:
             raise ServicioPagadoException("Ya se ha cobrado el servicio! Se lamenta la molestia.")
 
         ##***ERIKKKK*** catch (Exception e) {
