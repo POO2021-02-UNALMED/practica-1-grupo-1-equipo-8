@@ -230,7 +230,7 @@ def iniciar_ventana_usuario():
     descripcion = Label(clienteManual, text="Diligenciar la siguiente información para el correcto ingreso del cliente al sistema: ", bd= 10)
 
     #VALOR DE ID = len(Cliente.clientes)
-    crearCliente = FieldFrame(clienteManual, "Datos cliente",["ID","Nombre", "Cedula", "Cartera"], "Valor", [len(Cliente.clientes), None, None, None], ["ID"])
+    crearCliente = FieldFrame(clienteManual, "Datos cliente",["ID","Nombre", "Cedula", "Cartera"], "Valor", [len(Cliente.clientes), None, None, None], ["ID"],[1, 0, 1, 1])
     crearCliente.grid_columnconfigure(0, weight=1)
     crearCliente.grid_columnconfigure(1, weight=1)
     crearCliente.grid_rowconfigure(0, weight=1)
@@ -283,14 +283,17 @@ def iniciar_ventana_usuario():
     solicitarServicio = Frame(window)
     nombreSolicitarServicio = Label(solicitarServicio, text="Solicitar servicio", bd=10)
     dcrSolicitarServicio = Label(solicitarServicio, text="Ingrese el ID del cliente para solicitar la reparacion de su producto", bd=10)
-    FFsolicitarServicio = FieldFrame(solicitarServicio, None, ["ID cliente"], None, [None], [])
+    FFsolicitarServicio = FieldFrame(solicitarServicio, None, ["ID cliente"], None, [None], [],[1])
     outputsolicitarServicio = Text(solicitarServicio, height=3)
     framesAMatar.append(outputsolicitarServicio)
 
 
     def aceptarSolicitarServicio():
-        FFsolicitarServicio.aceptarCheck()
-        outPut(funSolicitarServicio(FFsolicitarServicio.getValue("ID cliente")), outputsolicitarServicio) 
+        try:
+            FFsolicitarServicio.aceptarCheck()
+            outPut(funSolicitarServicio(FFsolicitarServicio.getValue("ID cliente")), outputsolicitarServicio) 
+        except ErrorAplicacion as e:
+            ExceptionPopUp(str(e))
 
     FFsolicitarServicio.crearBotones(aceptarSolicitarServicio)
 
@@ -305,14 +308,17 @@ def iniciar_ventana_usuario():
     diagnosticarProducto = Frame(window)
     nombreDiagnosticarProducto = Label(diagnosticarProducto, text="Diagnosticar un producto", bd=10)
     dcrDiagnosticarProducto = Label(diagnosticarProducto, text = "Ingrese el ID del servicio a diagnosticar", bd=10)
-    FFdiagnosticarProducto = FieldFrame(diagnosticarProducto, None, ["ID Servicio"], None, [None], [])
+    FFdiagnosticarProducto = FieldFrame(diagnosticarProducto, None, ["ID Servicio"], None, [None], [],[1])
     outputDiagnosticarProducto = Text(diagnosticarProducto, height=7)
     framesAMatar.append(outputDiagnosticarProducto)
 
     def aceptarDiagnosticarProducto():
-        FFdiagnosticarProducto.aceptarCheck()
+        try:
+            FFdiagnosticarProducto.aceptarCheck()
         
-        outPut(diagnosticarUnProducto(), outputDiagnosticarProducto)
+            outPut(diagnosticarUnProducto(), outputDiagnosticarProducto)
+        except ErrorAplicacion as e:
+            ExceptionPopUp(str(e))
 
     FFdiagnosticarProducto.crearBotones(aceptarDiagnosticarProducto)
 
@@ -330,13 +336,16 @@ def iniciar_ventana_usuario():
     repararProducto = Frame(window)
     nombreRepararProducto = Label(repararProducto, text="Reparar un producto", bd=10)
     dcrRepararProducto = Label(repararProducto, text="Ingrese el ID del servicio a reparar", bd=10)
-    FFrepararProducto = FieldFrame(repararProducto, None, ["ID Servicio"], None, [None], [])
+    FFrepararProducto = FieldFrame(repararProducto, None, ["ID Servicio"], None, [None], [],[1])
     outputRepararProducto = Text(repararProducto, height=3)
     framesAMatar.append(outputRepararProducto)
 
     def aceptarRepararProducto():
-        FFrepararProducto.aceptarCheck()
-        outPut(reparar(), outputRepararProducto)
+        try:
+            FFrepararProducto.aceptarCheck()
+            outPut(reparar(), outputRepararProducto)
+        except ErrorAplicacion as e:
+            ExceptionPopUp(str(e))
 
     FFrepararProducto.crearBotones(aceptarRepararProducto)
 
@@ -355,14 +364,14 @@ def iniciar_ventana_usuario():
     finalizarServicio = Frame(window)
     nombreFinalizarServicio = Label(finalizarServicio, text="Finalizar un servicio", bd=10)
     dcrFinalizarServicio = Label(finalizarServicio, text="Ingrese el ID del servicio a finalizar", bd=10)
-    FFfinalizarServicio = FieldFrame(finalizarServicio, None, ["ID Servicio"], None, [None], [])
+    FFfinalizarServicio = FieldFrame(finalizarServicio, None, ["ID Servicio"], None, [None], [],[1])
     outputFinalizarServicio = Text(finalizarServicio, height=6)
     framesAMatar.append(outputFinalizarServicio)
 
 
     def aceptarFinalizarServicio():
-        FFfinalizarServicio.aceptarCheck()
-        try: 
+        try:
+            FFfinalizarServicio.aceptarCheck()
             outPut(finalizar(), outputFinalizarServicio)
         except ErrorAplicacion as e:
             ExceptionPopUp(str(e))
@@ -385,15 +394,15 @@ def iniciar_ventana_usuario():
     cobrarServicio = Frame(window)
     nombreCobrarServicio = Label(cobrarServicio, text="Cobrar un servicio", bd=10)
     dcrCobrarServicio = Label(cobrarServicio, text="Ingrese el ID del servicio a cobrar", bd=10)
-    FFcobrarServicio = FieldFrame(cobrarServicio, None, ["ID Servicio"], None, [None], [])
+    FFcobrarServicio = FieldFrame(cobrarServicio, None, ["ID Servicio"], None, [None], [],[1])
     outputCobrarServicio = Text(cobrarServicio, height=3)
     framesAMatar.append(outputCobrarServicio)
 
 
     def aceptarCobrarServicio():
-        FFcobrarServicio.aceptarCheck()
-        #FUNCIONALIDAD DE COBRAR SERVICIO
         try:
+            FFcobrarServicio.aceptarCheck()
+            #FUNCIONALIDAD DE COBRAR SERVICIO
             outPut(cobrar(), outputCobrarServicio)
         except ErrorAplicacion as e:
             ExceptionPopUp(str(e))

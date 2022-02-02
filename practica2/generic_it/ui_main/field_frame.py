@@ -1,4 +1,11 @@
+from operator import length_hint
 from tkinter import *
+from unicodedata import numeric
+
+from numpy import empty
+from .empty_exception import EmptyException
+from .numeric_exception import NumericException
+from .length_exception import LengthException
 from .empty_exception import EmptyException
 '''
 @File    :   field_frame.py
@@ -9,13 +16,14 @@ from .empty_exception import EmptyException
 '''
 #Creación de la clase field frame, de la cual surgirán todos los formularios de la aplicación
 class FieldFrame(Frame):
-    def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado):
+    def __init__(self, master, tituloCriterios, criterios, tituloValores, valores, habilitado, tipos):
         self._tituloCriterios = tituloCriterios
         self._criterios = criterios
         self._tituloValores = tituloValores
         self._valores = valores
         self._habilitado = habilitado
         self._entries = list()
+        self._tipos = tipos
         super().__init__(master)
         self.actualizacion()
 
@@ -40,10 +48,11 @@ class FieldFrame(Frame):
     def aceptarCheck(self):
         #***ERIK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
         criteriosFaltantes = []
+        datosErroneos = []
         faltan = False
+        erroneos = False
         for i in range(len(self._entries)): #_entries es la lista con las entradas.
             self._valores[i] = self._entries[i].get()
-            print(self._valores[i])
             if self._valores[i] == "":
                 faltan = True
                 criteriosFaltantes.append(self._criterios[i])
@@ -51,6 +60,22 @@ class FieldFrame(Frame):
         if faltan:
             faltantes = ", ".join(criteriosFaltantes)
             raise EmptyException("Los siguientes campos faltan por rellenar: " + faltantes)
+        
+        #0, string; 1, int; 2, float
+        for i in range(len(self._entries)):
+            if self._tipos[i] == 0:
+                if self._valores[i].isdigit():
+                    erroneos = True
+                    datosErroneos.append(self._criterios[i])
+                elif len(self._valores[i]) < 3: 
+                    raise LengthException(self._criterios[i] + " muy corto.")
+            elif self._tipos[i] == 1:
+                if not self._valores[i].isdigit():
+                    erroneos = True
+                    datosErroneos.append(self._criterios[i])
+        if erroneos:
+            errores = ", ".join(datosErroneos)
+            raise NumericException("Tipo de dato erroneo en: " + errores)
 
 
     
