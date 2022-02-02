@@ -16,6 +16,9 @@ from tkinter import *
 import sys
 from numpy import diag
 from random import choice, random, randint
+from .producto_no_reparado import ProductoNoReparadoException
+from .servicio_pagado_exception import ServicioPagadoException
+from .error_aplicacion import ErrorAplicacion
 """"
   Ventana principal, donde se crea todo el UI principal y se enlazan
   las diferentes funciones y archivos para crear funcionalidades con 
@@ -384,7 +387,11 @@ def iniciar_ventana_usuario():
     def aceptarCobrarServicio():
         FFcobrarServicio.aceptarCheck()
         #FUNCIONALIDAD DE COBRAR SERVICIO
-        outPut(cobrar(), outputCobrarServicio)
+        try:
+            outPut(cobrar(), outputCobrarServicio)
+        except ErrorApplicacion, e:
+            print(e.message)
+
 
     FFcobrarServicio.crearBotones(aceptarCobrarServicio)
 
@@ -507,9 +514,9 @@ def iniciar_ventana_usuario():
                 sancocho += "\nEn la caja registradora ahora hay "+ str(dependiente.getCajaRegistradora().getTotalIngresos()) + " pesos."
                 return sancocho
             else: #***ERIKPORFA***ERROR reparado
-                return "Aun no se ha reparado el producto, Que esperas?"
+                raise ProductoNoReparadoException("Aun no se ha reparado el producto, Que esperas?")
         else: #***ERIKKKK*** ERROR not pagado
-            return "Ya se ha cobrado el servicio! Se lamenta la molestia."
+            raise ServicioPagadoException("Ya se ha cobrado el servicio! Se lamenta la molestia.")
 
         ##***ERIKKKK*** catch (Exception e) {
                 #System.out.println("El id del cliente no es correcto");
