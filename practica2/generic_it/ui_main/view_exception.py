@@ -9,4 +9,5 @@
 from .error_aplicacion import ErrorAplicacion
 
 class ViewException(ErrorAplicacion):
-    pass
+    def __init__(self, message):
+        super().__init__(extra_message=message)
