@@ -6,7 +6,7 @@
 @Desc    :   Error cuando esta vacio el campo
 '''
 
-from .field_exception import  FieldException
+from .field_exception import FieldException
 
 
 class EmptyException(FieldException):

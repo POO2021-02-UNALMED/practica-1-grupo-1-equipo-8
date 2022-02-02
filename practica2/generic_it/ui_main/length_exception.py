@@ -6,7 +6,7 @@
 @Desc    :  Exception principal de la que heredan todas
 '''
 
-from .field_exception import  FieldException
+from .field_exception import FieldException
 
 
 class LengthException(FieldException):
