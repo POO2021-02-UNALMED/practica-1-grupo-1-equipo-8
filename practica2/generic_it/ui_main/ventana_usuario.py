@@ -249,7 +249,7 @@ def iniciar_ventana_usuario():
             crearCliente.aceptarCheck()
             producto = generarProductoAleatorio()
             productos = [producto]
-            #***ERIK*** REVISAR QUE EL NOMBRE, CEDULA Y CARTERA SEAN DE SUS TIPOS CORRESPONDIENTES
+            #Creacion del cliente manual, actualizacion de las entries y ID cliente
             if float(crearCliente.getValue("Cartera")) > 500000:
                 cliente = Cliente(crearCliente.getValue("Nombre"), crearCliente.getValue("Cedula"), productos, Dependiente.getDependientes()[0], float(crearCliente.getValue("Cartera")))
                 valores = crearCliente.getValores()
@@ -497,8 +497,6 @@ def iniciar_ventana_usuario():
         else:
             stringDiagnostico = "Este producto ya habia sido reparado\n"
         return stringDiagnostico
-        ##***ERIKKKK*** catch (Exception e) {
-        #System.out.println("El id del cliente no es correcto");
 
     def reparar():
         try:
@@ -535,7 +533,7 @@ def iniciar_ventana_usuario():
             dependiente = Dependiente.getDependientes()[0]
         except:
             raise ClientIncorrectoException("El id del servicio no es correcto")
-            
+
         if not servicio.isPagado():
             if servicio.isReparado():
                 dependiente.cobrarServicio(servicio)

@@ -46,7 +46,6 @@ class FieldFrame(Frame):
         
     #Funcion auxiliar del boton aceptar
     def aceptarCheck(self):
-        #***ERIK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
         criteriosFaltantes = []
         datosErroneos = []
         faltan = False
