@@ -485,9 +485,10 @@ def iniciar_ventana_usuario():
             return "El cliente " + cliente.getNombre() + " ya habia sido atendido\n"
 
     def diagnosticarUnProducto():
-        servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] 
-        #***ERIK***: Error id no correcto}
-        #Busca los componentes con problemas en el producto asociado al servicio.
+        try:
+            servicio = Servicio.getServicios()[int(FFdiagnosticarProducto.getValue("ID Servicio"))] 
+        except:
+            raise ClientIncorrectoException("El id del servicio no es correcto")
         if not servicio.isReparado():
             servicio.getTecnico().diagnosticar(servicio)
             # Devuelve el diagnostico hecho por el tecnico.
@@ -500,7 +501,11 @@ def iniciar_ventana_usuario():
         #System.out.println("El id del cliente no es correcto");
 
     def reparar():
-        servicio = Servicio.getServicios()[int(FFrepararProducto.getValue("ID Servicio"))] #***ERIK***: Error id no correcto}
+        try:
+            servicio = Servicio.getServicios()[int(FFrepararProducto.getValue("ID Servicio"))]
+        except:
+            raise ClientIncorrectoException("El id del servicio no es correcto")
+
         if not servicio.isReparado():
             if servicio.getDiagnostico != None:
                 servicio.getTecnico().reparar(servicio)
@@ -511,9 +516,11 @@ def iniciar_ventana_usuario():
             return "Ya se ha reparado el producto!"
 
     def finalizar():
-        #***ERIK*** Exception si el index no es correcto 
-        index = FFfinalizarServicio.getValue("ID Servicio")
-        servicio = Servicio.getServicios()[int(index)]
+        try: 
+            index = FFfinalizarServicio.getValue("ID Servicio")
+            servicio = Servicio.getServicios()[int(index)]
+        except:
+            raise ClientIncorrectoException("El id del servicio no es correcto")
 
         if servicio.isReparado():
             dependiente = servicio.getDependiente()
@@ -523,10 +530,12 @@ def iniciar_ventana_usuario():
             raise ProductoNoReparadoException("El servicio no ha sido reparado aun y no se puede finalizar.")
 
     def cobrar():
-        
-        servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
-        dependiente = Dependiente.getDependientes()[0]
-
+        try:
+            servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
+            dependiente = Dependiente.getDependientes()[0]
+        except:
+            raise ClientIncorrectoException("El id del servicio no es correcto")
+            
         if not servicio.isPagado():
             if servicio.isReparado():
                 dependiente.cobrarServicio(servicio)
