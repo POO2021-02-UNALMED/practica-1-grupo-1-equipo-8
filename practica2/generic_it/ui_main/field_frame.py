@@ -46,7 +46,6 @@ class FieldFrame(Frame):
         
     #Funcion auxiliar del boton aceptar
     def aceptarCheck(self):
-        #***ERIK***  EXCEPTION SI FALTAN CAMPOS POR LLENAR Y DECIR CUALES SON
         criteriosFaltantes = []
         datosErroneos = []
         faltan = False
@@ -61,7 +60,6 @@ class FieldFrame(Frame):
             faltantes = ", ".join(criteriosFaltantes)
             raise EmptyException("Los siguientes campos faltan por rellenar: " + faltantes)
         
-        #0, string; 1, int; 2, float
         for i in range(len(self._entries)):
             if self._tipos[i] == 0:
                 if self._valores[i].isdigit():
