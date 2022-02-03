@@ -19,6 +19,7 @@ from .producto_no_reparado_exception import ProductoNoReparadoException
 from .servicio_pagado_exception import ServicioPagadoException
 from .error_aplicacion import ErrorAplicacion
 from .exception_pop_up import ExceptionPopUp
+from .cliente_incorrecto_exception import ClientIncorrectoException
 """"
   Ventana principal, donde se crea todo el UI principal y se enlazan
   las diferentes funciones y archivos para crear funcionalidades con 
@@ -472,7 +473,10 @@ def iniciar_ventana_usuario():
         return cliente
 
     def funSolicitarServicio(index):
-        cliente = Cliente.getClientes()[int(index)]
+        try:
+            cliente = Cliente.getClientes()[int(index)]
+        except:
+            raise ClientIncorrectoException("El id del cliente no es correcto")
         if len(cliente.getRecibos()) == 0:
             producto = cliente.getProductos()[0]
             cliente.solicitarReparacion(producto)
@@ -519,6 +523,7 @@ def iniciar_ventana_usuario():
             raise ProductoNoReparadoException("El servicio no ha sido reparado aun y no se puede finalizar.")
 
     def cobrar():
+        
         servicio = Servicio.getServicios()[int(FFcobrarServicio.getValue("ID Servicio"))]
         dependiente = Dependiente.getDependientes()[0]
 
@@ -532,9 +537,6 @@ def iniciar_ventana_usuario():
                 raise ProductoNoReparadoException("Aun no se ha reparado el producto, Que esperas?")
         else:
             raise ServicioPagadoException("Ya se ha cobrado el servicio! Se lamenta la molestia.")
-
-        ##***ERIKKKK*** catch (Exception e) {
-                #System.out.println("El id del cliente no es correcto");
     #------------------------------------------------------------------------------------------------------
     window.mainloop()
 
